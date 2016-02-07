@@ -1,0 +1,80 @@
+function main()
+{
+    var arr[]  = new var[]
+    arr[1] = 25
+    arr[2] = 12
+    arr[3] = 3
+    arr[4] =33
+    arr[5]=99
+    arr[6]=7112
+    arr[7]=73
+    arr[8]=17
+    arr[9]=88
+    arr[10]=659
+    arr[11]=793
+    exec quickSort(arr,1,`exec length(arr)`)
+    echo "sorted array is as follows"
+    exec show(arr)
+  
+}
+function quickSort(var arr[] , var start, var end)
+{
+    if(end > start)
+    { 
+ 
+        var index = `exec partition(arr,start,end)`   
+        var tmp = arr[end]
+        arr[end] = arr[index]
+        arr[index] = tmp
+   
+        exec quickSort(arr,start,index-1)
+        exec quickSort(arr,index +1 , end)
+    }
+}
+
+function partition( var arr[]  , var start , var end)
+{
+  var pivot = arr[end]
+  var forever = 1
+  var j = end-1
+  var i = start
+
+  while( forever == 1)
+  {
+      while(arr[j] > pivot)
+      {
+        j = j-1
+        if (j  ==  start)
+        {
+            break
+        }
+      }
+      while(  arr[i] <= pivot)
+      {
+        i = i+1
+        if( i == end )
+         {
+            break
+         }
+      }                
+      if ( i < j )
+      {
+        var tmp = arr[j]
+        arr[j] = arr[i]
+        arr[i] = tmp
+      }
+      else
+      {
+        return i
+      }
+  }
+}
+function show(var arr[])
+{
+    var len = `exec length(arr)`
+    for(var i=1; i <= len ; i=i+1)
+        {
+          echon arr[i] + " ,"
+        }
+}
+

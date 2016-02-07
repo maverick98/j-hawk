@@ -1,0 +1,20 @@
+function readFile()
+{
+    
+
+    var file = "/home/manoranjan/trunk/act.log"
+    var data[] = new var[]
+    exec FileModule->read(data,file)
+    var size = `exec SystemModule->length(data)`
+    for(var i =1;i<= size;i=i+1)
+    {
+        echo data[i]
+    }
+
+}
+
+function main()
+{
+	
+	exec readFile()
+}

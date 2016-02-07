@@ -1,0 +1,13 @@
+use hawk-lib "./em.hawk"
+use hawk-lib "http://j-hawk.sourceforge.net/scripts/array.hawk"
+
+function main()
+{
+   exec kickOff()
+}
+ function kickOff()
+ {
+   
+   echo "Hello world!!!"
+
+ }

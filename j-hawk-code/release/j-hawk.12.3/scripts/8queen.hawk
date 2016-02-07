@@ -1,0 +1,54 @@
+alias mm = MathModule
+function main()
+{
+	var x [] = new var[]
+	exec calculate(1,8,x)
+}
+function calculate(var k , var n, var x[])
+{
+
+	for(var col =1; col <=n ; col = col+1)
+	{
+		if(`exec check(k,col,x)` == 1)
+		{
+			x[k] = col
+			if(k == n )
+			{
+				exec display(x,n)	
+			}
+			else
+			{
+				exec calculate(k+1,n,x)
+			}
+		}
+	}
+}
+
+function check (var row, var column,var x[])
+{
+	for(var j =1; j <= row ; j = j+1 )
+	{
+               
+		var x1 =  x[j] - column
+		var y1 = row-j
+		var x2 = `exec mm->abs(x)`
+		var y2 = `exec mm->abs(y)`
+		echo x2
+		echo y2
+		if ( (x[j] == column) || (x2 == y2))
+		{
+			return 0
+		}			
+		
+	}
+	return 1
+}
+
+function display( var x[], var n)
+{
+	for(var i =1 ; i <=n ; i = i+1)
+	{
+		echo x[i]
+	}		
+
+}

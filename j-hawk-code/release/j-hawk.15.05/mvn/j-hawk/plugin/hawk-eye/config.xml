@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<hawkEyePluginConfiguration>
+    <cricketDataProvider>
+		
+		<classpath>
+		
+			<jar>
+			
+				<desc>espnpnhawkeye</desc>
+				
+				<path>espnhawkeye-1.0.jar</path>
+				
+			</jar>
+		
+		</classpath>
+		
+		<cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
+		
+		
+		
+		<tabPath>./plugin/hawk-eye</tabPath>
+		<software>
+        
+			<about>
+				 ESPNcricinfo (formerly CricInfo) is a sports news website exclusively for the game of cricket. 
+				 The site features news, articles, live coverage of cricket matches (including liveblogs and scorecards), 
+				 and StatsGuru, a database of historical matches and players from the 18th century to the present....
+				 
+				 courtesy http://en.wikipedia.org/wiki/ESPNcricinfo
+			</about>
+		
+			<category>Sports Analytics</category>
+        
+			<contributor>
+        
+				<address>#1993,AECS Layout,'A' Block,Singasandra, Bangalore-560068,Karnataka,India</address>
+				
+				<authorType>INDIVIDUAL</authorType>
+				
+				<contactNo>+91-9740319263</contactNo>
+				
+				<email>abeautifulmind98@gmail.com</email>
+				
+				<name>Manoranjan Sahu</name>
+				
+				<website>http://www.j-hawk.in</website>
+        
+			</contributor>
+        
+			<name>ESPN</name>
+			
+			<releaseDate>2014-10-09T09:27:35.354+05:30</releaseDate>
+			
+			<version>
+			
+				<version>1.0</version>
+			
+			</version>
+        
+			<website>http://www.espncricinfo.com</website>
+    
+		</software>
+		
+	</cricketDataProvider>
+	
+
+</hawkEyePluginConfiguration>

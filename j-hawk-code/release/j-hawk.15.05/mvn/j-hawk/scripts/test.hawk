@@ -1,0 +1,10 @@
+function main ()
+{
+
+
+  var a = `exec pow(297,2)`
+  echo a 
+    
+
+}
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testPlugin>
+    <bgRun>false</bgRun>
+    <classpath>
+        <jar>
+            <desc>aaaa</desc>
+            <path>aaaaaa</path>
+        </jar>
+        <jar>
+            <desc>adsfafd</desc>
+            <path>dfdfdf</path>
+        </jar>
+    </classpath>
+    <logPath>.</logPath>
+    <software>
+        <about>This is a software about analyzing cricket data collected from cricinfo.com</about>
+        <category>Sports Analytics</category>
+        <contributor>
+            <address>#1211,2nd floor,22nd cross,3rd sector, HSR Layout, Bangalore-560102,Karnataka,India</address>
+            <authorType>INDIVIDUAL</authorType>
+            <contactNo>+91-9740319263</contactNo>
+            <email>abeautifulmind98@gmail.com</email>
+            <name>Manoranjan Sahu</name>
+            <website>http://www.j-hawk.in</website>
+        </contributor>
+        <name>hawk-eye</name>
+        <releaseDate>2015-01-12T16:12:01.975+05:30</releaseDate>
+        <version>
+            <version>13.10</version>
+        </version>
+        <website>http://www.j-hawk.in</website>
+    </software>
+    <tabPath>adadfafds</tabPath>
+</testPlugin>

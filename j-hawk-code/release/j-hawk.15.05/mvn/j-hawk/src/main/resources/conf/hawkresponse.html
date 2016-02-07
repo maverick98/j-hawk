@@ -1,0 +1,45 @@
+function main()
+{
+   exec createCopyLeftInfo()
+   <html>
+     <H1><CENTER><a href="http://j-hawk.sourceforge.net"><img src="images/logo.png" width="236" height="317" alt="j-Hawk" /></a></CENTER><H1>
+     <H2> <CENTER> #TARGET_MODULE# </CENTER></H2>
+     <H3> 
+ 	<center>Hawk started at #START_TIMESTAMP# , ended at  #END_TIMESTAMP# </center> <br>
+ 	<center>Duration #DURATION_HOURS# hours #DURATION_MINS# mins #DURATION_SECS# secs</center><BR>
+	
+     </H3>	 
+  <body>
+   <img src="#TARGET_MODULE#.png" alt=""/>
+   for(var i = 1 ; i <= #MODULE_COUNT#; i = i+1)
+   {
+    <img src="#MODULE_NAME#.png" alt=""/>
+   }
+   
+    for(var i = 1 ; i <= #MODULE_SUBTASK_COUNT#; i = i+1)
+   {
+    <img src="#MODULE_SUBTASK_NAME#.png" alt=""/>
+   }
+  
+
+}
+
+function createCopyLeftInfo()
+{
+	echo "/*"
+	echo " * This file is part of j-hawk"
+	echo " * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left."
+	echo " *"
+	echo " * "
+	echo " *"
+	echo " * 1) If you modify a source file, make a comment in it containing your name and the date."
+	echo " * 2) If you distribute a modified version, you must do it under the GPL 2."
+	echo " * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com"
+	echo " * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution."
+	echo " *"
+	echo " * 
+	echo " * "
+	echo " *"
+	echo " * "
+	echo " */"
+}

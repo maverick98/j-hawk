@@ -1,0 +1,60 @@
+
+struct HttpRequest
+{
+ 
+ var targetURL = "http://blr2211485.idc.oracle.com:17817/em/j_security_check"
+ var method = "GET"
+ 
+}
+struct HttpBody
+{
+ var j_username = "sysman"
+ var j_password = "sysman"
+ var j_character_encoding = "UTF-8"
+ var org.apache.myfaces.trinidad.faces.FORM = "loginForm"
+ var event = "login"
+ var event.login = "<m xmlns='http://oracle.com/richClient/comm'><k v='type'><s>action</s></k></m>"
+}
+
+
+struct EMLoginRequest
+{
+  HttpRequest httpRequest
+  HttpBody httpBody
+  var actionName = "EM-Login"
+  var dump = 1
+}
+
+
+struct ISCRequest
+{
+ var targetURL = "http://blr2211485.idc.oracle.com:17817/em/faces/core_initialsetup_ui_landing"
+ 
+
+ var method = "GET"
+}
+
+struct ISCData
+{
+  ISCRequest httpRequest
+  var actionName = "InitSetup-Landing"    
+   var dump = 1 
+}
+
+function main()
+{
+   exec kickOff()
+}
+ function kickOff()
+ {
+   EMLoginRequest emLoginRequest
+   HttpRequest  httpRequest
+   emLoginRequest->httpRequest = httpRequest
+   exec HttpModule->execute(emLoginRequest)
+
+   ISCRequest iscRequest
+   ISCData iscData
+   iscData->httpRequest = iscRequest
+   exec HttpModule->execute(iscData)
+
+ }

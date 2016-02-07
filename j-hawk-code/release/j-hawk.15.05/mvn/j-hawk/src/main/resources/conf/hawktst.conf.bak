@@ -1,0 +1,2 @@
+regression_script_path = scripts
+regression_scripts = global,prime,power,newtonraphson,fibonacci,file,multithread,digitcubes,perfectseries,perfecttest,kapreckerConstant,hawkresponse,entityTemplate,array,multipleAssignment,fpointer,asgn,binarysearch,execParallel,incr,manboy,matrix,quicksort,selectionsort

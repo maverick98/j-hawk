@@ -1,0 +1,175 @@
+
+function main()
+{
+    //exec displayFibonacciSeries()
+    //exec testPerfectNumber(8128)
+    /*
+    exec findPerfectNumber(7)
+    var x = `exec MathModule->sqrt(1444)`
+    echo x
+    var axx[] = new var[]
+    axx[1] =12
+    exec test(axx)
+    */
+    exec readFile()
+}
+
+function readFile()
+{
+    var data1 []= new var[]
+    data1[1] ="INdia"
+     var url1 = "http://localhost:8080/xpweb/reg_act?tk="+data1[1]
+     echo url1
+
+
+    var file = "/home/manoranjan/trunk/act.log"
+    var data[] = new var[]
+    exec FileModule->read(data,file)
+    var size = `exec SystemModule->length(data)`
+    for(var i =1;i<= size;i=i+1)
+    {
+        var url = "http://localhost:8080/xpweb/reg_act?tk="+data[i]
+        echo url
+    }
+
+}
+
+function readFile()
+{
+    var file = "/home/manoranjan/trunk/act.log"
+    var data[] = new var[]
+    exec FileModule->read(data,file)
+    var size = `exec SystemModule->length(data)`
+    for(var i =1;i<= size;i=i+1)
+    {
+        var url = "http://localhost:8080/xpweb/reg_act?tk="+data[i]
+        echo url
+    }
+}
+function test(var axx[])
+{
+    echo axx
+}
+
+
+function findPerfectNumber(var count)
+{
+    var n = 0
+    for(var i =2 ; i>= 1 ; i= i+1)
+    {
+        var j = i-1
+
+        exec power(2,j)
+
+        var product = `exec power(2,j)`
+        var primeSuspect = product*2 -1
+        if( `exec checkPrime(primeSuspect)` == 1)
+        {
+
+            var perfect = product * primeSuspect
+            echo "Perfect no {"+perfect+"}"
+            n = n+1
+        }
+        if(n ==  count )
+        {
+            return 1
+        }
+
+    }
+
+}
+
+function power(var x , var y)
+{
+    if(y == 0)
+    {
+        return 1
+    }
+    var product = x
+    for(var i=1;i<y ; i = i+1)
+    {
+       product = product * x
+    }
+    return product
+}
+
+
+//This method displays the fibonacci series
+
+function displayFibonacciSeries()
+{
+    echo "Fibonacci series"
+    echo "1"
+    exec fibonacci(1,2,1)
+
+
+}
+
+function calculateHalf(var x)
+{
+
+    return x/2
+}
+
+
+function testPerfectNumber(var x)
+{
+    var rtn = 0
+
+    var sum = 0
+
+    for(var i =1 ; i<=`exec calculateHalf(x)` ; i = i+1)
+    {
+        if( x%i == 0)
+        {
+            sum = sum +i
+            //echo sum
+        }
+
+    }
+
+
+
+    if(sum  == x)
+    {
+        echo x+" is a perfect number"
+        rtn =1
+    }
+    else
+    {
+       echo x+" is not a perfect number"
+       rtn = 0
+    }
+
+    return rtn
+}
+function fibonacci(var x , var y , var count)
+{
+
+	if(count==10)
+	{
+          return 1
+	}
+	echo y
+	var z = x+y
+	count = count +1
+	exec fibonacci(y,z,count)
+
+
+}
+
+//This checks if a number is prime or not
+function checkPrime(var x)
+{
+
+    for(var i=2; i<`exec calculateHalf(x)`;i=i+1)
+    {
+        if( x%i == 0)
+        {
+            return 0
+        }
+    }
+
+    return 1
+}
+

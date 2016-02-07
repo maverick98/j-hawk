@@ -1,0 +1,18 @@
+var k1 =123
+function main()
+{
+   var x  = ` testingyaar(1217)`
+   var ret = `exec x()`
+   echo ret
+}
+function testingyaar(var k)
+{
+  function abc()
+  {
+	echo "I am inside testingyaar"
+	echo k1
+	return k
+  }
+return `  exec abc()`
+}
+

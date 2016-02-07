@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="keywords" content="jQuery Splitter, Splitter Widget, Splitter, jqxSplitter" />
+    <meta name="description" content="This page demonstrates three-pane columns splitter" />
+    <title id='Description'>j-hawk scripts</title>
+    <link rel="stylesheet" href="./jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./jqxcore.js"></script>
+    <script type="text/javascript" src="./jqxsplitter.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mainSplitter').jqxSplitter({ width: '100%', height: '100%', panels: [{ size: '20%' }, { size: '80%'}] });
+            $('#rightSplitter').jqxSplitter({ height: '100%', orientation: 'horizontal', panels: [{ size: '60%', collapsible: false }, { size: '40%'}] });
+        });
+    </script>
+    <style type="text/css">
+        html, body
+        {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body >
+    <div style="border: none;" id="mainSplitter">
+        <div style="background:silver;">Scripts<br>
+		 <a href="./global.hawk.html">global</a><br><a href="./prime.hawk.html">prime</a><br><a href="./power.hawk.html">power</a><br><a href="./newtonraphson.hawk.html">newtonraphson</a><br><a href="./fibonacci.hawk.html">fibonacci</a><br><a href="./file.hawk.html">file</a><br><a href="./multithread.hawk.html">multithread</a><br><a href="./digitcubes.hawk.html">digitcubes</a><br><a href="./perfectseries.hawk.html">perfectseries</a><br><a href="./perfecttest.hawk.html">perfecttest</a><br><a href="./kapreckerConstant.hawk.html">kapreckerConstant</a><br><a href="./hawkresponse.hawk.html">hawkresponse</a><br><a href="./entityTemplate.hawk.html">entityTemplate</a><br><a href="./array.hawk.html">array</a><br><a href="./multipleAssignment.hawk.html">multipleAssignment</a><br><a href="./fpointer.hawk.html">fpointer</a><br><a href="./asgn.hawk.html">asgn</a><br><a href="./binarysearch.hawk.html">binarysearch</a><br><a href="./execParallel.hawk.html">execParallel</a><br><a href="./incr.hawk.html">incr</a><br><a href="./manboy.hawk.html">manboy</a><br><a href="./matrix.hawk.html">matrix</a><br><a href="./quicksort.hawk.html">quicksort</a><br><a href="./selectionsort.hawk.html">selectionsort</a><br><a href="./string.hawk.html">string</a><br>
+		</div>
+        <div>
+            <div style="border: none" id="rightSplitter">
+                <div style="overflow:scroll;background:silver">
+                    <br><br>function&nbsp;main()<br>{<br><br>	var&nbsp;j&nbsp;=&nbsp;20<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j&nbsp;=&nbsp;j&nbsp;-1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;j<br>}<br><br>
+				</div>
+                <div style="overflow:scroll;background:silver">
+                    19<br><br>
+				</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

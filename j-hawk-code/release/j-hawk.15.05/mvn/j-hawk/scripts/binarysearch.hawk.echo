@@ -1,0 +1,18 @@
+sorted array is as follows
+3,12,17,25,33,73,88,99,659,793,7112,searching for element 659
+start is1
+end is11
+mid is6
+midInt is6
+searching left half
+start is1
+end is5
+mid is3
+midInt is3
+searching left half
+start is1
+end is2
+mid is1.5
+midInt is2
+found
+index of probe {12} is2

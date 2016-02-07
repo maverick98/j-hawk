@@ -1,0 +1,42 @@
+function main()
+{
+	exec testPerfectNumber(8128)
+}
+
+function calculateHalf(var x)
+{
+
+    return x/2
+}
+
+function testPerfectNumber(var x)
+{
+    var rtn = 0
+
+    var sum = 0
+
+    for(var i =1 ; i<=`exec calculateHalf(x)` ; i = i+1)
+    {
+        if( x%i == 0)
+        {
+            sum = sum +i
+            //echo sum
+        }
+
+    }
+
+
+
+    if(sum  == x)
+    {
+        echo x+" is a perfect number"
+        rtn =1
+    }
+    else
+    {
+       echo x+" is not a perfect number"
+       rtn = 0
+    }
+
+    return rtn
+}

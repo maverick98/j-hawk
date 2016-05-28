@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+/j-hawk-code/mvn/commons-util/target/
+/j-hawk-code/mvn/commons-event/target/
+/j-hawk-code/mvn/commons-ds/target/
+/j-hawk-code/mvn/j-hawk/target/

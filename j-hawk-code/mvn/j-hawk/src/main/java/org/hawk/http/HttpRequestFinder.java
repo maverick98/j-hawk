@@ -30,6 +30,7 @@ import static org.hawk.constant.HawkConstant.HTTP_REQUEST;
 import static org.hawk.constant.HawkConstant.MULTIPART_POST;
 import static org.hawk.constant.HawkConstant.TARGET_URL;
 import static org.hawk.constant.HawkConstant.UPLOAD_FILE;
+import static org.hawk.constant.HawkConstant.HTTP_AUTH;
 
 import org.hawk.lang.object.AbstractStructRequestFinder;
 
@@ -75,7 +76,7 @@ public class HttpRequestFinder extends AbstractStructRequestFinder {
         return targetURL;
         //return findWithPriority(mainMap, TARGET_URL);
     }
-
+    
     public String findActionName(Map mainMap) throws Exception {
         String actionName = (String) mainMap.get(ACTION_NAME);
         if (actionName == null) {
@@ -108,6 +109,37 @@ public class HttpRequestFinder extends AbstractStructRequestFinder {
     public Map<String, String> findHttpRequest(Map mainMap) throws Exception {
 
         return findMap(mainMap.get(HTTP_REQUEST));
+    }
+    public Map<String, String> findHttpAuth(Map mainMap) throws Exception {
+        Map<String, String> authMap = new HashMap<String, String>();
+        Map map = (Map) mainMap.get(HTTP_AUTH);
+
+        for (Object t : map.keySet()) {
+
+            if (map.get(t) instanceof Map) {
+                Map tmpMap = (Map) (map.get(t));
+                String h1Key = null;
+                String h1Value = null;
+                for (Object key : tmpMap.keySet()) {
+                    Object value = tmpMap.get(key);
+
+                    if (value instanceof Map) {
+                        Map tmpMap1 = (Map) value;
+                        for (Object key1 : tmpMap1.keySet()) {
+                            Object value1 = tmpMap1.get(key1);
+                            if (h1Key == null) {
+                                h1Key = value1.toString();
+                            } else {
+                                h1Value = value1.toString();
+                            }
+
+                        }
+                    }
+                }
+                authMap.put(h1Key, h1Value);
+            }
+        }
+        return authMap;
     }
 
     public Map<String, String> findHttpHeader(Map mainMap) throws Exception {

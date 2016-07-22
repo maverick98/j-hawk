@@ -16,6 +16,10 @@
  */
 package org.hawk.module.core;
 
+import com.jayway.restassured.RestAssured;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import org.hawk.data.perf.PerfDataProcessor;
@@ -29,6 +33,7 @@ import org.hawk.module.annotation.CollectPerfData;
 import org.hawk.module.annotation.SubTask;
  import org.commons.reflection.Create;
 import org.common.di.ScanMe;
+import org.hawk.http.HttpRestExecutor;
 
 /**
  * This is a hawk core module . This hits the targetURL with the parameters.
@@ -73,7 +78,12 @@ public class HttpModule extends HawkCoreModule {
 
             ControlRequest controlRequest = new ControlRequest(httpStructScript.toJavaMap());
             httpStructScript.setControlRequest(controlRequest);
-            IHttpExecutor httpExecutor = new HttpExecutor(this.getName(), httpStructScript);
+            IHttpExecutor httpExecutor = null; //new HttpExecutor(this.getName(), httpStructScript);
+            if(controlRequest.isRest()){
+                httpExecutor = new HttpRestExecutor(this.getName(), httpStructScript);
+            }else{
+                httpExecutor = new HttpExecutor(this.getName(), httpStructScript);
+            }
 
             String currentActionName = controlRequest.getActionName();
             boolean useThread = controlRequest.isConcurrent();
@@ -90,6 +100,31 @@ public class HttpModule extends HawkCoreModule {
             }
         }
         return true;
+    }
+    
+    @SubTask(name = "setKeyStore", sequence = 1, ignoreException = false, hawkParam = "var hawkStruct")
+    public boolean setKeyStore(Object... args) throws Exception {
+        String keystoreFile = args[0].toString();
+        String password= args[1].toString();
+        System.out.println(keystoreFile);
+        System.out.println(password);
+        RestAssured.keystore(getCertificateFile(keystoreFile).getPath(), password);
+        return true;
+    }
+     static File getCertificateFile(String name) {
+        String val = "";
+        try {
+            
+            File fromPath = new File(name);
+            String localScriptPath = System.getProperty("java.io.tmpdir");
+            File tmpFile = File.createTempFile("cert-", ".pem", new File(localScriptPath));
+            Files.copy(fromPath.toPath(), tmpFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+           
+            return tmpFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

@@ -76,7 +76,7 @@ public class SpringConfig {
     public org.hawk.module.core.HttpModule getHttpModule() {
         return new org.hawk.module.core.HttpModule();
     }
-
+    
     @Bean
     public org.hawk.executor.ModuleExecutor getModuleExecutor() {
         return new org.hawk.executor.ModuleExecutor();

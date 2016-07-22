@@ -157,6 +157,8 @@ public interface HawkConstant {
     String HTTP_RESPONSE_MESSAGE = "httpRespMsg";
 
     String CONCURRENT="concurrent";
+    
+    String USE_REST="rest";
 
     String TARGET_URL="targetURL";
 
@@ -175,6 +177,10 @@ public interface HawkConstant {
     String HTTP_BODY="httpBody";
 
     String HTTP_REQUEST="httpRequest";
+    
+    String HTTP_AUTH="auth";
+    
+    
 
     String HTTP_METHOD="method";
 

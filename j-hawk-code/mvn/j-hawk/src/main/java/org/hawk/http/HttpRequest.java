@@ -39,6 +39,7 @@ public class HttpRequest {
     private RequestTypeEnum requestTypeEnum;
     private Map<String, String> request = new HashMap<String, String>();
     private Map<String, String> header = new HashMap<String, String>();
+    private Map<String, String> auth = new HashMap<String, String>();
     private Map<String, String> body = new HashMap<String, String>();
     private HttpRequestFinder httpRequestFinder = new HttpRequestFinder();
     private Map hawkMap = new HashMap();
@@ -59,6 +60,14 @@ public class HttpRequest {
         this.request = request;
     }
 
+    public Map<String, String> getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Map<String, String> auth) {
+        this.auth = auth;
+    }
+    
     public static enum RequestTypeEnum {
 
         GET, POST;
@@ -103,6 +112,7 @@ public class HttpRequest {
         this.request = this.httpRequestFinder.findHttpRequest(hawkMap);
         this.body = this.httpRequestFinder.findHttpBody(hawkMap);
         this.header = this.httpRequestFinder.findHttpHeader(hawkMap);
+        this.auth = this.httpRequestFinder.findHttpAuth(hawkMap);
         this.targetURL = this.httpRequestFinder.findTargetURL(hawkMap);
     }
 

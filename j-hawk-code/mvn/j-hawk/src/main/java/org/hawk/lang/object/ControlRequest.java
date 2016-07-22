@@ -23,6 +23,7 @@ import static org.hawk.constant.HawkConstant.ACTION_NAME;
 import static org.hawk.constant.HawkConstant.CONCURRENT;
 import static org.hawk.constant.HawkConstant.INVALIDATE_SESSION;
 import static org.hawk.constant.HawkConstant.SHOULD_DUMP;
+import static org.hawk.constant.HawkConstant.USE_REST;
 
 
 /**
@@ -34,9 +35,20 @@ public class ControlRequest {
     private String actionName;
     private boolean concurrent;
     private boolean invalidateSession;
+    private boolean rest;
     private Map hawkMap = new HashMap();
     private ControlRequestFinder controlRequestFinder = new ControlRequestFinder();
 
+    public boolean isRest() {
+        return rest;
+    }
+
+    public void setRest(boolean rest) {
+        this.rest = rest;
+    }
+
+    
+    
     public boolean isDump() {
         return dump;
     }
@@ -83,6 +95,7 @@ public class ControlRequest {
         this.invalidateSession = this.controlRequestFinder.findInvalidateSession(this.hawkMap);
         this.actionName = this.controlRequestFinder.findActionName(this.hawkMap);
         this.dump = this.controlRequestFinder.shouldDump(this.hawkMap);
+        this.rest= this.controlRequestFinder.shouldUseRest(this.hawkMap);
     }
     private static class ControlRequestFinder extends AbstractStructRequestFinder {
 
@@ -106,6 +119,10 @@ public class ControlRequest {
                 shouldDump = "0";
             }
             return Integer.parseInt(shouldDump) == 1;
+        }
+
+        private boolean shouldUseRest(Map mainMap)throws Exception{
+             return "1".equals(find(mainMap, USE_REST));
         }
     }
 }

@@ -39,7 +39,7 @@ import org.common.di.AppContainer;
 
 import org.hawk.lang.object.StructureScript;
 import org.hawk.logger.HawkLogger;
-import org.hawk.module.core.HttpModule;
+//import org.hawk.module.core.HttpModule;
 import org.hawk.util.HawkUtil;
 import org.hawk.util.HttpUtil;
 import org.commons.resource.ResourceUtil;
@@ -143,7 +143,7 @@ public class HttpExecutor implements IHttpExecutor {
     */ 
 
     
-    private HttpResponse executePostRequestWithinSession() throws Exception {
+    protected HttpResponse executePostRequestWithinSession() throws Exception {
 
         this.addRequestTokenToGET();
         this.addRequestTokenToPOST();
@@ -341,7 +341,7 @@ public class HttpExecutor implements IHttpExecutor {
     }
 
    
-    private HttpResponse executeGetRequest() throws Exception {
+    protected HttpResponse executeGetRequest() throws Exception {
         this.addRequestTokenToGET();
         HttpResponse httpResponse = this.executeGetRequestInternal();
         this.setHttpSessionInfo(httpResponse);
@@ -577,7 +577,7 @@ public class HttpExecutor implements IHttpExecutor {
         return true;
     }
     
-    private static abstract class AbstractHttpHeaderVisitor{
+    protected static abstract class AbstractHttpHeaderVisitor{
         Map<String, String> headerMap;
         public AbstractHttpHeaderVisitor(HttpRequest httpRequest){
             headerMap = httpRequest.getHeader();
@@ -618,6 +618,8 @@ public class HttpExecutor implements IHttpExecutor {
             }
         }.visit();
     }
+    
+    
 
     @Override
     public void run() {

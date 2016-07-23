@@ -14,6 +14,15 @@ public class EdgeProperties {
 
     private boolean directed;
     private EdgeTypeEnum edgeTypeEnum;
+    private EdgeWeight edgeWeight;
+
+    public EdgeWeight getEdgeWeight() {
+        return edgeWeight;
+    }
+
+    public void setEdgeWeight(EdgeWeight edgeWeight) {
+        this.edgeWeight = edgeWeight;
+    }
 
     public boolean isDirected() {
         return directed;
@@ -35,8 +44,5 @@ public class EdgeProperties {
     public String toString() {
         return "EdgeProperties{" + "directed=" + directed + ", edgeTypeEnum=" + edgeTypeEnum + '}';
     }
-    
-    
 
-    
 }

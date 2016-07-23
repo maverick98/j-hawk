@@ -6,6 +6,7 @@
  */
 package org.commons.ds.graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +17,39 @@ public class Node<T> {
 
     private T payload;
 
-    private String name;
+    private List<Edge> adjacentList = new ArrayList<>();
 
-    private List<Edge> adjacentList;
+    private NodeDiscoveryEnum nodeDiscoveryEnum = NodeDiscoveryEnum.NOT_YET_DISCOVERED;
+
+    public Node() {
+
+    }
+
+    public Node(T payload, List<Edge> adjacentList) {
+        this.payload = payload;
+
+        this.adjacentList = adjacentList;
+    }
+
+    public boolean notYetDiscoverewd() {
+        return this.getNodeDiscoveryEnum() == NodeDiscoveryEnum.NOT_YET_DISCOVERED;
+    }
+
+    public boolean discovered() {
+        return this.getNodeDiscoveryEnum() == NodeDiscoveryEnum.DISCOVERED;
+    }
+
+    public boolean explored() {
+        return this.getNodeDiscoveryEnum() == NodeDiscoveryEnum.EXPLORED;
+    }
+
+    public NodeDiscoveryEnum getNodeDiscoveryEnum() {
+        return nodeDiscoveryEnum;
+    }
+
+    public void setNodeDiscoveryEnum(NodeDiscoveryEnum nodeDiscoveryEnum) {
+        this.nodeDiscoveryEnum = nodeDiscoveryEnum;
+    }
 
     public T getPayload() {
         return payload;
@@ -28,20 +59,22 @@ public class Node<T> {
         this.payload = payload;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<Edge> getAdjacentList() {
         return adjacentList;
     }
 
     public void setAdjacentList(List<Edge> adjacentList) {
         this.adjacentList = adjacentList;
+    }
+    public boolean addEdge(Node node){
+        Edge edge = new Edge();
+        edge.setSrc(this);
+        edge.setDest(node);
+        EdgeProperties edgeProperties = new EdgeProperties();
+        edgeProperties.setDirected(false);
+        edge.setEdgeProperties(edgeProperties);
+        this.getAdjacentList().add(edge);
+        return true;
     }
 
     @Override
@@ -56,7 +89,7 @@ public class Node<T> {
 
     @Override
     public String toString() {
-        return "Node{" + "name=" + name + '}';
+        return "Node{" + "name=" + this.getPayload() + '}';
     }
 
     public boolean hasAdjacentList() {

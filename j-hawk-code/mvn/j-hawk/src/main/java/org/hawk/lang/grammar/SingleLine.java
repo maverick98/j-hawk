@@ -35,7 +35,7 @@ import org.hawk.lang.object.AssignmentScript.Assignment;
 import org.hawk.lang.object.matrix.MatrixScript.Matrix;
 import org.hawk.lang.object.StructureScript.Structure;
 import org.hawk.lang.object.VariableDeclScript.VariableDecl;
-import org.hawk.lang.object.XMLVariableDeclScript.XMLVariableDecl;
+import org.hawk.lang.object.VARXVariableDeclProxyScript.VarxVariableDecl;
 import org.hawk.lang.thread.ExecBackgroundSingleLineScript.ExecBackground;
 import org.hawk.lang.thread.ExecParallelSingleLineScript.ExecParallel;
 import org.hawk.lang.util.ThinkScript.Think;
@@ -94,7 +94,7 @@ public class SingleLine {
     
     private SingleLineComment singleLineComment;
 
-    private XMLVariableDecl xmlVariableDecl;
+    private VarxVariableDecl varxVariableDecl;
     
     private Assignment assignment;
 
@@ -106,14 +106,17 @@ public class SingleLine {
         this.assignment = assignment;
     }
 
-    public XMLVariableDecl getXmlVariableDecl() {
-        return xmlVariableDecl;
+    public VarxVariableDecl getVarxVariableDecl() {
+        return varxVariableDecl;
     }
 
-    public void setXmlVariableDecl(XMLVariableDecl xmlVariableDecl) {
-        this.xmlVariableDecl = xmlVariableDecl;
+    public void setVarxVariableDecl(VarxVariableDecl varxVariableDecl) {
+        this.varxVariableDecl = varxVariableDecl;
     }
 
+   
+
+   
    
     public SingleLineComment getSingleLineComment() {
         return singleLineComment;

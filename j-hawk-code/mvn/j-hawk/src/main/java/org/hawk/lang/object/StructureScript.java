@@ -21,7 +21,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.httpclient.Header;
+import org.codehaus.jettison.json.JSONException;
 import static org.hawk.constant.HawkConstant.ACTION_NAME;
 import static org.hawk.constant.HawkConstant.HTTP_RESPONSE_CODE;
 import static org.hawk.constant.HawkConstant.HTTP_RESPONSE_MESSAGE;
@@ -29,7 +32,7 @@ import static org.hawk.constant.HawkConstant.OUT;
 import org.common.di.AppContainer;
 import org.commons.ds.exp.IObject;
 import org.hawk.ds.exp.IHawkObject;
-
+import org.codehaus.jettison.json.JSONObject;
 import org.hawk.executor.cache.multiline.structure.IStructureDefinitionScriptCache;
 import org.hawk.executor.cache.multiline.structure.StructureDefinitionScriptCache;
 import org.hawk.http.HttpResponse;
@@ -328,13 +331,13 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
     public Object toJava() throws Exception {
         return this;
     }
+
     /*
      @Override
      public boolean isVariable() {
      return true;
      }
      */
-
     @Override
     public Variable getVariable() {
         return this.structVarName;
@@ -450,10 +453,20 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
         if (httpResponse != null) {
             String response = httpResponse.getResponse();
             IObjectScript outScript = null;//XMLResponseScript.createScript(response);
-            if (outScript == null) {
+            if(httpResponse.getContentType().contains("json")){
+                
+                JSONObjectScript jsonObject = new JSONObjectScript();
+                try {
+                    jsonObject.setJson(new JSONObject (response));
+                } catch (JSONException ex) {
+                    Logger.getLogger(StructureScript.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jsonObject.setVariable(new Variable(VarTypeEnum.VAR, null,httpResponse.getActionName() ));
+                outScript =jsonObject;
+            }else{
                 outScript = LocalVarDeclScript.createDummyStringScript(response);
-                outScript.getVariable().setName(OUT);
             }
+            outScript.getVariable().setName(OUT);
             LocalVarDeclScript responseCodeScript = LocalVarDeclScript.createDummyStringScript(String.valueOf(httpResponse.getResponseCode()));
             responseCodeScript.getVariable().setName(HTTP_RESPONSE_CODE);
             LocalVarDeclScript responseMsgScript = LocalVarDeclScript.createDummyStringScript(httpResponse.getResponseMessage());
@@ -461,16 +474,19 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
             this.addMember(OUT, outScript);
             this.addMember(HTTP_RESPONSE_CODE, responseCodeScript);
             this.addMember(HTTP_RESPONSE_MESSAGE, responseMsgScript);
-            for (Header header : httpResponse.getHeaders()) {
-                LocalVarDeclScript headerScript = LocalVarDeclScript.createDummyStringScript(header.getValue());
-                headerScript.getVariable().setName(header.getName());
-                this.addMember(replaceHypen(header.getName()), headerScript);
-                System.out.println("adding header "+replaceHypen(header.getName()) +" with value "+headerScript);
-               
+            if (httpResponse.getHeaders() != null) {
+                for (Header header : httpResponse.getHeaders()) {
+                    LocalVarDeclScript headerScript = LocalVarDeclScript.createDummyStringScript(header.getValue());
+                    headerScript.getVariable().setName(header.getName());
+                    this.addMember(replaceHypen(header.getName()), headerScript);
+                    System.out.println("adding header " + replaceHypen(header.getName()) + " with value " + headerScript);
+
+                }
             }
         }
     }
-    private String replaceHypen(String data){
+
+    private String replaceHypen(String data) {
         return data.replaceAll("-", "");
     }
 

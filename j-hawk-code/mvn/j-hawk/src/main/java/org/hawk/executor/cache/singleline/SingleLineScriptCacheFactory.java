@@ -34,7 +34,7 @@ import org.hawk.logger.HawkLogger;
 public class SingleLineScriptCacheFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(MultiLineScriptCacheFactory.class.getName());
-    private static Map<Integer, ISingleLineScriptCache> cachedSingleLineScriptCache = new TreeMap<Integer, ISingleLineScriptCache>();
+    private static Map<Integer, ISingleLineScriptCache> cachedSingleLineScriptCache = new TreeMap<>();
 
     public static Map<Integer, ISingleLineScriptCache> getSingleLineScriptCache() throws Exception {
 

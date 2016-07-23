@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.commons.implementor.ClazzLiteralVisitable;
 import org.commons.implementor.InstanceVisitable;
@@ -32,7 +30,7 @@ import org.commons.implementor.InstanceVisitable;
  */
 public class HawkCoreModuleFactory {
 
-    private static final Map<Integer, ICoreModule> cachedHawkCoreModuleMap =  new TreeMap<Integer, ICoreModule>();
+    private static final Map<Integer, ICoreModule> cachedHawkCoreModuleMap =  new TreeMap<>();
     /**
      * This checks if a module is a core
      *
@@ -43,7 +41,7 @@ public class HawkCoreModuleFactory {
 
         ClazzLiteralVisitable clazzLiteralVisitable = new ClazzLiteralVisitable();
         clazzLiteralVisitable.setClazz(HawkCoreModule.class);
-        final List<Boolean> isHawkCoreModule = new ArrayList<Boolean>();
+        final List<Boolean> isHawkCoreModule = new ArrayList<>();
         new HawkCoreModuleCheckVisitor() {
             @Override
             public void onVisit(String clazzStr) {

@@ -24,6 +24,8 @@ import org.apache.commons.httpclient.Header;
  * @author manoranjan
  */
 public class HttpResponse {
+    
+    private String actionName;
 
     private String response;
 
@@ -34,8 +36,16 @@ public class HttpResponse {
     private String responseMessage;
     
     private Header [] headers;
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
     
-   
+    
     public String getResponse() {
         return response;
     }

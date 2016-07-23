@@ -54,6 +54,10 @@ function testMetrics()
    var httpResponse = `exec HttpModule->execute(getMetrics)`
  
   
+
+   //echo  getMetrics->out
+   var json = getMetrics->out
+   echo getMetrics->out->collectionTime 
 	
 
 }

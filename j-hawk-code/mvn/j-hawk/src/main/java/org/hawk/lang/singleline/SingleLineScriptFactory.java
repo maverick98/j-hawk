@@ -31,7 +31,7 @@ import org.hawk.logger.HawkLogger;
 public class SingleLineScriptFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(SingleLineScriptFactory.class.getName());
-    private static Map<Class, SingleLineScript> cachedSingleLineScripts = new LinkedHashMap<Class, SingleLineScript>();
+    private static Map<Class, SingleLineScript> cachedSingleLineScripts = new LinkedHashMap<>();
 
     public static Map<Class, SingleLineScript> getSingleLineScripts() throws Exception {
 
@@ -40,7 +40,7 @@ public class SingleLineScriptFactory {
 
         }
 
-        final Map<Integer, SingleLineScript> sortedSingleLineScripts = new TreeMap<Integer, SingleLineScript>();
+        final Map<Integer, SingleLineScript> sortedSingleLineScripts = new TreeMap<>();
 
 
         InstanceVisitable instanceVisitable = new InstanceVisitable();

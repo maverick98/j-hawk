@@ -524,7 +524,7 @@ public class HttpExecutor implements IHttpExecutor {
                 } else if (isGet) {
                     httpResponse = this.executeGetRequest();
                 }
-
+                httpResponse.setActionName(actionName);
 
                 hawkPerfDataCollector.end(this.getHttpModuleName(), actionName);
             } catch (Throwable th) {

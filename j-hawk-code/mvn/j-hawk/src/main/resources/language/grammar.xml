@@ -171,13 +171,13 @@
             </linePattern>
         </singleLineComment>
         
-        <xmlVariableDecl >
+        <varxVariableDecl >
             <parsingSequence>14000</parsingSequence>
             <linePattern>
                 <sequence>1</sequence>
                 <regEx><![CDATA[   \s*varx\s*([a-z|A-Z]{1,}[a-z|A-Z|\.|\d]*)\s*=\s*(.*)\s*  ]]></regEx>
             </linePattern>
-        </xmlVariableDecl>
+        </varxVariableDecl>
         
         <assignment >
             <parsingSequence>15000</parsingSequence>

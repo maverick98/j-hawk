@@ -32,7 +32,7 @@ import org.hawk.logger.HawkLogger;
 public class MultiLineScriptFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(MultiLineScriptFactory.class.getName());
-    private static Map<Class, MultiLineScript> cachedMultiLineScripts = new LinkedHashMap<Class, MultiLineScript>();
+    private static Map<Class, MultiLineScript> cachedMultiLineScripts = new LinkedHashMap<>();
 
     public static Map<Class, MultiLineScript> getMultiLineScripts() throws Exception {
 
@@ -44,7 +44,7 @@ public class MultiLineScriptFactory {
        // final Map<Integer, Class> sortedMultiLineScripts = new TreeMap<Integer, Class>();
 
 
-        final Map<Integer, MultiLineScript> sortedMultiLineScripts = new TreeMap<Integer, MultiLineScript>();
+        final Map<Integer, MultiLineScript> sortedMultiLineScripts = new TreeMap<>();
 
 
         InstanceVisitable instanceVisitable = new InstanceVisitable();

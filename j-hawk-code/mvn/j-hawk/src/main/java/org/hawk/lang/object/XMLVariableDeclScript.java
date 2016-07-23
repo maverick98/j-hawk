@@ -30,16 +30,12 @@ import org.w3c.dom.NodeList;
  *
  * @author user
  */
-@ScanMe(true)
-public class XMLVariableDeclScript extends SingleLineScript implements IObjectScript{
+
+public class XMLVariableDeclScript extends VARXVariableDeclProxyScript{
 
     private static final HawkLogger logger = HawkLogger.getLogger(XMLVariableDeclScript.class.getName());
-    protected static final Pattern VARIABLE_PATTERN =
-            Pattern.compile("\\s*" + varx + "\\s*([a-z|A-Z]{1,}[a-z|A-Z|\\.|\\d]*)\\s*=\\s*(.*)\\s*");
-    private String localVarx;
-    private String localVarxExp;
-    private Variable variable;
-    private Variable variableValue = null;
+   
+   
     private Document doc;
     private Node currentNode = null;
 
@@ -60,174 +56,15 @@ public class XMLVariableDeclScript extends SingleLineScript implements IObjectSc
 
     }
 
-    @Override
-    public Variable getVariable() {
-        return this.variable;
-    }
-
-    @Override
-    public void setVariableValue(Variable value) {
-        this.variableValue = value;
-    }
-
-    @Override
-    public Variable getVariableValue() {
-        return this.variableValue;
-    }
-
-    @Override
-    public void setVariable(Variable value) {
-        this.variable = value;
-    }
-
-    public String getLocalVarx() {
-        return localVarx;
-    }
-
-    public void setLocalVarx(String localVarx) {
-        this.localVarx = localVarx;
-    }
-
-    public String getLocalVarxExp() {
-        return localVarxExp;
-    }
-
-    public void setLocalVarxExp(String localVarxExp) {
-        this.localVarxExp = localVarxExp;
-    }
-
-  
-
-    @Override
-    public IHawkObject assign(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
    
-
-    @Override
-    public IObject add(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject subtract(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject multiply(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject divide(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject modulus(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject equalTo(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject greaterThan(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject lessThan(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject greaterThanEqualTo(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject lessThanEqualTo(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject and(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public IObject or(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static class XMLVariableDecl extends SingleLineGrammar {
-
-        @Override
-        public String toString() {
-            return "XMLVariableDecl" + "parsingSequence=" + this.getParsingSequence() + ", linePattern=" + this.getLinePattern() + '}';
-        }
-
-    }
-
-    @Override
-    public Integer getVerticalParserSequence() {
-
-        return this.getGrammar().getSingleLine().getXmlVariableDecl().getParsingSequence();
-    }
-
-    @Override
-    public Set<LinePattern> getPatterns() {
-
-        return this.getGrammar().getSingleLine().getXmlVariableDecl().getLinePattern();
-    }
-  
-    
-    public  XMLVariableDeclScript createScript(Map<Integer, String> lineXMLVariableMatcherMap) throws Exception{
-
-        if (lineXMLVariableMatcherMap == null) {
-            return null;
-        }
-        XMLVariableDeclScript script = new XMLVariableDeclScript();
-        script.setLocalVarx(lineXMLVariableMatcherMap.get(1));
-        script.setLocalVarxExp(lineXMLVariableMatcherMap.get(2));
-        script.setVariable(new Variable(VarTypeEnum.VARX, null, script.getLocalVarx()));
-        script.setVariableValue(script.getVariable());
-
-        return script;
-    }
-
-    @PostCreateScript
-    public boolean checkVariable() throws Exception {
-        boolean status = false;
-        this.getOuterMultiLineScript().setLocalValue(this.getVariable(), null);
-        status = true;
-
-        return status;
-    }
-
     @Override
     public IObjectScript execute() throws Exception {
-        IObjectScript result;
-        result = this.evaluateLocalVariable(this.getLocalVarxExp());
-        this.setDoc(XMLUtil.parse(result.getVariableValue().getValue().toString()));
+        this.setDoc(XMLUtil.parse(this.getResult().getVariableValue().getValue().toString()));
         this.setCurrentNode(this.getDoc().getDocumentElement());
-        this.outerMultiLineScript.setLocalValue(this.variable, this);
-        if(result.getVariableValue() != null && this.variable != null){
-            this.variable.setValue(result.getVariableValue().getValue());
-        }
         return this;
     }
 
-    @Override
-    public String mangle() {
-
-        return "_" + varx + "_";
-    }
+    
 
     @Override
     public XMLVariableDeclScript copy() {

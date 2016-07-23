@@ -83,7 +83,7 @@ public class FunctionScript extends MultiLineScript implements IObjectScript {
     }
 
     public static List<FunctionScript> parseStrip(FunctionNode rootNode,Map<Integer, String> scriptMap, VerticalStrip strip) throws Exception {
-        List<FunctionScript> funcScripts = new ArrayList<FunctionScript>();
+        List<FunctionScript> funcScripts = new ArrayList<>();
         for (int i = strip.getStart(); i < strip.getEnd(); i++) {
 
             Map<Integer, String> map = PatternMatcher.match(FUNCTION_DEFN_PATTERN, scriptMap.get(i));

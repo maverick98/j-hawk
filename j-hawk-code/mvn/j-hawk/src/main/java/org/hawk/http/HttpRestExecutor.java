@@ -10,14 +10,14 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
 import com.jayway.restassured.response.ResponseOptions;
 import java.util.Map;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
  * @author manosahu
  */
 public class HttpRestExecutor extends HttpExecutor {
-
-   
 
     public HttpRestExecutor(String httpModuleName, StructureScript structureScript) throws Exception {
         super(httpModuleName, structureScript);
@@ -30,16 +30,20 @@ public class HttpRestExecutor extends HttpExecutor {
 
     public HttpResponse executeGetRequest() throws Exception {
         HttpResponse response = new HttpResponse();
-       ResponseOptions r = mygiven().contentType(JSON).accept(JSON).get(this.getHttpRequest().getTargetURL());
-        System.out.println(r.body().asString());
-        response.setContentType(r.getContentType());
+        ResponseOptions r = mygiven().contentType(JSON).accept(JSON).get(this.getHttpRequest().getTargetURL());
+       
+        JSONObject json = new JSONObject(r.body().asString());
+        System.out.println(r.getContentType());
+
+        response.setContentType(r.contentType());
         response.setResponse(r.body().asString());
         response.setResponseCode(r.statusCode());
+        //response.setHeaders(r.getHeaders().asList().toArray(ts));
         return response;
     }
 
-    public  RequestSpecification mygiven() {
-       
+    public RequestSpecification mygiven() {
+
         return this.setHeader(this.setAuth(given()));
     }
 

@@ -34,14 +34,14 @@ public interface IScript {
      * a function returns or not. Currently Hawk support two types return
      * Double and Boolean.The implementation should look at the return type
      * and script type to determine what action to be taken.
-     * @throws org.hawk.exception.Exception
+     * @throws java.lang.Exception
      */
     IScript execute() throws Exception;
 
      /**
      * This converts the hawk object into java map..
      * @return
-     * @throws org.hawk.exception.Exception
+     * @throws java.lang.Exception
      */
     Map<Object,Object> toJavaMap() throws Exception;
 

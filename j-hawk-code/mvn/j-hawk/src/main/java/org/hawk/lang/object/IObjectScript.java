@@ -53,7 +53,7 @@ public interface IObjectScript extends IScript,IHawkObject {
     /**
      * This converts the hawk object into java object
      * @return
-     * @throws org.hawk.exception.Exception
+     * @throws java.lang.Exception
      */
     Object toJava() throws Exception;
 }

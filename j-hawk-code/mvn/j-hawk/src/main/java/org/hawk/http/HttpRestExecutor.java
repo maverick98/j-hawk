@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2013-2014 Oracle and/or its affiliates. All rights reserved.
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ * 
+
  */
 package org.hawk.http;
 

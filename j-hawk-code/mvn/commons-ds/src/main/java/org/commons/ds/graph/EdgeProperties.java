@@ -16,6 +16,17 @@ public class EdgeProperties {
     private EdgeTypeEnum edgeTypeEnum;
     private EdgeWeight edgeWeight;
 
+    private boolean outward=true;
+
+    public boolean isOutward() {
+        return outward;
+    }
+
+    public void setOutward(boolean outward) {
+        this.outward = outward;
+    }
+    
+    
     public EdgeWeight getEdgeWeight() {
         return edgeWeight;
     }

@@ -8,21 +8,67 @@ package org.commons.ds.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.commons.implementor.IVisitable;
+import org.commons.implementor.IVisitor;
 
 /**
  *
  * @author manosahu
  */
-public class Node<T> {
+public class Node<T> implements IVisitable{
 
     private T payload;
 
     private List<Edge> adjacentList = new ArrayList<>();
 
+    private int degree;
+
     private NodeDiscoveryEnum nodeDiscoveryEnum = NodeDiscoveryEnum.NOT_YET_DISCOVERED;
 
     public Node() {
 
+    }
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+    
+
+    public boolean partOfThisEdge(Edge edge) {
+        boolean result = false;
+        if (!edge.getEdgeProperties().isDirected()) {
+            // undirected case
+            
+            if(edge.getSrc().equals(this) || edge.getDest().equals(this)){
+                result = true;
+            }
+            
+        } else {
+            //Implement for digraphs later
+        }
+        return result;
+    }
+
+    public int getDegree() {
+        return degree;
+    }
+
+    public void setDegree(int degree) {
+        this.degree = degree;
+    }
+
+    public boolean isOddDegree() {
+        return this.getDegree() % 2 != 0;
+    }
+
+    public boolean isEvenDegree() {
+        return !this.isOddDegree();
+    }
+
+    public boolean incrementDegree() {
+        this.setDegree(this.getDegree() + 1);
+        return true;
     }
 
     public Node(T payload, List<Edge> adjacentList) {
@@ -66,7 +112,8 @@ public class Node<T> {
     public void setAdjacentList(List<Edge> adjacentList) {
         this.adjacentList = adjacentList;
     }
-    public boolean addEdge(Node node){
+
+    public boolean addEdge(Node node) {
         Edge edge = new Edge();
         edge.setSrc(this);
         edge.setDest(node);
@@ -74,6 +121,8 @@ public class Node<T> {
         edgeProperties.setDirected(false);
         edge.setEdgeProperties(edgeProperties);
         this.getAdjacentList().add(edge);
+        this.incrementDegree();
+        node.incrementDegree();
         return true;
     }
 
@@ -89,9 +138,10 @@ public class Node<T> {
 
     @Override
     public String toString() {
-        return "Node{" + "name=" + this.getPayload() + '}';
+        return "Node{" + "payload=" + payload + ", degree=" + degree + '}';
     }
 
+   
     public boolean hasAdjacentList() {
         return !this.hasEmptyAdjacentList();
     }

@@ -33,23 +33,9 @@ public class Graph<T> {
         return this.getNodes().add(node);
     }
 
-    public void dfsFromStart(){
-        dfs(nodes.get(0));
-    }
-    public void dfs(Node node) {
-        if (node != null) {
-            node.setNodeDiscoveryEnum(NodeDiscoveryEnum.DISCOVERED);
-            List<Edge> edgeList = node.getAdjacentList();
-            for(Edge edge : edgeList){
-                Node destNode = edge.getDest();
-                if(destNode.notYetDiscoverewd()){
-                    this.dfs(destNode);
-                }else{
-                    System.out.println("Cycle exists");
-                }
-            }
-
-        }
-    }
+  
+   
+    
+   
 
 }

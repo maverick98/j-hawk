@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2013-2014 Oracle and/or its affiliates. All rights reserved.
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ * 
+
  */
 package org.commons.ds.graph;
 
@@ -15,7 +18,7 @@ import org.commons.string.StringUtil;
  */
 public class GraphUtil {
 
-    private static final Map<String, Node> map = new HashMap<>();
+    private static  Map<String, Node> map = new HashMap<>();
 
     public static Graph<String> createGrpah(String file) {
         Map<Integer, String> inputMap = FileUtil.dumpFileToMap(file);
@@ -51,9 +54,9 @@ public class GraphUtil {
         while (strTok.hasMoreTokens()) {
             String edgeNodeStr = strTok.nextToken();
             Node<String> edgeNode = map.get(edgeNodeStr);
-            if(edgeNode == null){
+            if (edgeNode == null) {
                 edgeNode = new Node<>();
-                map.put(edgeNodeStr,edgeNode);
+                map.put(edgeNodeStr, edgeNode);
             }
             edgeNode.setPayload(edgeNodeStr);
             node.addEdge(edgeNode);
@@ -62,8 +65,14 @@ public class GraphUtil {
     }
 
     public static void main(String args[]) {
-        Graph<String> graph = createGrpah("graph.txt");
+        IGraphService graphService = new GraphServiceImpl();
+        Graph<String> graph1 = createGrpah("graph.txt");
+        graphService.dfsVisit(graph1);
+        map = new HashMap<>();
 
-        graph.dfsFromStart();
+        Graph<String> graph2 = createGrpah("eulieriangraph.txt");
+
+        
+        System.out.println("Graph is eulierian " + graphService.hasEulerianPath(graph2));
     }
 }

@@ -4,7 +4,9 @@
  * 
 
  */
-package org.commons.ds.graph;
+package org.commons.ds.graph.service;
+
+import org.commons.ds.graph.Graph;
 
 /**
  *

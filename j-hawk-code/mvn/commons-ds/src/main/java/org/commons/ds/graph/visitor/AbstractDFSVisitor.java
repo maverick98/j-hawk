@@ -4,9 +4,12 @@
  * 
 
  */
-package org.commons.ds.graph;
+package org.commons.ds.graph.visitor;
 
 import java.util.List;
+import org.commons.ds.graph.Edge;
+import org.commons.ds.graph.Node;
+import org.commons.ds.graph.NodeDiscoveryEnum;
 import org.commons.implementor.IVisitable;
 import org.commons.implementor.IVisitor;
 
@@ -14,7 +17,7 @@ import org.commons.implementor.IVisitor;
  *
  * @author manosahu
  */
-public abstract class DFSVisitor implements IVisitor {
+public abstract class AbstractDFSVisitor implements IVisitor {
 
     public abstract void onVisit(Node node);
 

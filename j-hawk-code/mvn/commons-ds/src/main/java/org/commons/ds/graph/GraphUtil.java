@@ -6,6 +6,8 @@
  */
 package org.commons.ds.graph;
 
+import org.commons.ds.graph.service.GraphServiceImpl;
+import org.commons.ds.graph.service.IGraphService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;

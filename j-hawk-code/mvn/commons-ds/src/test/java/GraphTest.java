@@ -48,7 +48,7 @@ public class GraphTest {
         return graph;
     }
 
-    //@Test
+    @Test
     public void createGraph() throws Exception {
         sop("inside createGraph");
         Graph graph = this.createGraphInternal("graph.txt");
@@ -57,7 +57,7 @@ public class GraphTest {
 
     }
 
-    //@Test
+    @Test
     public void testVisitDFS() throws Exception {
         sop("inside testVisitDFS");
         Graph graph = this.createGraphInternal("graph.txt");
@@ -68,7 +68,7 @@ public class GraphTest {
 
     }
 
-    //@Test
+    @Test
     public void testEulerianPath() throws Exception {
          sop("inside testEulerianPath");
         Graph graph = this.createGraphInternal("eulieriangraph.txt");
@@ -85,10 +85,10 @@ public class GraphTest {
     @Test
     public void testVisitBFS() throws Exception {
         sop("inside testVisitBFS");
-        Graph graph = this.createGraphInternal("bfsgraph.txt");
+        Graph<String> graph = this.createGraphInternal("bfsgraph.txt");
         Assert.assertNotNull(graph);
         graphService.bfsVisit(graph);
-        Node<String> lastNode = (Node<String>)graph.getNodes().get(graph.getNodes().size()-1);
+        Node<String> lastNode = graph.getNodes().get(graph.getNodes().size()-1);
         System.out.println(lastNode.getLevel());
         Assert.assertEquals(lastNode.getLevel(), 2);
         GraphFactory.reset();

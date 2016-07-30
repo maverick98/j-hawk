@@ -15,21 +15,19 @@ import org.commons.implementor.IVisitor;
  *
  * @author manosahu
  */
-public class Node<T> implements IVisitable{
+public class Node<T> implements IVisitable {
 
     private T payload;
 
     private List<Edge> adjacentList = new ArrayList<>();
 
     private int degree;
-    
+
     private int arrivalTime;
-    
+
     private int departureTime;
-    
+
     private int level;
-    
-    
 
     private NodeDiscoveryEnum nodeDiscoveryEnum = NodeDiscoveryEnum.NOT_YET_DISCOVERED;
 
@@ -44,7 +42,7 @@ public class Node<T> implements IVisitable{
     public void setLevel(int level) {
         this.level = level;
     }
-    
+
     @Override
     public void accept(IVisitor visitor) {
         visitor.visit(this);
@@ -65,17 +63,16 @@ public class Node<T> implements IVisitable{
     public void setDepartureTime(int departureTime) {
         this.departureTime = departureTime;
     }
-    
-    
+
     public boolean partOfThisEdge(Edge edge) {
         boolean result = false;
         if (!edge.getEdgeProperties().isDirected()) {
             // undirected case
-            
-            if(edge.getSrc().equals(this) || edge.getDest().equals(this)){
+
+            if (edge.getSrc().equals(this) || edge.getDest().equals(this)) {
                 result = true;
             }
-            
+
         } else {
             //Implement for digraphs later
         }
@@ -145,12 +142,24 @@ public class Node<T> implements IVisitable{
         this.adjacentList = adjacentList;
     }
 
-    public boolean addEdge(Node node) {
+    private EdgeProperties createUndirectedEdgeProps() {
+        return this.createEdgeProps(false);
+    }
+    
+    private EdgeProperties createDirectedEdgeProps() {
+        return this.createEdgeProps(true);
+    }
+    private EdgeProperties createEdgeProps(boolean directed) {
+        EdgeProperties edgeProperties = new EdgeProperties();
+        edgeProperties.setDirected(directed);
+        return edgeProperties;
+    }
+
+    public boolean addUndirectedEdge(Node node) {
         Edge edge = new Edge();
         edge.setSrc(this);
         edge.setDest(node);
-        EdgeProperties edgeProperties = new EdgeProperties();
-        edgeProperties.setDirected(false);
+        EdgeProperties edgeProperties = createUndirectedEdgeProps();
         edge.setEdgeProperties(edgeProperties);
         this.getAdjacentList().add(edge);
         this.incrementDegree();
@@ -170,10 +179,9 @@ public class Node<T> implements IVisitable{
 
     @Override
     public String toString() {
-        return "Node{" + "payload=" + payload + ", degree=" + degree +  "level=" + level+ '}' ;
+        return "Node{" + "payload=" + payload + ", degree=" + degree + "level=" + level + '}';
     }
 
-   
     public boolean hasAdjacentList() {
         return !this.hasEmptyAdjacentList();
     }

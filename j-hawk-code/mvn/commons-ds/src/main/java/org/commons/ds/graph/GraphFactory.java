@@ -61,7 +61,7 @@ public class GraphFactory {
                 map.put(edgeNodeStr, edgeNode);
             }
             edgeNode.setPayload(edgeNodeStr);
-            node.addEdge(edgeNode);
+            node.addUndirectedEdge(edgeNode);
         }
         return node;
     }

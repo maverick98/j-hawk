@@ -22,6 +22,14 @@ public class Node<T> implements IVisitable{
     private List<Edge> adjacentList = new ArrayList<>();
 
     private int degree;
+    
+    private int arrivalTime;
+    
+    private int departureTime;
+    
+    private int level;
+    
+    
 
     private NodeDiscoveryEnum nodeDiscoveryEnum = NodeDiscoveryEnum.NOT_YET_DISCOVERED;
 
@@ -29,12 +37,36 @@ public class Node<T> implements IVisitable{
 
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
     @Override
     public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
-    
 
+    public int getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(int arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public int getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(int departureTime) {
+        this.departureTime = departureTime;
+    }
+    
+    
     public boolean partOfThisEdge(Edge edge) {
         boolean result = false;
         if (!edge.getEdgeProperties().isDirected()) {
@@ -138,7 +170,7 @@ public class Node<T> implements IVisitable{
 
     @Override
     public String toString() {
-        return "Node{" + "payload=" + payload + ", degree=" + degree + '}';
+        return "Node{" + "payload=" + payload + ", degree=" + degree +  "level=" + level+ '}' ;
     }
 
    

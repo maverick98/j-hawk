@@ -18,7 +18,7 @@ import org.commons.string.StringUtil;
  *
  * @author manosahu
  */
-public class GraphUtil {
+public class GraphFactory {
 
     private static  Map<String, Node> map = new HashMap<>();
 
@@ -65,16 +65,10 @@ public class GraphUtil {
         }
         return node;
     }
-
-    public static void main(String args[]) {
-        IGraphService graphService = new GraphServiceImpl();
-        Graph<String> graph1 = createGrpah("graph.txt");
-        graphService.dfsVisit(graph1);
+    
+    public static void reset(){
         map = new HashMap<>();
-
-        Graph<String> graph2 = createGrpah("eulieriangraph.txt");
-
-        
-        System.out.println("Graph is eulierian " + graphService.hasEulerianPath(graph2));
     }
+
+  
 }

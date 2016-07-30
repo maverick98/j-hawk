@@ -8,7 +8,9 @@ package org.commons.ds.graph.service;
 
 import org.commons.ds.graph.visitor.AbstractDFSVisitor;
 import org.commons.ds.graph.Graph;
+import org.commons.ds.graph.visitor.AbstractBFSVisitor;
 import org.commons.ds.graph.visitor.EulerianDFSVisitor;
+import org.commons.ds.graph.visitor.ShowBFSVisitor;
 import org.commons.ds.graph.visitor.ShowDFSVisitor;
 
 /**
@@ -19,6 +21,7 @@ import org.commons.ds.graph.visitor.ShowDFSVisitor;
 public class GraphServiceImpl<T> implements IGraphService<T> {
 
     private AbstractDFSVisitor showDFSVisitor = new ShowDFSVisitor();
+    private AbstractBFSVisitor showBFSVisitor = new ShowBFSVisitor();
     private EulerianDFSVisitor eulerianDFSVisitor = new EulerianDFSVisitor();
 
     public EulerianDFSVisitor getEulerianDFSVisitor() {
@@ -37,6 +40,19 @@ public class GraphServiceImpl<T> implements IGraphService<T> {
         this.showDFSVisitor = showDFSVisitor;
     }
 
+    public AbstractBFSVisitor getShowBFSVisitor() {
+        return showBFSVisitor;
+    }
+
+    public void setShowBFSVisitor(AbstractBFSVisitor showBFSVisitor) {
+        this.showBFSVisitor = showBFSVisitor;
+    }
+
+    @Override
+    public void bfsVisit(Graph<T> graph) {
+        this.getShowBFSVisitor().visit(graph.getNodes().get(0));
+    }
+
     @Override
     public void dfsVisit(Graph<T> graph) {
         this.getShowDFSVisitor().visit(graph.getNodes().get(0));
@@ -44,15 +60,13 @@ public class GraphServiceImpl<T> implements IGraphService<T> {
 
     @Override
     public boolean hasEulerianPath(Graph<T> graph) {
-       this.getEulerianDFSVisitor().setNode(graph.getNodes().get(0));
-       return  this.getEulerianDFSVisitor().hasEulerianPath();
+        this.getEulerianDFSVisitor().setNode(graph.getNodes().get(0));
+        return this.getEulerianDFSVisitor().hasEulerianPath();
     }
-
-    
 
     @Override
     public boolean hasEulerianCircuit(Graph<T> graph) {
-        return  this.getEulerianDFSVisitor().hasEulierianCircuit();
+        return this.getEulerianDFSVisitor().hasEulierianCircuit();
     }
 
     @Override

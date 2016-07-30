@@ -17,6 +17,8 @@ public interface IGraphService<T> {
    
 
     public void dfsVisit(Graph<T> graph);
+    
+    public void bfsVisit(Graph<T> graph);
 
     public boolean hasEulerianPath(Graph<T> graph);
 

@@ -5,10 +5,12 @@ import java.util.Comparator;
 /**
  *
  * @author manosahu
+ * @param <Key>
  */
 public class BinaryHeap<Key> {
 
     Key[] keys;
+    boolean maxHeap;
     int heapSize;
     private Comparator<Key> comparator;
 
@@ -20,6 +22,15 @@ public class BinaryHeap<Key> {
         this.keys = keys;
     }
 
+    public boolean isMaxHeap() {
+        return maxHeap;
+    }
+
+    public void setMaxHeap(boolean maxHeap) {
+        this.maxHeap = maxHeap;
+    }
+
+    
     public int getHeapSize() {
         return heapSize;
     }
@@ -36,27 +47,43 @@ public class BinaryHeap<Key> {
         this.comparator = comparator;
     }
 
-    public BinaryHeap(Key[] keys) {
+    public BinaryHeap(Key[] keys, boolean maxHeap) {
         this.keys = keys;
+        this.maxHeap = maxHeap;
         this.heapSize = this.keys.length;
     }
 
     public void heapify(int i) {
 
-        int largest = i;
-        int left = this.left(i);
-        if (left < this.getHeapSize() && this.greater(left, i)) {
-            largest = left;
-        }
-        int right = this.right(i);
-        if (right < this.getHeapSize() && this.greater(right, largest)) {
-            largest = right;
-        }
-        if (largest != i) {
-            this.exchange(i, largest);
-            this.heapify(largest);
+        int exchIndex = this.findExchangeIndex(i);
+        if (exchIndex != i) {
+            this.exchange(i, exchIndex);
+            this.heapify(exchIndex);
         }
 
+    }
+
+    private int findExchangeIndex(int i) {
+        int exchIndex = i;
+        int left = this.left(i);
+        if (left < this.getHeapSize() && this.heapCompare(left, exchIndex)) {
+            exchIndex = left;
+        }
+        int right = this.right(i);
+        if (right < this.getHeapSize() && this.heapCompare(right, exchIndex)) {
+            exchIndex = right;
+        }
+        return exchIndex;
+    }
+    private boolean heapCompare(int i , int j){
+        boolean result;
+        
+        if(this.isMaxHeap()){
+            result = this.greater(i, j);
+        }else{
+            result = !this.greater(i, j);
+        }
+        return result;
     }
 
     public void buildHeap() {
@@ -122,9 +149,14 @@ public class BinaryHeap<Key> {
 
     public static void main(String args[]) {
         Integer a[] = new Integer[]{4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-        BinaryHeap<Integer> heap = new BinaryHeap(a);
-        heap.sort();
-        heap.show();
+        BinaryHeap<Integer> minHeap = new BinaryHeap(a,false);
+        minHeap.sort();
+        minHeap.show();
+        
+        
+        BinaryHeap<Integer> maxHeap = new BinaryHeap(a,true);
+        maxHeap.sort();
+        maxHeap.show();
 
     }
 }

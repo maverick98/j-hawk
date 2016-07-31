@@ -4,7 +4,7 @@ import java.util.List;
 import org.commons.ds.graph.Edge;
 import org.commons.ds.graph.Node;
 import org.commons.ds.graph.NodeDiscoveryEnum;
-import org.commons.ds.stack.Queue;
+import org.commons.ds.queue.Queue;
 import org.commons.implementor.IVisitable;
 import org.commons.implementor.IVisitor;
 

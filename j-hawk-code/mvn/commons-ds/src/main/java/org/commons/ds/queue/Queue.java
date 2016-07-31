@@ -1,4 +1,4 @@
-package org.commons.ds.stack;
+package org.commons.ds.queue;
 
 import java.util.LinkedList;
 

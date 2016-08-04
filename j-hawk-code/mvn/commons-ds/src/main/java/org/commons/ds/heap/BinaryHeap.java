@@ -9,9 +9,9 @@ import java.util.Comparator;
  */
 public class BinaryHeap<Key> {
 
-    Key[] keys;
-    boolean maxHeap;
-    int heapSize;
+    private Key[] keys;
+    private boolean maxHeap;
+    private int heapSize;
     private Comparator<Key> comparator;
 
     public Key[] getKeys() {
@@ -30,7 +30,6 @@ public class BinaryHeap<Key> {
         this.maxHeap = maxHeap;
     }
 
-    
     public int getHeapSize() {
         return heapSize;
     }
@@ -75,12 +74,13 @@ public class BinaryHeap<Key> {
         }
         return exchIndex;
     }
-    private boolean heapCompare(int i , int j){
+
+    private boolean heapCompare(int i, int j) {
         boolean result;
-        
-        if(this.isMaxHeap()){
+
+        if (this.isMaxHeap()) {
             result = this.greater(i, j);
-        }else{
+        } else {
             result = !this.greater(i, j);
         }
         return result;
@@ -149,12 +149,11 @@ public class BinaryHeap<Key> {
 
     public static void main(String args[]) {
         Integer a[] = new Integer[]{4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-        BinaryHeap<Integer> minHeap = new BinaryHeap(a,false);
+        BinaryHeap<Integer> minHeap = new BinaryHeap(a, false);
         minHeap.sort();
         minHeap.show();
-        
-        
-        BinaryHeap<Integer> maxHeap = new BinaryHeap(a,true);
+
+        BinaryHeap<Integer> maxHeap = new BinaryHeap(a, true);
         maxHeap.sort();
         maxHeap.show();
 

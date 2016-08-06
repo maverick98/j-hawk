@@ -52,11 +52,11 @@ public class BinarySearchTreeTest {
     }
 
     /**
-     *     6
+     *     6                              6
      *
-     * 3      688
+     * 3      688                    688         3
      *
-     *   355      68811
+     *   355      68811         68811      355 
      *
      * @throws Exception
      */
@@ -101,6 +101,31 @@ public class BinarySearchTreeTest {
         List<Integer> postorderList = new ArrayList<>();
         bst.postorder(root, postorderList);
         Assert.assertEquals(postorderList.get(0), new Integer(3));
+        
+        
+        
+        BinarySearchTree<Integer> bst1 = new BinarySearchTree<>();
+        BinaryNode<Integer> root11 = new BinaryNode<>();
+        root11.setKey(6);
+
+        BinaryNode<Integer> left12 = new BinaryNode<>();
+        left12.setKey(688);
+        root11.setLeft(left12);
+
+        BinaryNode<Integer> right12 = new BinaryNode<>();
+        right12.setKey(3);
+        root11.setRight(right12);
+
+        BinaryNode<Integer> left112 = new BinaryNode<>();
+        left112.setKey(68811);
+        left12.setLeft(left112);
+
+        BinaryNode<Integer> right112 = new BinaryNode<>();
+        right112.setKey(355);
+        left12.setRight(right112);
+
+        bst1.setRootNode(root11);
+        System.out.println(bst.isMirror(bst1));
 
         sop("finished testInorder");
 

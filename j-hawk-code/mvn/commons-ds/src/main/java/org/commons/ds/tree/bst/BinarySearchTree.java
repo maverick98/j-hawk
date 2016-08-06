@@ -15,6 +15,32 @@ public class BinarySearchTree<K extends Comparable> {
         this.rootNode = rootNode;
     }
 
+    public boolean isMirror(BinarySearchTree<K> otherBST) {
+        if (otherBST == null) {
+            return false;
+        }
+        return this.isMirror(this.getRootNode(), otherBST.getRootNode());
+    }
+
+    public boolean isMirror(BinaryNode<K> firstNode, BinaryNode<K> secondNode) {
+        if(firstNode == null && secondNode == null){
+            return true;
+        }
+        if(firstNode == null && secondNode != null){
+            return false;
+        }
+        if(firstNode != null && secondNode == null){
+            return false;
+        }
+        if(firstNode.getKey().compareTo(secondNode.getKey()) == 0){
+            boolean left = this.isMirror(firstNode.getLeft(), secondNode.getRight());
+            boolean right = this.isMirror(firstNode.getRight(), secondNode.getLeft());
+            return left && right;
+        }else{
+            return false;
+        }
+    }
+
     public void inorder(BinaryNode<K> node, List<K> inorderList) {
         if (node == null) {
             return;

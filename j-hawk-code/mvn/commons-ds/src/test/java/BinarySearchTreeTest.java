@@ -126,8 +126,17 @@ public class BinarySearchTreeTest {
 
         bst1.setRootNode(root11);
         System.out.println(bst.isMirror(bst1));
+        bst1.createMirror();
+          List<Integer> inorderList11 = new ArrayList<>();
+          bst1.inorder(bst1.getRootNode(), inorderList11);
+          System.out.println(inorderList11);
+         Assert.assertEquals(inorderList.size(),inorderList11.size());
+        for(int i=0;i<inorderList.size();i++){
+            Assert.assertEquals(inorderList.get(i),inorderList11.get(i));
+        }
 
         sop("finished testInorder");
+        System.out.println(bst.isMirror(bst1));
 
     }
 

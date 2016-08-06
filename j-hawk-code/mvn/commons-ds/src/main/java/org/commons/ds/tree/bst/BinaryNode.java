@@ -12,6 +12,13 @@ public class BinaryNode<K extends Comparable> {
     private BinaryNode<K> left;
     private BinaryNode<K> right;
 
+     public BinaryNode(){
+         
+     }
+    public BinaryNode(BinaryNode<K> copy){
+        this.key = copy.getKey();
+        
+    }
     public K getKey() {
         return key;
     }

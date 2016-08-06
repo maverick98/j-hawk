@@ -14,6 +14,24 @@ public class BinarySearchTree<K extends Comparable> {
     public void setRootNode(BinaryNode<K> rootNode) {
         this.rootNode = rootNode;
     }
+    
+    public void createMirror(){
+        
+         this.createMirrorInternal(this.getRootNode());
+    }
+    public void createMirrorInternal(BinaryNode<K> node){
+        if(node == null){
+            return ;
+        }
+        this.createMirrorInternal(node.getLeft());
+        BinaryNode<K> left = node.getLeft();
+        BinaryNode<K> right = node.getRight();
+        node.setLeft(right);
+        node.setRight(left);
+        sop(node.getKey().toString());
+        this.createMirrorInternal(node.getLeft()); // because now left is right and right is left.
+    }
+    
 
     public boolean isMirror(BinarySearchTree<K> otherBST) {
         if (otherBST == null) {
@@ -65,7 +83,7 @@ public class BinarySearchTree<K extends Comparable> {
                 }
             } while (curNode != null);
             BinaryNode<K> node1 = stack.pop();
-            System.out.println(node1.getKey());
+           // System.out.println(node1.getKey());
             inorderList.add(node1.getKey());
             curNode = node1.getRight();
 

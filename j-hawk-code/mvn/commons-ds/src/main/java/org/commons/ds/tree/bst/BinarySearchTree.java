@@ -14,14 +14,15 @@ public class BinarySearchTree<K extends Comparable> {
     public void setRootNode(BinaryNode<K> rootNode) {
         this.rootNode = rootNode;
     }
-    
-    public void createMirror(){
-        
-         this.createMirrorInternal(this.getRootNode());
+
+    public void createMirror() {
+
+        this.createMirrorInternal(this.getRootNode());
     }
-    public void createMirrorInternal(BinaryNode<K> node){
-        if(node == null){
-            return ;
+
+    public void createMirrorInternal(BinaryNode<K> node) {
+        if (node == null) {
+            return;
         }
         this.createMirrorInternal(node.getLeft());
         BinaryNode<K> left = node.getLeft();
@@ -31,7 +32,6 @@ public class BinarySearchTree<K extends Comparable> {
         sop(node.getKey().toString());
         this.createMirrorInternal(node.getLeft()); // because now left is right and right is left.
     }
-    
 
     public boolean isMirror(BinarySearchTree<K> otherBST) {
         if (otherBST == null) {
@@ -41,20 +41,20 @@ public class BinarySearchTree<K extends Comparable> {
     }
 
     public boolean isMirror(BinaryNode<K> firstNode, BinaryNode<K> secondNode) {
-        if(firstNode == null && secondNode == null){
+        if (firstNode == null && secondNode == null) {
             return true;
         }
-        if(firstNode == null && secondNode != null){
+        if (firstNode == null && secondNode != null) {
             return false;
         }
-        if(firstNode != null && secondNode == null){
+        if (firstNode != null && secondNode == null) {
             return false;
         }
-        if(firstNode.getKey().compareTo(secondNode.getKey()) == 0){
+        if (firstNode.getKey().compareTo(secondNode.getKey()) == 0) {
             boolean left = this.isMirror(firstNode.getLeft(), secondNode.getRight());
             boolean right = this.isMirror(firstNode.getRight(), secondNode.getLeft());
             return left && right;
-        }else{
+        } else {
             return false;
         }
     }
@@ -83,7 +83,7 @@ public class BinarySearchTree<K extends Comparable> {
                 }
             } while (curNode != null);
             BinaryNode<K> node1 = stack.pop();
-           // System.out.println(node1.getKey());
+
             inorderList.add(node1.getKey());
             curNode = node1.getRight();
 
@@ -100,6 +100,28 @@ public class BinarySearchTree<K extends Comparable> {
         preorder(node.getRight(), preorderList);
     }
 
+    public void preorderIterative(BinaryNode<K> node, List<K> preorderList) {
+        if (node == null) {
+            return;
+        }
+        BinaryNode<K> curNode = node;
+        Stack<BinaryNode<K>> stack = new Stack<>();
+        do {
+
+            do {
+                if (curNode != null) {
+                    stack.push(curNode);
+                    preorderList.add(curNode.getKey());
+                    curNode = curNode.getLeft();
+                }
+            } while (curNode != null);
+            BinaryNode<K> node1 = stack.pop();
+
+            curNode = node1.getRight();
+
+        } while (curNode != null || !stack.isEmpty());
+    }
+
     public void postorder(BinaryNode<K> node, List<K> postorderList) {
         if (node == null) {
             return;
@@ -109,6 +131,39 @@ public class BinarySearchTree<K extends Comparable> {
         postorder(node.getRight(), postorderList);
         postorderList.add(node.getKey());
 
+    }
+
+    public void postorderIterative(BinaryNode<K> node, List<K> postorderList) {
+        if (node == null) {
+            return;
+        }
+        BinaryNode<K> curNode = node;
+        Stack<BinaryNode<K>> stack = new Stack<>();
+        do {
+            if (curNode != null) {
+                while (curNode != null) {
+                    if (curNode.getRight() != null) {
+                        stack.push(curNode.getRight());
+                    }
+                    stack.push(curNode);
+                    curNode = curNode.getLeft();
+                }
+            } else {
+                BinaryNode<K> poppedNode = stack.pop();
+                BinaryNode<K> topNode = stack.top();
+                if (poppedNode.getRight() != null && poppedNode.getRight() == topNode) {
+                    stack.pop();
+                    stack.push(poppedNode);
+                    curNode = poppedNode.getRight();
+
+                } else {
+                    postorderList.add(poppedNode.getKey());
+                    curNode = null;
+                }
+
+            }
+
+        } while (!stack.isEmpty());
     }
 
     private static void sop(String msg) {

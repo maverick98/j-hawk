@@ -52,11 +52,11 @@ public class BinarySearchTreeTest {
     }
 
     /**
-     *     6                              6
+     * 6 6
      *
-     * 3      688                    688         3
+     * 3 688 688 3
      *
-     *   355      68811         68811      355 
+     * 355 68811 68811 355
      *
      * @throws Exception
      */
@@ -90,20 +90,37 @@ public class BinarySearchTreeTest {
         sop("---------");
         List<Integer> inorderList1 = new ArrayList<>();
         bst.inorderIterative(root, inorderList1);
-        Assert.assertEquals(inorderList.size(),inorderList1.size());
-        for(int i=0;i<inorderList.size();i++){
-            Assert.assertEquals(inorderList.get(i),inorderList1.get(i));
+        Assert.assertEquals(inorderList.size(), inorderList1.size());
+        for (int i = 0; i < inorderList.size(); i++) {
+            Assert.assertEquals(inorderList.get(i), inorderList1.get(i));
         }
         sop("---------");
         List<Integer> preorderList = new ArrayList<>();
         bst.preorder(root, preorderList);
         sop("---------");
+        List<Integer> preorderList1 = new ArrayList<>();
+        bst.preorderIterative(root, preorderList1);
+
+        sop(preorderList1.toString());
+        Assert.assertEquals(preorderList.size(), preorderList1.size());
+        for (int i = 0; i < preorderList.size(); i++) {
+            Assert.assertEquals(preorderList.get(i), preorderList1.get(i));
+        }
+        sop("---------");
+
         List<Integer> postorderList = new ArrayList<>();
         bst.postorder(root, postorderList);
         Assert.assertEquals(postorderList.get(0), new Integer(3));
-        
-        
-        
+
+        sop(postorderList.toString());
+        List<Integer> postorderList1 = new ArrayList<>();
+        bst.postorderIterative(root, postorderList1);
+        Assert.assertEquals(postorderList.size(), postorderList1.size());
+        for (int i = 0; i < postorderList.size(); i++) {
+            Assert.assertEquals(postorderList.get(i), postorderList1.get(i));
+        }
+        sop("---------");
+
         BinarySearchTree<Integer> bst1 = new BinarySearchTree<>();
         BinaryNode<Integer> root11 = new BinaryNode<>();
         root11.setKey(6);
@@ -127,12 +144,12 @@ public class BinarySearchTreeTest {
         bst1.setRootNode(root11);
         System.out.println(bst.isMirror(bst1));
         bst1.createMirror();
-          List<Integer> inorderList11 = new ArrayList<>();
-          bst1.inorder(bst1.getRootNode(), inorderList11);
-          System.out.println(inorderList11);
-         Assert.assertEquals(inorderList.size(),inorderList11.size());
-        for(int i=0;i<inorderList.size();i++){
-            Assert.assertEquals(inorderList.get(i),inorderList11.get(i));
+        List<Integer> inorderList11 = new ArrayList<>();
+        bst1.inorder(bst1.getRootNode(), inorderList11);
+        System.out.println(inorderList11);
+        Assert.assertEquals(inorderList.size(), inorderList11.size());
+        for (int i = 0; i < inorderList.size(); i++) {
+            Assert.assertEquals(inorderList.get(i), inorderList11.get(i));
         }
 
         sop("finished testInorder");

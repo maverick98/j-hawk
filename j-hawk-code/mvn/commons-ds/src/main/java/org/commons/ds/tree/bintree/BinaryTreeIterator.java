@@ -16,14 +16,14 @@
  */
 package org.commons.ds.tree.bintree;
 
-import org.commons.ds.IPayload;
+
 
 /**
  *
  * @author manosahu
- * @param <IPayload>
+ * @param <K>
  */
-public abstract class BinaryTreeIterator<IPayload> implements IBinaryTreeIterator<IPayload> {
+public abstract class BinaryTreeIterator<K> implements IBinaryTreeIterator<K> {
 
     private IBinTreeNode treeNode;
 

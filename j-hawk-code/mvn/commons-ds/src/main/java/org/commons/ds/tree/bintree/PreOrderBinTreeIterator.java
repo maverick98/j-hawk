@@ -19,9 +19,9 @@ package org.commons.ds.tree.bintree;
 /**
  *
  * @author manosahu
- * @param <IPayload>
+ * @param <K>
  */
-public class PreOrderBinTreeIterator<IPayload> extends BinaryTreeIterator<IPayload> {
+public class PreOrderBinTreeIterator<K> extends BinaryTreeIterator<K> {
 
     public PreOrderBinTreeIterator(IBinTreeNode rootNode) {
         super(rootNode);

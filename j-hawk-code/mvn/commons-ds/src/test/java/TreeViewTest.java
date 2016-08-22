@@ -1,8 +1,11 @@
 
 import java.util.List;
+import org.commons.ds.tree.bintreeng.DownBinTreeViewImpl;
 
 import org.commons.ds.tree.bintreeng.IBinTreeView;
+import org.commons.ds.tree.bintreeng.LeftSideBinTreeViewImpl;
 import org.commons.ds.tree.bintreeng.Node;
+import org.commons.ds.tree.bintreeng.RightSideBinTreeViewImpl;
 import org.commons.ds.tree.bintreeng.TopBinTreeViewImpl;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -34,8 +37,6 @@ public class TreeViewTest {
 
     @Test
     public void testTopView() throws Exception {
-
-        IBinTreeView<Integer> topViewer = new TopBinTreeViewImpl<Integer>();
 
         Node<Integer> one = new Node<>();
         one.setKey(1);
@@ -80,15 +81,45 @@ public class TreeViewTest {
 
         six.setRight(eight);
 
+        IBinTreeView<Integer> topViewer = new TopBinTreeViewImpl<Integer>();
         List<Node<Integer>> topViews = topViewer.showView(one);
         for (Node<Integer> node : topViews) {
 
-                System.out.print(node.getKey()+ ",");
+            sopn(node.getKey() + ",");
+        }
+        sop("\n\n\n");
+
+        IBinTreeView<Integer> downViewer = new DownBinTreeViewImpl<Integer>();
+        List<Node<Integer>> downViews = downViewer.showView(one);
+        for (Node<Integer> node : downViews) {
+
+            sopn(node.getKey() + ",");
         }
 
+         sop("\n\n\n");
+        IBinTreeView<Integer> leftViewer = new LeftSideBinTreeViewImpl<Integer>();
+        List<Node<Integer>> leftViews = leftViewer.showView(one);
+        for (Node<Integer> node : leftViews) {
+
+            sopn(node.getKey() + ",");
+        }
+        sop("\n\n\n");
+
+        IBinTreeView<Integer> rightViewer = new RightSideBinTreeViewImpl<Integer>();
+        List<Node<Integer>> rightViews = rightViewer.showView(one);
+        for (Node<Integer> node : rightViews) {
+
+            sopn(node.getKey() + ",");
+        }
+        
+          sop("\n\n\n");
     }
 
     private static void sop(Object obj) {
         System.out.println(obj.toString());
+    }
+
+    private static void sopn(Object obj) {
+        System.out.print(obj.toString());
     }
 }

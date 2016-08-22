@@ -1,15 +1,13 @@
 package org.commons.ds.tree.bintreeng;
 
-import org.tukaani.xz.CorruptedInputException;
-
 /**
  *
  * @author manosahu
  */
 public final class Coordinate {
 
-    private Integer x;
-    private Integer y;
+    private final Integer x;
+    private final Integer y;
 
     public Coordinate(final Integer x, final Integer y) {
         this.x = x;

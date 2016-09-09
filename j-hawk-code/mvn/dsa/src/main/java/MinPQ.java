@@ -147,38 +147,13 @@ public class MinPQ {
 
         MinPQ pq = new MinPQ(nodes);
 
-        //  while (true) {
-        /*
-            String item = scan.nextLine();
-            if (!item.equals("min")) {
-                pq.insert(item);
-            } else if (!pq.isEmpty()) {
-                sop(pq.delMin() + " ");
-                break;
-            }
-         */
-        //   pq.insert(arr[i]);
-        //    i++;
-        //   if (i == arr.length) {
-        //       break;
-        //   }
-        // }
-        //sop(pq.min());
-        //sop(pq.delMin());
-        //sop(pq.min());
-        //sop("(" + pq.size() + " left on pq)");
-        //Integer arr1[] = new Integer[]{12, 5, 3};
-        // MinPQ<Integer> pq1 = new MinPQ<>(arr1);
-        //pq.sort();
-        pq.sort();
-        for (int i = 0; i < 5; i++) {
-       //     sop(pq.pq[i + 1] + " ");
-        }
+       
         Integer nodes1[] = new Integer[]{33, -1, 44, 331, 43};
 
         MinPQ pq1 = new MinPQ(nodes1);
         pq1.insert(-444);
         sop(pq1.min());
+        sop(pq1.size());
 
     }
 

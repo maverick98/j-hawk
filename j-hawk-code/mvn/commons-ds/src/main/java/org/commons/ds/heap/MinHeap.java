@@ -19,8 +19,7 @@ public class MinHeap extends BinaryHeap {
     }
 
     @Override
-    protected int compareBetween(int i, int j
-    ) {
+    protected int compareBetween(int i, int j) {
         return this.lesserBetween(i, j);
 
     }

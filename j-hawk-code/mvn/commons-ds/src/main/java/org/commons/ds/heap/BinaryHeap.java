@@ -48,7 +48,7 @@ public abstract class BinaryHeap {
     }
 
     public boolean isEmpty() {
-        return this.size() == 1;
+        return this.size() == 0;
     }
 
     public int parent(int i) {

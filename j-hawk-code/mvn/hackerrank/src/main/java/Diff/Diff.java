@@ -15,8 +15,8 @@ public class Diff {
          Scanner scanner1 = null;
          Scanner scanner2 = null;
         try {
-            scanner1 = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\steout.txt"));
-            scanner2 = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\steout1.txt"));
+            scanner1 = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\medianupdatetc1hr.txt"));
+            scanner2 = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\medianupdatetc1mine.txt"));
             int line =0;
             while(true){
                  String line1 = scanner1.nextLine();

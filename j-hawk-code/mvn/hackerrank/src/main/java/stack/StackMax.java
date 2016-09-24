@@ -16,14 +16,14 @@ import java.util.StringTokenizer;
  *
  * @author manosahu
  */
-public class Solution {
+public class StackMax {
     
     static class Stack<T> {
-        
+
         private final List<T> data = new ArrayList<T>();
-        
+
         private int size = 0;
-        
+
         public boolean push(T obj) {
             if (obj == null) {
                 return false;
@@ -33,31 +33,32 @@ public class Solution {
             size++;
             return status;
         }
-        
+
         public <T> T pop() {
-            
+
             T topObj = null;
             if (size > 0) {
                 topObj = (T) data.get(size - 1);
-                data.remove(topObj);
+                //data.remove(topObj);
+                data.remove(size - 1);
                 size--;
             }
             return topObj;
         }
-        
+
         public <T> T top() {
-            
+
             T topObj = null;
             if (size > 0) {
                 topObj = (T) data.get(size - 1);
             }
             return topObj;
         }
-        
+
         public boolean isEmpty() {
             return this.size == 0;
         }
-        
+
         @Override
         public String toString() {
             return this.isEmpty() ? "" : data.toString();
@@ -267,19 +268,21 @@ public class Solution {
     }
     
     public static void main(String args[]) {
-        /*
+
         Scanner scanner = new Scanner(System.in);
         List<Integer> result = test(scanner);
         show(result);
-         */
+        /*
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\sample.txt"));
+            scanner = new Scanner(new java.io.File("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\stackmaxt6.txt"));
         } catch (Exception ex) {
             
         }
         List<Integer> result = test(scanner);
-        dump("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\output.txt", result);
+        dump("D:\\github\\j-hawk\\j-hawk\\j-hawk-code\\mvn\\hackerrank\\src\\main\\stackmaxt6mine.txt", result);
+        */
+ 
         
     }
     
@@ -350,9 +353,7 @@ public class Solution {
                         result.add(curMax);
                     }
                 }
-                if(count3 == 87){
-                    System.out.println(maxHeap.peek());
-                }
+                
                 if (count == n) {
                     
                     break;

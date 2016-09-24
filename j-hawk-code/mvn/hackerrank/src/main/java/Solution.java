@@ -178,40 +178,7 @@ public class Solution {
         return median;
     }
 
-    public static BigDecimal findMedian1(Integer key, Integer size, MinHeap minHeap, MaxHeap maxHeap) {
-
-        int maxHalf = (size + 1) / 2;
-        if (maxHeap.size() < maxHalf) {
-            maxHeap.insert(key);
-        } else {
-            Integer max = (Integer) maxHeap.max();
-            if (key < max) {
-
-                Integer tmp = (Integer) maxHeap.delMax();
-                maxHeap.insert(key);
-                minHeap.insert(tmp);
-
-            } else {
-                minHeap.insert(key);
-            }
-        }
-
-        BigDecimal median;
-        if (size % 2 == 1) {
-            median = new BigDecimal((Integer) maxHeap.max());
-        } else {
-            Integer maxRoot = (Integer) maxHeap.max();
-            Integer minRoot = (Integer) minHeap.min();
-            if (minRoot == null) {
-                minRoot = 0;
-            }
-            BigDecimal sum = new BigDecimal(maxRoot + minRoot);
-            median = sum.divide(BigDecimal.valueOf(2), 1, RoundingMode.UNNECESSARY);
-
-        }
-        return median;
-    }
-
+   
     static abstract class BinaryHeap {
 
         protected Comparable[] keys;

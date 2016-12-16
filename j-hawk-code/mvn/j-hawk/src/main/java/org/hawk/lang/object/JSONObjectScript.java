@@ -45,7 +45,7 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
         JSONObjectScript script = new JSONObjectScript();
         script.setVariable(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
         script.setVariableValue(script.getVariable());
-        script.setJson(new JSONObject(rtn));
+     //   script.setJson(new JSONObject(rtn));
         return script;
     }
     

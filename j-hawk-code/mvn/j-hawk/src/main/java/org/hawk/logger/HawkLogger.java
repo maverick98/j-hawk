@@ -16,7 +16,8 @@
  */
 package org.hawk.logger;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.common.di.AppContainer;
 import org.hawk.executor.command.HawkCommandParser;
 import org.hawk.output.HawkOutput;
@@ -45,37 +46,58 @@ public class HawkLogger {
     }
 
     public void info(String msg) {
-        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean( HawkCommandParser.class);
+        this.info(msg, null);
+    }
+
+    public void info(String msg, Object[] params) {
+        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         if (hawkCommandParser.shouldUseLogger()) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Thread {").append(Thread.currentThread().getName()).append("} ").append(msg);
-            logger.info(sb.toString());
+            sb.append("Thread [").append(Thread.currentThread().getName()).append("] ").append(msg);
+            if (params != null) {
+                logger.log(Level.INFO, msg, params);
+            } else {
+                logger.log(Level.INFO, sb.toString());
+            }
         }
-        HawkOutput hawkOutput = AppContainer.getInstance().getBean( HawkOutput.class);
+       for(Object  param:params){
+           logger.log(Level.INFO,param.toString());
+       }
+        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeOutput(msg);
     }
 
     public void error(String msg) {
-        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean( HawkCommandParser.class);
+        Object[] params = null;
+        this.error(msg, params);
+    }
+
+    public void error(String msg, Object[] params) {
+        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         if (hawkCommandParser.shouldUseLogger()) {
             StringBuilder sb = new StringBuilder();
             sb.append("Thread {").append(Thread.currentThread().getName()).append("} ").append(msg);
-            logger.fatal(sb.toString());
+            if (params != null) {
+                logger.log(Level.SEVERE, sb.toString(), params);
+            } else {
+                logger.log(Level.SEVERE, sb.toString());
+            }
         }
-        HawkOutput hawkOutput = AppContainer.getInstance().getBean( HawkOutput.class);
+        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeError(msg);
 
     }
 
     public void error(String msg, Throwable th) {
         th.printStackTrace();
-        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean( HawkCommandParser.class);
+        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         if (hawkCommandParser.shouldUseLogger()) {
             StringBuilder sb = new StringBuilder();
             sb.append("Thread {").append(Thread.currentThread().getName()).append("} ").append(msg);
-            logger.fatal(sb.toString(), th);
+            logger.log(Level.SEVERE, sb.toString(), th);
+
         }
-        HawkOutput hawkOutput = AppContainer.getInstance().getBean( HawkOutput.class);
+        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeError(msg);
         if (hawkOutput.getError() != null) {
             th.printStackTrace(hawkOutput.getError());
@@ -90,35 +112,24 @@ public class HawkLogger {
     }
 
     public void warn(String msg) {
-        HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean( HawkCommandParser.class);
-        if (hawkCommandParser.shouldUseLogger()) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Thread {").append(Thread.currentThread().getName()).append("} ").append(msg);
-            logger.warn(sb.toString());
-        }
-        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
-        hawkOutput.writeError(msg);
+        this.warn(msg, null);
 
     }
 
-    public void warn(String msg, Throwable th) {
+    public void warn(String msg, Object[] params) {
         HawkCommandParser hawkCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         if (hawkCommandParser.shouldUseLogger()) {
             StringBuilder sb = new StringBuilder();
             sb.append("Thread {").append(Thread.currentThread().getName()).append("} ").append(msg);
-            logger.warn(sb.toString(), th);
+            if (params != null) {
+                logger.log(Level.WARNING, sb.toString(), params);
+            } else {
+                logger.log(Level.WARNING, sb.toString());
+            }
         }
         HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeError(msg);
-        th.printStackTrace(hawkOutput.getError());
+
     }
 
-    
-    public void warn(Throwable th) {
-
-        this.warn("", th);
-        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
-        hawkOutput.writeError(th.getMessage());
-        th.printStackTrace(hawkOutput.getError());
-    }
 }

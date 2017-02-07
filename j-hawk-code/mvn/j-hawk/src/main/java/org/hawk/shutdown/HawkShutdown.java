@@ -30,14 +30,14 @@ public class HawkShutdown implements Runnable{
 
     @Override
     public void run() {
-        logger.info("Shutting down Hawk");
+       // logger.info("Shutting down Hawk");
         PerfDataProcessor hawkPerfDataCollector =AppContainer.getInstance().getBean( PerfDataProcessor.class);
         //One last time ... dump me !!!
        if(AppContainer.getInstance().getBean(HawkCommandParser.class).shouldCollectPerfData()){
             hawkPerfDataCollector.dump(true);
             
         }
-        logger.info("Hawk Shutdown complete");
+      //  logger.info("Hawk Shutdown complete");
     }
 
 }

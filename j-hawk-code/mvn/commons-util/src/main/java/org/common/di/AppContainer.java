@@ -188,6 +188,7 @@ public class AppContainer {
             for (AnnotationConfigApplicationContext ctx : ctxs) {
                 try {
                     bean = ctx.getBean(clazzStr);
+                    
                 } catch (BeansException bex) {
 
                 }
@@ -249,9 +250,9 @@ public class AppContainer {
         }
         result = new ArrayList<Class>();
 
-        //if (this.getReflections() == null) {
-        this.setReflections(new Reflections("org"));
-        // }
+        if (this.getReflections() == null) {
+            this.setReflections(new Reflections("org"));
+        }
 
         Set<Class> all = this.getReflections().getSubTypesOf(parentClazz);
         if (all != null && !all.isEmpty()) {

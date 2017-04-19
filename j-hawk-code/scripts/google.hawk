@@ -1,0 +1,68 @@
+
+struct HttpRequest
+{
+ 
+ var targetURL = "http://www.google.com.my/search?"
+ var method = "GET"
+ var q = "India"
+ var start = 0
+}
+
+struct Google
+{
+ var dump = 1
+ HttpRequest httpRequest
+
+ 
+}
+
+function main()
+{
+  exec execute()
+}
+
+function execute()
+{
+ 
+  var keywordFile = "scripts/keywords.csv"
+  var data[] = new var[]
+  data = `exec  dump(keywordFile)`
+  var size = `exec length(data)`
+  for(var i =1;i<= size;i=i+1)
+    {
+
+	
+	exec googleIt(data[i])
+    }
+  
+}
+
+function googleIt(var keyword)
+{
+
+  Google google
+ 
+  HttpRequest httpRequest
+  httpRequest->start = 0
+  google->actionName="google10"
+  httpRequest->q = keyword
+  
+  google->httpRequest = httpRequest
+ 
+
+  echo "searching "+keyword+" for the first 10 results"	
+  exec HttpModule->execute(google)
+  var fileName1 = keyword + "google10.html"
+ 
+  exec writeData(fileName1,google->out)
+  
+  httpRequest->start = 10
+  google->actionName="google20"
+  echo "searching "+keyword+" for the second 10 results"
+  exec HttpModule->execute(google)
+
+  var fileName2 = keyword + "google20.html"
+  exec writeData(fileName2,google->out) 
+
+
+}

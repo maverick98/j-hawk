@@ -1,0 +1,45 @@
+function a(var k, var x1, var x2, var x3, var x4, var x5) 
+{
+    function b() 
+    {
+        k = k - 1
+        return `exec a(k, b, x1, x2, x3, x4)`
+    }
+    if ( k <= 0)
+    {
+            var c = `exec x4()`
+            var d = `exec x5()`
+            return c+d
+    }
+    else
+    {
+        return `exec b()`
+    }
+}
+function x(var n) 
+{
+    function bbb() 
+    {
+        return n
+    }
+    return `exec bbb()`
+}
+
+function main()
+{
+    var  t = 0
+    t = t-1
+    var x1 = ` x(1)`
+    var x2 = ` x(t)`
+    var x3 = ` x(t)`
+    var x4 = ` x(1)`
+    var x5 = ` x(0)`
+
+    echo `exec  a(0, x1, x2,x3,x4,x5 )`
+    echo `exec  a(1, x1, x2,x3,x4,x5 )`
+    echo `exec  a(2, x1, x2,x3,x4,x5 )`
+    echo `exec  a(3, x1, x2,x3,x4,x5 )`
+    // hawk gives up at k=4... stack over flow error
+    // echo `exec  a(4, x1, x2,x3,x4,x5 )`
+    //echo `exec  a(5, x1, x2,x3,x4,x5 )`
+}

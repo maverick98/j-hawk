@@ -1,0 +1,56 @@
+function main()
+{
+
+	exec display(`exec testCubes()`)
+        var x = 1
+	var y = 2
+	var z = 3
+	 var lhs = `exec pow(x,3)` + `exec pow(y,3)` + `exec pow(z,3)`
+	 echo lhs
+	
+}
+
+function display( var numbers[])
+{
+    var size = `exec length(numbers)`
+    for( var i = 1;i <= size; i= i+1 )
+    {
+        echo numbers[i]
+
+    }
+
+}
+
+
+function testCubes()
+{
+
+    var result [] = new var[]
+
+    var i = 1
+
+    for(var x = 0;x<=9 ; x=x+1)
+    {
+
+        for(var y = 0;y<=9 ; y=y+1)
+        {
+
+            for(var z = 0;z<=9 ; z=z+1)
+            {
+                var lhs = `exec pow(x,3)` + `exec pow(y,3)` + `exec pow(z,3)`
+                var rhs = 100*x + 10*y +z
+                if(lhs == rhs)
+                {
+                    result[i] = rhs
+                    i = i +1
+                }
+
+            }
+
+        }
+
+    }
+
+    return result
+	
+}

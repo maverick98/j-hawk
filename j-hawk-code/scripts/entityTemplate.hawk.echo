@@ -1,0 +1,53 @@
+ @START_COMMENT
+ * This file was generated at @DATE 
+ * Don't you dare edit this file.You will regret it if you do!!! 
+ * This file is part of hawkeye 
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left. 
+ * 
+ *  
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the hawkeye maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ @END_COMMENT
+package org.cricket.hawkeye.db;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+ public class @CLAZZ extends @ENTITY implements Externalizable {
+    @Override
+    public boolean equals(Object obj) {
+        @RTN super.equals(obj);
+}
+    @Override
+    public int hashCode() {
+	@RTN super.hashCode();
+}
+    @Override
+    public int compareTo(Object obj) {
+        @RTN super.compareTo(obj);
+}
+    @Override	
+    public void writeExternal(ObjectOutput out) throws IOException {
+            out.writeObject(this.@GETFIELD ());
+            out.writeObject(this.@GETFIELD ());
+            out.writeObject(this.@GETFIELD ());
+            out.writeObject(this.@GETFIELD ());
+            out.writeObject(this.@GETFIELD ());
+}
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+            this.@SETFIELD# (  ( @TYPE#  ) in.readObject());
+            this.@SETFIELD# (  ( @TYPE#  ) in.readObject());
+            this.@SETFIELD# (  ( @TYPE#  ) in.readObject());
+            this.@SETFIELD# (  ( @TYPE#  ) in.readObject());
+            this.@SETFIELD# (  ( @TYPE#  ) in.readObject());
+}
+}

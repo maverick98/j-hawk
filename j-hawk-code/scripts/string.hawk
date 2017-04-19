@@ -1,0 +1,7 @@
+function main()
+{
+  var x = "Nikola Tesla"
+  var d =  `exec charAt(x,3)`
+  echo d
+
+}

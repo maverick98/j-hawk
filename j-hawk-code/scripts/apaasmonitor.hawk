@@ -1,0 +1,64 @@
+struct HttpHeader 
+{
+  var header1 []   =  new var [] 
+}
+
+struct BasicAuth 
+{
+  var auth []   =  new var [] 
+}
+
+struct HttpRequest
+{
+ 
+ var targetURL = "http://den00peq.us.oracle.com:7001/paas/service/apaas/api/v1.1/internal/apaasuser/apps/TestMetrics1/metrics"
+ var method = "GET"
+
+ 
+}
+struct GetMetrics
+{
+  var dump = "1"
+  HttpRequest httpRequest
+  HttpHeader httpHeader
+  BasicAuth auth
+  var rest = "1"
+}
+
+
+function main()
+{
+  exec testMetrics()
+
+}
+
+function testMetrics()
+{
+   exec HttpModule->setKeyStore("otd-cert.pem","keystore123")
+
+   HttpHeader httpHeader
+   httpHeader->header1[1] = "X-ID-TENANT-NAME"
+   httpHeader->header1[2] = "apaasuser"
+
+   BasicAuth basicAuth
+   basicAuth->auth[1] = "weblogic"
+   basicAuth->auth[2] = "welcome1"
+   
+   GetMetrics getMetrics
+   HttpRequest httpRequest
+
+   getMetrics->httpRequest = httpRequest
+   getMetrics->httpHeader = httpHeader
+   getMetrics->auth = basicAuth 
+ 
+   var httpResponse = `exec HttpModule->execute(getMetrics)`
+ 
+  
+
+   //echo  getMetrics->out
+   var json = getMetrics->out
+   echo getMetrics->out->collectionTime 
+	
+
+}
+

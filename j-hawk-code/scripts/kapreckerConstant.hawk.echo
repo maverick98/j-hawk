@@ -1,0 +1,11 @@
+number is6174
+count is0
+	result[i] = result[j]
+	result[j] = a
+	result[i] = result[j]
+	result[j] = a
+	result[i] = result[j]
+	result[j] = a
+	result[i] = result[j]
+	result[j] = a
+  result  = `exec reverse(result)`

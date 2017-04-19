@@ -1,0 +1,28 @@
+var xxx = 12
+var ttt = xxx
+function main()
+{
+	
+	echo "Testing global" +xxx
+	
+	exec testGlobal()
+}
+
+function testGlobal()
+{
+	
+	var yyy = 11
+	if( yyy < xxx )
+	{
+	
+		echo "local var is less than the global one"
+	}
+	else
+	{
+
+		echo "IT SHOULD NOT BE HERE"
+	}
+
+}
+
+

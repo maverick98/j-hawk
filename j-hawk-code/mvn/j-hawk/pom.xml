@@ -68,7 +68,7 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/resources</directory>
             </resource>
         </resources>
 

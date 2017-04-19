@@ -1,0 +1,49 @@
+
+function main()
+{
+/*
+	  var tmp = testabc
+	  var y = `exec tmp(4,6)`
+	  echo y
+	  exec test()
+	function testabc(var x)
+	{
+		echo "I am inside testabc single local .... you have any problem"
+		return 51212
+	}
+	function testabc(var x, var y)
+	{
+		echo "I am inside testabc double local.... you have any problem"
+		return 78623
+	}
+*/
+
+ exec test(7456)
+}
+function test(var k)
+{
+
+  function abc()
+  {
+	echo k
+  }
+
+
+
+function testabc(var x)
+{
+	echo "I am inside testabc single global .... you have any problem"
+	return 51212
+}
+
+function testabc(var x, var y)
+{
+	echo "I am inside testabc double global .... you have any problem"
+	return 78623
+}
+
+ echo ` exec testabc(345)`
+  
+
+}
+

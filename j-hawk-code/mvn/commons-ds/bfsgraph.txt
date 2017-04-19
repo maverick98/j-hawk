@@ -1,6 +1,0 @@
-s:r,w
-r:v
-w:t,x
-t:u,x
-u:y
-x:y

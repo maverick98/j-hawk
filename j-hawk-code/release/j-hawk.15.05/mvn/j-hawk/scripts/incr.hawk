@@ -1,9 +1,0 @@
-
-
-function main()
-{
-	
-	var j = 20
-        j = j -1
-        echo j
-}

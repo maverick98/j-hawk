@@ -1,8 +1,0 @@
-org\commons\event\exception\HawkEventException.class
-org\commons\event\callback\HawkEventCallbackRegistry.class
-org\commons\event\AbstractHawkEvent.class
-org\commons\event\callback\IHawkEventCallbackRegistry.class
-org\commons\event\IHawkEvent.class
-org\commons\event\HawkEvent.class
-org\commons\event\callback\IHawkEventCallback.class
-org\commons\event\HawkEventPayload.class

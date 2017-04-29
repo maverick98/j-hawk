@@ -8,6 +8,7 @@
  */
 package org.hawk.di.spring;
 
+import org.hawk.config.SpringContextEventListener;
 import org.hawk.executor.command.parasite.ParasiteCommand;
 import org.hawk.executor.command.parasite.ParasiteExecutor;
 import org.hawk.module.core.cache.CoreModuleCache;
@@ -21,7 +22,11 @@ import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class SpringConfig {
-
+        
+    @Bean
+    public SpringContextEventListener springContextEventListener(){
+        return new SpringContextEventListener();
+    }
     @Bean
     public org.hawk.executor.command.plugin.details.ShowPluginDetailsCommand getShowPluginDetailsCommand() {
         return new org.hawk.executor.command.plugin.details.ShowPluginDetailsCommand();
@@ -42,10 +47,7 @@ public class SpringConfig {
         return new org.hawk.lang.multiline.MultiLineScriptVerticalSequenceProvider();
     }
 
-    @Bean
-    public org.hawk.template.FileTemplateJavaBean getFileTemplateJavaBean() {
-        return new org.hawk.template.FileTemplateJavaBean();
-    }
+   
 
     @Bean
     public org.hawk.executor.command.HawkCommandParser getHawkCommandParser() {
@@ -217,10 +219,7 @@ public class SpringConfig {
         return new org.hawk.executor.command.gui.GUIExecutor();
     }
 
-    @Bean
-    public org.hawk.template.TemplateServiceImpl getTemplateServiceImpl() {
-        return new org.hawk.template.TemplateServiceImpl();
-    }
+  
 
     @Bean
     public org.hawk.html.DefaultHtmlFormatter getDefaultHtmlFormatter() {

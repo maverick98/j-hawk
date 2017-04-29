@@ -7,14 +7,13 @@
     <packaging>pom</packaging>
     <name>j-hawk-parent</name>
     <url>http://maven.apache.org</url>
-	 <version>1.0</version>
+    <version>1.0</version>
   
-     <modules>
-                <module>commons-util</module>
-                <module>commons-event</module>
-				<module>commons-ds</module>
-                <module>j-hawk</module>
-
-				
-        </modules>
+    <modules>
+        <module>commons-util</module>
+        <module>commons-event</module>
+        <module>commons-ds</module>
+        <module>j-hawk</module>
+        <module>codegen</module>
+    </modules>
 </project>

@@ -18,15 +18,11 @@ package org.hawk.main;
 
 import org.hawk.config.HawkConfigHelper;
 import org.common.di.AppContainer;
-import org.commons.file.FileUtil;
 
 import org.hawk.executor.command.HawkCommandParser;
 import org.hawk.logger.HawkLogger;
 import org.hawk.plugin.IPluginDeployer;
 import org.hawk.plugin.PluginDeployerImpl;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 /**
  *
  * @author Manoranjan Sahu

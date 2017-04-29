@@ -18,46 +18,42 @@ package org.hawk.executor.command.plot;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hawk.config.HawkConfigHelper;
-import org.common.di.AppContainer;
 
 import org.hawk.logger.HawkLogger;
-import org.hawk.template.FieldData;
-import org.hawk.template.FileTemplateJavaBean;
-import org.hawk.template.ITemplateService;
-import org.hawk.template.TemplateServiceImpl;
+
 
 /**
  *
  * @author Manoranjan Sahu
  */
-public class HawkResponseHTML extends FileTemplateJavaBean {
+public class HawkResponseHTML {
+//extends FileTemplateJavaBean {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkResponseHTML.class.getName());
     private static final String HAWKRESPONSEHTMLTEMPLATE = "conf/hawkresponse.html";
-    @FieldData("#TARGET_MODULE#")
+    //@FieldData("#TARGET_MODULE#")
     private String targetModule;
-    @FieldData(value = "#MODULE_NAME#", multiple = true, pre = false, post = true)
+    //@FieldData(value = "#MODULE_NAME#", multiple = true, pre = false, post = true)
     private List<String> moduleNames = new ArrayList<String>();
-    @FieldData(value = "#MODULE_SUBTASK_NAME#", multiple = true, pre = false, post = true)
+    //@FieldData(value = "#MODULE_SUBTASK_NAME#", multiple = true, pre = false, post = true)
     private List<String> moduleSubTaskNames = new ArrayList<String>();
-    @FieldData("#MODULENAMEPATH#")
+    //@FieldData("#MODULENAMEPATH#")
     private String moduleNamePath;
-    @FieldData("#FILEPATH#")
+    //@FieldData("#FILEPATH#")
     private String filePath;
-    @FieldData("#START_TIMESTAMP#")
+    //@FieldData("#START_TIMESTAMP#")
     private String startTimestamp;
-    @FieldData("#END_TIMESTAMP#")
+    //@FieldData("#END_TIMESTAMP#")
     private String endTimestamp;
-    @FieldData("#DURATION_HOURS#")
+    //@FieldData("#DURATION_HOURS#")
     private String durationHours;
-    @FieldData("#DURATION_MINS#")
+    //@FieldData("#DURATION_MINS#")
     private String durationMins;
-    @FieldData("#DURATION_SECS#")
+    //@FieldData("#DURATION_SECS#")
     private String durationSecs;
-    @FieldData("#MODULE_COUNT#")
+    //@FieldData("#MODULE_COUNT#")
     private String moduleCount;
-    @FieldData("#MODULE_SUBTASK_COUNT#")
+    //@FieldData("#MODULE_SUBTASK_COUNT#")
     private String moduleSubTaskCount;
 
     public String getTargetModule() {
@@ -163,14 +159,14 @@ public class HawkResponseHTML extends FileTemplateJavaBean {
     public void setModuleSubTaskCount(String moduleSubTaskCount) {
         this.moduleSubTaskCount = moduleSubTaskCount;
     }
-
+/*
     @Override
     public String getInputFile() {
         return HAWKRESPONSEHTMLTEMPLATE;
     }
 
     public static void main(String args[]) throws Exception {
-
+    
         HawkResponseHTML hawkResponseHTML = new HawkResponseHTML();
         hawkResponseHTML.setFilePath("abc");
         //hawkResponseHTML.setModuleName("def");
@@ -208,5 +204,6 @@ public class HawkResponseHTML extends FileTemplateJavaBean {
        
 
 
-    }
+}
+    */
 }

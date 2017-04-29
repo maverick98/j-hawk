@@ -58,11 +58,12 @@ public class HawkLogger {
                 logger.log(Level.INFO, msg, params);
             } else {
                 logger.log(Level.INFO, sb.toString());
+                 for(Object  param:params){
+                   logger.log(Level.INFO,param.toString());
+                }
             }
         }
-       for(Object  param:params){
-           logger.log(Level.INFO,param.toString());
-       }
+      
         HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeOutput(msg);
     }

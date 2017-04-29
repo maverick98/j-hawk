@@ -59,33 +59,13 @@ public class AppContainer {
         this.reflections = reflections;
     }
 
-    /**
-     * This is guranteed to work improperly
-     *
-     * @param clazzLoader
-     * @param packages
-     * @return
-     * @deprecated
-     */
-    public boolean configureSpringContext(ClassLoader clazzLoader, String... packages) {
-
-        AnnotationConfigApplicationContext appCtx = new AnnotationConfigApplicationContext();
-        appCtx.scan(packages);
-        appCtx.refresh();
-        if (clazzLoader != null) {
-            appCtx.setClassLoader(clazzLoader);
-        }
-        this.setAppContext(appCtx);
-
-        return this.getAppContext() != null;
-    }
+   
 
     public boolean registerConfig(Class springConfig) {
         if(this.getAppContext() ==  null){
             this.setAppContext(new AnnotationConfigApplicationContext());
         }
         this.getAppContext().register(springConfig);
-        // this.refresh();
         return true;
     }
 

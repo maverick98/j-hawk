@@ -23,6 +23,7 @@ import org.common.di.AppContainer;
 import org.hawk.config.spring.SpringConfigUtil;
 
 import org.commons.implementor.InstanceVisitable;
+import org.hawk.di.spring.SpringConfig;
 
 /**
  *
@@ -35,7 +36,7 @@ public class HawkConfigHelper {
         if (shouldScan) {
             //debatable ... but when was the last time,I advocated for software patent.
             long start2 = System.currentTimeMillis();
-            SpringConfigUtil.getInstance().configure(null, "org");
+            AppContainer.getInstance().registerConfig(SpringConfig.class);
             AppContainer.getInstance().refreshAppCtx();
             long diff2 = System.currentTimeMillis() - start2;
             System.out.println("spring took {" + diff2 + "}ms");
@@ -44,7 +45,7 @@ public class HawkConfigHelper {
         long start1 = System.currentTimeMillis();
         InstanceVisitable instanceVisitable = new InstanceVisitable();
         instanceVisitable.setClazz(DefaultHawkConfig.class);
-        final Map<Integer, IHawkConfig> sortedConfigs = new TreeMap<Integer, IHawkConfig>();
+        final Map<Integer, IHawkConfig> sortedConfigs = new TreeMap<>();
 
         try {
             new HawkConfigVisitor() {

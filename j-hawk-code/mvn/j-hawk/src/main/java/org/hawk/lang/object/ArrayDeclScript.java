@@ -63,7 +63,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
     //@Qualifier("default")
     private IStructureDefinitionScriptCache  structureDefinitionScriptCache;
 
-    protected Map<Integer,IObjectScript> members = new TreeMap<Integer,IObjectScript>();
+    protected Map<Integer,IObjectScript> members = new TreeMap<>();
 
     private ArrayTypeEnum arrayType;
 

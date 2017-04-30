@@ -5,14 +5,14 @@ function main()
         var x = 1
 	var y = 2
 	var z = 3
-	 var lhs = `exec MathModule->pow(x,3)` + `exec MathModule->pow(y,3)` + `exec MathModule->pow(z,3)`
+	 var lhs = `exec MathModule->(x,3)` + `exec MathModule->(y,3)` + `exec MathModule->(z,3)`
 	 echo lhs
 	
 }
 
 function display( var numbers[])
 {
-    var size = `exec SystemModule->length(numbers)`
+    var size = `exec length(numbers)`
     for( var i = 1;i <= size; i= i+1 )
     {
         echo numbers[i]
@@ -37,7 +37,7 @@ function testCubes()
 
             for(var z = 0;z<=9 ; z=z+1)
             {
-                var lhs = `exec MathModule->pow(x,3)` + `exec MathModule->pow(y,3)` + `exec MathModule->pow(z,3)`
+                var lhs = `exec MathModule->(x,3)` + `exec MathModule->(y,3)` + `exec MathModule->(z,3)`
                 var rhs = 100*x + 10*y +z
                 if(lhs == rhs)
                 {

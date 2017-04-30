@@ -17,7 +17,7 @@ function main()
     exec show(arr)
     echo "searching for element 659"
     var probe = 12
-    var len = `exec SystemModule->length(arr)`    
+    var len = `exec length(arr)`    
     var index = `exec binarySearch(arr,probe , 1, len)`
     echo "index of probe {"+probe+"} is "+index
 }
@@ -66,7 +66,7 @@ function binarySearch(var arr[] , var probe , var start , var end)
 }
 function selectionSort(var arr[] )
 {
-    var len = `exec SystemModule->length(arr)`
+    var len = `exec length(arr)`
     
     for(var i=1 ; i <=len ; i= i+1)
     {
@@ -85,7 +85,7 @@ function selectionSort(var arr[] )
 
 function show(var arr[])
 {
-    var len = `exec SystemModule->length(arr)`
+    var len = `exec length(arr)`
     for(var i=1; i <= len ; i=i+1)
         {
           echon arr[i] + " ,"

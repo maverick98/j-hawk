@@ -12,7 +12,7 @@ function main()
     arr[9]=88
     arr[10]=659
     arr[11]=793
-    exec quickSort(arr,1,`exec SystemModule->length(arr)`)
+    exec quickSort(arr,1,`exec length(arr)`)
     echo "sorted array is as follows"
     exec show(arr)
   
@@ -71,7 +71,7 @@ function partition( var arr[]  , var start , var end)
 }
 function show(var arr[])
 {
-    var len = `exec SystemModule->length(arr)`
+    var len = `exec length(arr)`
     for(var i=1; i <= len ; i=i+1)
         {
           echon arr[i] + " ,"

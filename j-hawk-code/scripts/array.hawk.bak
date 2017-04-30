@@ -6,10 +6,10 @@ function readFile()
     var arr1[] = new var []
    arr1[0] = "India" 
     arr[0] = arr1
-    arr[1] ="Pakitstan"
-  arr[2] ="Pakitstan"
+  //  arr[1] ="Pakitstan"
+ //arr[2] ="Pakitstan"
    
-    var len =` exec SystemModule->length(arr)`
+    var len =` exec length(arr)`
 
     echo len
    

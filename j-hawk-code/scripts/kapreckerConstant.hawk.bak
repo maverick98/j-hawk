@@ -121,7 +121,7 @@ function splitNumberIntoArray(var number)
 function reverse( var result[])
 {
  
-  var len = `exec SystemModule->length(result)` 
+  var len = `exec MathModule->length(result)` 
   var mid = `exec MathModule->ceil(len /2)`
 
   for(var i =1 ; i <= mid ; i = i+1)

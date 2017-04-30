@@ -49,9 +49,20 @@ public class BeanConverterTest {
         assertEquals(null, nullResult);
         DomainObjectWthoutMappingBeanAnnotation test = new DomainObjectWthoutMappingBeanAnnotation();
         nullResult = BeanConverter.toMappingBean(test, null);
-         assertEquals(null, nullResult);
+        assertEquals(null, nullResult);
         EntityObject result = BeanConverter.toMappingBean(test, EntityObject.class);
         assertEquals(expResult, result);
+        DomainObjectWthWrongMappingBeanAnnotation test1 = new DomainObjectWthWrongMappingBeanAnnotation();
+        result = BeanConverter.toMappingBean(test1, EntityObject.class);
+        assertEquals(expResult, result);
+
+        DomainObjectWthCorrectMappingBeanAnnotation test2 = new DomainObjectWthCorrectMappingBeanAnnotation();
+        result = BeanConverter.toMappingBean(test2, EntityObject.class);
+        assertNotNull(result);
+
+        DomainObjectWthCorrectMappingAndFieldAnnotationBeanAnnotation test3 = new DomainObjectWthCorrectMappingAndFieldAnnotationBeanAnnotation();
+        result = BeanConverter.toMappingBean(test3, EntityObject.class);
+        assertNotNull(result);
 
     }
 

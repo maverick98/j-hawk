@@ -61,6 +61,11 @@ public class BeanConverter {
          
          for(Field field : fields){
              
+             //To satisfy Jacoco's ego :)
+             if(field.isSynthetic()){
+                 continue;
+             }
+             
              String getterMethodName = ClazzUtil.getGetterMethod(field.getName());
          
              String setterMethodName;
@@ -83,7 +88,7 @@ public class BeanConverter {
              try{
                 ClazzUtil.invoke(entityObject,setterMethodName, new Class[]{field.getType()}, new Object[]{setterData});
              }catch(Exception ex){
-                // ex.printStackTrace();
+                 ex.printStackTrace();
              }
          }
          

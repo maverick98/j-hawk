@@ -3,7 +3,7 @@ function main()
 
     for(var i=1;i<4;i=i+1)
     {
-        exec-parallel test()
+        exec-parallel test(adfafd)
     }
     exec-parallel wait()
     exec-parallel reset()

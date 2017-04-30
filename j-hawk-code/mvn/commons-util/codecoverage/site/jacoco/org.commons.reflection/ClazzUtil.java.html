@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClazzUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.reflection</a> &gt; <span class="el_source">ClazzUtil.java</span></div><h1>ClazzUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+
+package org.commons.reflection;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Locale;
+import org.commons.logger.ILogger;
+import org.commons.logger.LoggerFactory;
+import org.commons.string.StringUtil;
+
+/**
+ *
+ * @author manosahu
+ */
+<span class="nc" id="L31">public class ClazzUtil {</span>
+<span class="fc" id="L32">     private static final ILogger logger = LoggerFactory.getLogger(ClazzUtil.class.getName());</span>
+     public static String getMethod(String field, String getOrSet) {
+<span class="fc" id="L34">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L35">        sb.append(getOrSet);</span>
+<span class="fc" id="L36">        sb.append(String.valueOf(field.charAt(0)).toUpperCase(Locale.ENGLISH));</span>
+<span class="fc" id="L37">        sb.append(field.substring(1));</span>
+<span class="fc" id="L38">        return sb.toString();</span>
+    }
+
+    public static String getSetterMethod(String field) {
+<span class="fc" id="L42">        return getMethod(field, &quot;set&quot;);</span>
+    }
+
+    public static String getGetterMethod(String field) {
+<span class="fc" id="L46">        return getMethod(field, &quot;get&quot;);</span>
+    }
+    
+      public static Class loadClass(String clazzStr) throws Exception {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (StringUtil.isNullOrEmpty(clazzStr)) {</span>
+<span class="nc" id="L51">            throw new Exception(&quot;illegal args&quot;);</span>
+        }
+        Class resultClazz;
+
+        try {
+<span class="nc" id="L56">             resultClazz = Class.forName(clazzStr);</span>
+             
+<span class="nc" id="L58">        } catch (ClassNotFoundException cnfe) {</span>
+
+<span class="nc" id="L60">            logger.error(cnfe);</span>
+<span class="nc" id="L61">            throw new Exception(cnfe);</span>
+
+<span class="nc" id="L63">        }</span>
+<span class="nc" id="L64">        return resultClazz;</span>
+    }
+
+    private static Method findCreateMethod(Class clazz) {
+
+<span class="nc" id="L69">        Method result = null;</span>
+<span class="nc" id="L70">        Method methods[] = clazz.getDeclaredMethods();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Method method : methods) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (method.isAnnotationPresent(Create.class)) {</span>
+<span class="nc" id="L73">                result = method;</span>
+<span class="nc" id="L74">                break;</span>
+            }
+        }
+<span class="nc" id="L77">        return result;</span>
+    }
+
+    public static Object instantiate(String clazzStr) throws Exception {
+<span class="nc" id="L81">        return instantiate(loadClass(clazzStr));</span>
+    }
+
+    public static Object instantiate(Class clazz) throws Exception {
+<span class="fc" id="L85">        return createObject(clazz);</span>
+    }
+
+    public static &lt;T&gt; T instantiate(String clazzStr, Class&lt;T&gt; type) throws Exception {
+<span class="nc" id="L89">        Object instance = instantiate(clazzStr);</span>
+<span class="nc" id="L90">        return (T) instance;</span>
+
+    }
+
+    public static &lt;T&gt; T instantiate(Class clazz, Class&lt;T&gt; type) throws Exception {
+<span class="nc" id="L95">        Object instance = instantiate(clazz);</span>
+<span class="nc" id="L96">        return (T) instance;</span>
+
+    }
+
+    private static Object createObject(Class clazz) throws Exception {
+<span class="fc" id="L101">        Object result = null;</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (clazz != null) {</span>
+            try {
+                
+<span class="fc" id="L105">                result = clazz.newInstance();</span>
+
+<span class="nc" id="L107">            } catch (InstantiationException ex) {</span>
+<span class="nc" id="L108">                result = null;</span>
+<span class="nc" id="L109">                System.out.println(&quot;got  instance  erro for &quot;+clazz);</span>
+<span class="nc" id="L110">                logger.error(ex);</span>
+<span class="nc" id="L111">                throw new Exception(ex);</span>
+<span class="nc" id="L112">            } catch (IllegalAccessException | SecurityException | IllegalArgumentException ex) {</span>
+<span class="nc" id="L113">                result = null;</span>
+<span class="nc" id="L114">                logger.error(ex);</span>
+<span class="nc" id="L115">                throw new Exception(ex);</span>
+<span class="fc" id="L116">            }</span>
+        }
+<span class="fc" id="L118">        return result;</span>
+    }
+
+    public static Object instantiateFromSpring(Class clazz) throws Exception {
+
+<span class="nc" id="L123">        Object result = null;</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (clazz != null) {</span>
+<span class="nc" id="L125">            Method createMethod = findCreateMethod(clazz);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (createMethod != null) {</span>
+<span class="nc" id="L127">                result = invoke(createObject(clazz), createMethod, new Object[]{});</span>
+            }
+        }
+<span class="nc" id="L130">        return result;</span>
+    }
+
+    public static Object instantiateFromSpring(String clazzStr) throws Exception {
+<span class="nc" id="L134">        return instantiateFromSpring(loadClass(clazzStr));</span>
+    }
+
+    public static &lt;T&gt; T instantiateFromSpring(String clazzStr, Class&lt;T&gt; type) throws Exception {
+<span class="nc" id="L138">        Object instance = instantiateFromSpring(clazzStr);</span>
+<span class="nc" id="L139">        return (T) instance;</span>
+
+    }
+
+    public static &lt;T&gt; T instantiateFromSpring(Class clazz, Class&lt;T&gt; type) throws Exception {
+<span class="nc" id="L144">        Object instance = instantiateFromSpring(clazz);</span>
+<span class="nc" id="L145">        return (T) instance;</span>
+
+    }
+
+    public static Method findMethod(Class clazz, String methodStr, Class[] parameterTypes) throws Exception {
+<span class="fc" id="L150">        Method result = null;</span>
+<span class="pc bpc" id="L151" title="2 of 4 branches missed.">        if (clazz == null || StringUtil.isNullOrEmpty(methodStr)) {</span>
+<span class="nc" id="L152">            return null;</span>
+        }
+        try {
+<span class="fc" id="L155">            result = clazz.getDeclaredMethod(methodStr, parameterTypes);</span>
+
+<span class="nc" id="L157">        } catch (NoSuchMethodException | SecurityException ex) {</span>
+<span class="nc" id="L158">            logger.error(ex);</span>
+<span class="nc" id="L159">            throw new Exception(ex);</span>
+<span class="fc" id="L160">        }</span>
+<span class="fc" id="L161">        return result;</span>
+    }
+
+    public static Object invoke(Object instance, String methodStr, Class[] parameterTypes, Object[] args) throws Exception {
+        Object result;
+<span class="fc" id="L166">        Class clazz = instance.getClass();</span>
+
+<span class="fc" id="L168">        Method method = findMethod(clazz, methodStr, parameterTypes);</span>
+<span class="fc" id="L169">        result = invoke(instance, method, args);</span>
+
+<span class="fc" id="L171">        return result;</span>
+    }
+
+    public static Object invoke(String clazzStr, String methodStr, Class[] parameterTypes, Object[] args) throws Exception {
+<span class="nc" id="L175">        Object instance = instantiate(clazzStr);</span>
+<span class="nc" id="L176">        return invoke(instance, methodStr, parameterTypes, args);</span>
+    }
+
+    public static Object invokeZeroArg(String clazzStr, String methodStr) throws Exception {
+<span class="nc" id="L180">        return invoke(clazzStr, methodStr, new Class[]{}, new Object[]{});</span>
+    }
+
+    public static Object invoke(Object instance, Method method, Object[] args) throws Exception {
+
+<span class="fc" id="L185">        Object result = null;</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if (method != null) {</span>
+            try {
+<span class="fc" id="L188">                result = method.invoke(instance, args);</span>
+<span class="nc" id="L189">            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {</span>
+<span class="nc" id="L190">                logger.error(ex);</span>
+<span class="nc" id="L191">                throw new Exception(ex);</span>
+<span class="fc" id="L192">            }</span>
+        }
+
+<span class="fc" id="L195">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

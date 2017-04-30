@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StringUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.string</a> &gt; <span class="el_source">StringUtil.java</span></div><h1>StringUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+package org.commons.string;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Stack;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ *
+ * @author msahu
+ */
+<span class="nc" id="L31">public class StringUtil {</span>
+
+    public static boolean isNullOrEmpty(String input) {
+
+<span class="fc bfc" id="L35" title="All 4 branches covered.">        return input == null || input.trim().isEmpty();</span>
+    }
+
+    public static boolean isStringDataType(String exp) {
+<span class="fc" id="L39">        boolean status = false;</span>
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (exp == null || exp.isEmpty()) {</span>
+<span class="fc" id="L41">            status = false;</span>
+        } else {
+<span class="fc" id="L43">            String tmp = exp.trim();</span>
+<span class="pc bpc" id="L44" title="1 of 4 branches missed.">            if (tmp.startsWith(&quot;\&quot;&quot;) &amp;&amp; tmp.endsWith(&quot;\&quot;&quot;)) {</span>
+<span class="fc" id="L45">                status = true;</span>
+            }
+        }
+<span class="fc" id="L48">        return status;</span>
+    }
+
+    public static String stringifyArgs(String args[]) {
+<span class="fc" id="L52">        StringBuilder sb = new StringBuilder();</span>
+<span class="pc bpc" id="L53" title="1 of 4 branches missed.">        if (args != null &amp;&amp; args.length &gt; 0) {</span>
+<span class="fc" id="L54">            Arrays.stream(args,0,args.length-1)</span>
+                  .forEach
+<span class="fc" id="L56">                    (</span>
+                            arg
+                            -&gt;
+                            {
+<span class="fc" id="L60">                                sb.append(arg);</span>
+<span class="fc" id="L61">                                sb.append(&quot; &quot;);</span>
+<span class="fc" id="L62">                            }</span>
+                    );
+<span class="fc" id="L64">            sb.append(args[args.length-1]);</span>
+        }
+<span class="fc" id="L66">        return sb.toString();</span>
+    }
+
+    public static String parseBracketData(String input) {
+<span class="fc" id="L70">        return parseDelimeterData(input, '(', ')');</span>
+    }
+
+    public static String parseDelimeterData(String input, int pos, char startingDelimChar, char closingDelimChar) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if(pos &lt; 0){</span>
+<span class="fc" id="L75">            return null;</span>
+        }
+<span class="fc" id="L77">        String result = null;</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">        if (input != null &amp;&amp; !input.isEmpty()) {</span>
+<span class="fc" id="L79">            String sd = String.valueOf(startingDelimChar);</span>
+<span class="fc" id="L80">            String cd = String.valueOf(closingDelimChar);</span>
+<span class="fc" id="L81">            Stack&lt;String&gt; stack = new Stack&lt;&gt;();</span>
+<span class="fc" id="L82">            boolean atLeastOneStartingBracketFound = false;</span>
+<span class="fc" id="L83">            boolean atLeastOneClosingBracketFound = false;</span>
+<span class="fc" id="L84">            int i = 0;</span>
+<span class="fc" id="L85">            int start = 0;</span>
+<span class="fc" id="L86">            int end = input.length();</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            for (i = pos; i &lt; input.length(); i++) {</span>
+<span class="fc" id="L88">                String eleStr = input.charAt(i) + &quot;&quot;;</span>
+<span class="fc bfc" id="L89" title="All 4 branches covered.">                if (!atLeastOneStartingBracketFound &amp;&amp; eleStr.equals(sd)) {</span>
+<span class="fc" id="L90">                    stack.push(sd);</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                    if (!atLeastOneStartingBracketFound) {</span>
+<span class="fc" id="L92">                        start = i;</span>
+                    }
+<span class="fc" id="L94">                    atLeastOneStartingBracketFound = true;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                } else if (eleStr.equals(cd)) {</span>
+<span class="fc" id="L96">                    atLeastOneClosingBracketFound = true;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                    if(!stack.isEmpty()){</span>
+<span class="fc" id="L98">                    stack.pop();</span>
+                    }else{
+<span class="fc" id="L100">                        return null;</span>
+                    }
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                } else if (eleStr.equals(sd)) {</span>
+<span class="fc" id="L103">                    stack.push(sd);</span>
+                }
+<span class="fc bfc" id="L105" title="All 4 branches covered.">                if (atLeastOneStartingBracketFound &amp;&amp; stack.isEmpty()) {</span>
+<span class="fc" id="L106">                    end = i;</span>
+<span class="fc" id="L107">                    break;</span>
+                }
+            }
+<span class="fc bfc" id="L110" title="All 6 branches covered.">            if (atLeastOneStartingBracketFound &amp;&amp; input.substring(pos).startsWith(sd) &amp;&amp; atLeastOneClosingBracketFound) {</span>
+<span class="fc" id="L111">                result = input.substring(start + 1, end);</span>
+            } else {
+<span class="fc" id="L113">                result = null;</span>
+            }
+        }
+<span class="fc" id="L116">        return result;</span>
+    }
+
+    public static String parseDelimeterData(String input, char startingDelimChar, char closingDelimChar) {
+<span class="fc" id="L120">        return parseDelimeterData(input, 0, startingDelimChar, closingDelimChar);</span>
+    }
+<span class="fc" id="L122">    private static final Pattern REPLACEMENT_PATTERN = Pattern.compile(&quot;(\\{(\\d+)\\})&quot;);</span>
+
+    public static String replace(String replacementData, Map&lt;String, String&gt; replacements) {
+<span class="fc" id="L125">        String result = null;</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (isNullOrEmpty(replacementData)) {</span>
+<span class="fc" id="L127">            throw new Error(&quot;Empty replacementData&quot;);</span>
+        }
+<span class="pc bpc" id="L129" title="1 of 4 branches missed.">        if(replacements == null || replacements.isEmpty()){</span>
+<span class="fc" id="L130">            return replacementData;</span>
+        }
+<span class="fc" id="L132">        Matcher m = REPLACEMENT_PATTERN.matcher(replacementData);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        while (m.find()) {</span>
+<span class="fc" id="L134">            String replacement = replacements.get(m.group(2));</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (replacement == null) {</span>
+<span class="fc" id="L136">                throw new Error(&quot;set the parameter properly&quot;);</span>
+            }
+<span class="fc" id="L138">            result = m.replaceFirst(replacement);</span>
+<span class="fc" id="L139">            m = REPLACEMENT_PATTERN.matcher(result);</span>
+<span class="fc" id="L140">        }</span>
+<span class="fc" id="L141">        return result;</span>
+    }
+
+    public static String toggle(String str) {
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        if(isNullOrEmpty(str)){</span>
+<span class="fc" id="L146">            return str;</span>
+        }
+<span class="fc" id="L148">        String part = str.substring(1);</span>
+<span class="fc" id="L149">        String tmp = String.valueOf(str.charAt(0));</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (tmp.equals(tmp.toLowerCase(Locale.ENGLISH))) {</span>
+<span class="fc" id="L151">            tmp = tmp.toUpperCase();</span>
+        } else {
+<span class="fc" id="L153">            tmp = tmp.toLowerCase();</span>
+        }
+<span class="fc" id="L155">        return tmp + part;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

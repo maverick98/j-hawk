@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImplementorVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.implementor</a> &gt; <span class="el_source">ImplementorVisitor.java</span></div><h1>ImplementorVisitor.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+package org.commons.implementor;
+
+import java.util.List;
+import org.apache.log4j.Logger;
+import org.common.di.AppContainer;
+import org.commons.reflection.ClazzUtil;
+
+
+
+/**
+ *
+ * @author Manoranjan Sahu
+ */
+<span class="nc" id="L30">public abstract class ImplementorVisitor implements IVisitor {</span>
+
+<span class="nc" id="L32">    private static final Logger logger = Logger.getLogger(ImplementorVisitor.class.getName());</span>
+
+    public abstract void onVisit(Class clazz);
+
+    public abstract void onVisit(Object instance);
+
+    public abstract void onVisit(String clazzStr);
+
+    public void visit(ClazzVisitable clazzVisitable) throws Exception {
+         
+<span class="nc" id="L42">        List&lt;Class&gt; all = AppContainer.getInstance().getSubTypesOf(clazzVisitable.getClazz());</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        for(Class clazz : all){</span>
+            
+<span class="nc" id="L45">            onVisit(clazz);</span>
+<span class="nc" id="L46">        }</span>
+
+
+<span class="nc" id="L49">    }</span>
+
+    public void visit(InstanceVisitable instanceVisitable) throws Exception {
+        
+<span class="nc" id="L53">        List&lt;Class&gt; all = AppContainer.getInstance().getSubTypesOf(instanceVisitable.getClazz());</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        for(Class clazz : all){</span>
+            
+<span class="nc" id="L56">            Object instance = ClazzUtil.instantiateFromSpring(clazz);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if(instance  == null){</span>
+<span class="nc" id="L58">                instance = ClazzUtil.instantiate(clazz);</span>
+            }
+<span class="nc" id="L60">            onVisit(instance);</span>
+<span class="nc" id="L61">        }</span>
+<span class="nc" id="L62">    }</span>
+
+    public void visit(ClazzLiteralVisitable clazzLiteralVisitable) {
+         
+<span class="nc" id="L66">        List&lt;Class&gt; all = AppContainer.getInstance().getSubTypesOf(clazzLiteralVisitable.getClazz());</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for(Class clazz : all){</span>
+            
+<span class="nc" id="L69">            onVisit(clazz.getName());</span>
+<span class="nc" id="L70">        }</span>
+
+
+<span class="nc" id="L73">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

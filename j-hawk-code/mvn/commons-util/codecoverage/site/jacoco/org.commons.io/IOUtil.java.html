@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.io</a> &gt; <span class="el_source">IOUtil.java</span></div><h1>IOUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.commons.io;
+
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+import javax.imageio.ImageIO;
+import static org.commons.file.FileConstant.ENCODING;
+import org.commons.logger.ILogger;
+import org.commons.logger.LoggerFactory;
+import org.commons.resource.ResourceUtil;
+
+/**
+ *
+ * @author manosahu
+ */
+<span class="nc" id="L48">public class IOUtil {</span>
+
+<span class="nc" id="L50">    private static final ILogger logger = LoggerFactory.getLogger(IOUtil.class.getName());</span>
+
+    public static Reader createReader(String data) {
+
+<span class="nc" id="L54">        return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data.getBytes(Charset.forName(ENCODING))), Charset.forName(ENCODING)));</span>
+    }
+
+    public static String readLineFromConsole() throws IOException {
+
+        String data;
+
+<span class="nc" id="L61">        Scanner scanner = new Scanner(System.in, ENCODING);</span>
+<span class="nc" id="L62">        data = scanner.nextLine();</span>
+<span class="nc" id="L63">        return data;</span>
+    }
+
+    /**
+     * This reads the hawk script file and returns them as a map with line no
+     * and script as key value pair respectively.
+     *
+     * @param in
+     * @param scriptFile hawk script file
+     * @return a map containing line no and the script
+     */
+    public static Map&lt;Integer, String&gt; dumpInputStreamToMap(InputStream in) {
+<span class="nc" id="L75">        Map&lt;Integer, String&gt; result = new TreeMap&lt;&gt;();</span>
+
+<span class="nc" id="L77">        BufferedReader bfr = null;</span>
+
+        try {
+
+<span class="nc" id="L81">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
+            String line;
+<span class="nc" id="L83">            int i = 0;</span>
+            do {
+<span class="nc" id="L85">                line = bfr.readLine();</span>
+<span class="nc" id="L86">                result.put(i, line);</span>
+<span class="nc" id="L87">                i++;</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            } while (line != null);</span>
+
+<span class="nc" id="L90">        } catch (Exception ex) {</span>
+<span class="nc" id="L91">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
+        } finally {
+<span class="nc" id="L93">            ResourceUtil.close(bfr);</span>
+<span class="nc" id="L94">        }</span>
+
+<span class="nc" id="L96">        return result;</span>
+    }
+
+    public static String dumpInputStreamToString(InputStream in) {
+<span class="nc" id="L100">        StringBuilder result = new StringBuilder();</span>
+
+<span class="nc" id="L102">        BufferedReader bfr = null;</span>
+
+        try {
+
+<span class="nc" id="L106">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
+            String line;
+<span class="nc" id="L108">            result.append(&quot;&lt;html&gt;&quot;);</span>
+            do {
+<span class="nc" id="L110">                line = bfr.readLine();</span>
+<span class="nc" id="L111">                result.append(line);</span>
+<span class="nc" id="L112">                result.append(&quot;&lt;br&gt;&quot;);</span>
+
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            } while (line != null);</span>
+<span class="nc" id="L115">            result.append(&quot;&lt;/html&gt;&quot;);</span>
+<span class="nc" id="L116">        } catch (Exception ex) {</span>
+<span class="nc" id="L117">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
+        } finally {
+<span class="nc" id="L119">            ResourceUtil.close(bfr);</span>
+<span class="nc" id="L120">        }</span>
+
+<span class="nc" id="L122">        return result.toString();</span>
+    }
+
+    public static boolean writeToPrintWriter(PrintWriter output, String data) {
+
+        boolean status;
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (output != null) {</span>
+            try {
+<span class="nc" id="L130">                output.write(data);</span>
+<span class="nc" id="L131">                status = true;</span>
+<span class="nc" id="L132">            } catch (Exception ex) {</span>
+
+<span class="nc" id="L134">                logger.error(&quot;error while writing &quot;, ex);</span>
+<span class="nc" id="L135">                status = false;</span>
+<span class="nc" id="L136">            }</span>
+        } else {
+<span class="nc" id="L138">            status = false;</span>
+        }
+<span class="nc" id="L140">        return status;</span>
+    }
+
+    public static boolean writeToStream(OutputStream output, String data) {
+        boolean status;
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (output != null) {</span>
+            try {
+<span class="nc" id="L147">                output.write(data.getBytes(Charset.forName(ENCODING)));</span>
+<span class="nc" id="L148">                status = true;</span>
+<span class="nc" id="L149">            } catch (Exception ex) {</span>
+
+<span class="nc" id="L151">                logger.error(&quot;error while writing &quot;, ex);</span>
+<span class="nc" id="L152">                status = false;</span>
+<span class="nc" id="L153">            }</span>
+        } else {
+<span class="nc" id="L155">            status = false;</span>
+        }
+<span class="nc" id="L157">        return status;</span>
+    }
+
+    public static void sleep(long thinkTime) {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (thinkTime &gt; 0) {</span>
+            try {
+
+<span class="nc" id="L164">                Thread.sleep(thinkTime * 1000);</span>
+<span class="nc" id="L165">            } catch (InterruptedException ex) {</span>
+<span class="nc" id="L166">                logger.error(ex.getMessage());</span>
+<span class="nc" id="L167">            }</span>
+        }
+<span class="nc" id="L169">    }</span>
+
+    public static boolean copyImage(String from, String formatName, File output) {
+
+<span class="nc" id="L173">        boolean result = false;</span>
+<span class="nc" id="L174">        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(from);</span>
+        BufferedImage bi;
+        try {
+<span class="nc" id="L177">            bi = ImageIO.read(is);</span>
+<span class="nc" id="L178">            result = ImageIO.write(bi, formatName, output);</span>
+
+<span class="nc" id="L180">        } catch (Exception ex) {</span>
+
+<span class="nc" id="L182">            logger.error(&quot;Could not copy &quot;+from, ex);</span>
+<span class="nc" id="L183">        }</span>
+<span class="nc" id="L184">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

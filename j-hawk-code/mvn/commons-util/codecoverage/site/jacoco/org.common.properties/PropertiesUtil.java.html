@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertiesUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.common.properties</a> &gt; <span class="el_source">PropertiesUtil.java</span></div><h1>PropertiesUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+package org.common.properties;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import org.apache.log4j.Logger;
+
+
+/**
+ * An utility to save and load properties.
+ *
+ * @version 1.0 8 Apr, 2010
+ * @author msahu
+ */
+<span class="nc" id="L34">public class PropertiesUtil {</span>
+
+<span class="nc" id="L36">    private static final Logger logger = Logger.getLogger(PropertiesUtil.class.getName());</span>
+
+    /**
+     * This saves properties into the file.
+     *
+     * @param props
+     * @param file
+     * @return &lt;tt&gt;true&lt;/tt&gt; on success &lt;tt&gt;false&lt;/tt&gt; otherwise.
+     */
+    public static boolean saveProperties(Properties props, String file) {
+
+<span class="nc" id="L47">        FileOutputStream fos = null;</span>
+        try {
+<span class="nc" id="L49">            fos = new FileOutputStream(file);</span>
+<span class="nc" id="L50">            props.store(fos, &quot;&quot;);</span>
+<span class="nc" id="L51">        } catch (IOException ex) {</span>
+<span class="nc" id="L52">            logger.error(null, ex);</span>
+<span class="nc" id="L53">            return false;</span>
+        } finally {
+<span class="nc bnc" id="L55" title="All 6 branches missed.">            if (fos != null) {</span>
+                try {
+<span class="nc" id="L57">                    fos.close();</span>
+<span class="nc" id="L58">                } catch (IOException ex) {</span>
+<span class="nc" id="L59">                    logger.error(null, ex);</span>
+<span class="nc" id="L60">                }</span>
+            }
+        }
+<span class="nc" id="L63">        return true;</span>
+    }
+
+    public static Properties loadConfigsFromClazzpath(String fileName) {
+
+<span class="nc" id="L68">        Properties result = new Properties();</span>
+<span class="nc" id="L69">        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);</span>
+        try {
+<span class="nc" id="L71">            result.load(is);</span>
+<span class="nc" id="L72">        } catch (IOException ex) {</span>
+<span class="nc" id="L73">            logger.error(null, ex);</span>
+<span class="nc" id="L74">        }</span>
+<span class="nc" id="L75">        return result;</span>
+
+
+    }
+
+    /**
+     * This loads properties from the file.
+     *
+     * @param props
+     * @param file
+     * @return &lt;tt&gt;Properties&lt;/tt&gt;
+     */
+    public static Properties loadProperties(String file) {
+
+<span class="nc" id="L89">        return loadProperties(new File(file));</span>
+    }
+
+    /**
+     * This loads properties from the file.
+     *
+     * @param props
+     * @param file
+     * @return &lt;tt&gt;Properties&lt;/tt&gt;
+     */
+    public static Properties loadProperties(File file) {
+<span class="nc" id="L100">        logger.info(&quot;loading the file {&quot; + file + &quot;}&quot;);</span>
+<span class="nc" id="L101">        Properties props = new Properties();</span>
+<span class="nc" id="L102">        FileInputStream fis = null;</span>
+        try {
+<span class="nc" id="L104">            fis = new FileInputStream(file);</span>
+<span class="nc" id="L105">            props.load(fis);</span>
+<span class="nc" id="L106">        } catch (IOException ex) {</span>
+<span class="nc" id="L107">            logger.error(null, ex);</span>
+        } finally {
+<span class="nc bnc" id="L109" title="All 6 branches missed.">            if (fis != null) {</span>
+                try {
+<span class="nc" id="L111">                    fis.close();</span>
+<span class="nc" id="L112">                } catch (IOException ex) {</span>
+<span class="nc" id="L113">                    logger.error(null, ex);</span>
+<span class="nc" id="L114">                }</span>
+            }
+        }
+<span class="nc" id="L117">        return props;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

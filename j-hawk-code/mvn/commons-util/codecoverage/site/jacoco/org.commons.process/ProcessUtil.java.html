@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProcessUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.process</a> &gt; <span class="el_source">ProcessUtil.java</span></div><h1>ProcessUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.commons.process;
+
+import java.io.IOException;
+import org.commons.logger.ILogger;
+import org.commons.logger.LoggerFactory;
+import org.commons.resource.ResourceUtil;
+
+/**
+ *
+ * @author manosahu
+ */
+<span class="nc" id="L33">public class ProcessUtil {</span>
+
+<span class="nc" id="L35">    private static final ILogger logger = LoggerFactory.getLogger(ResourceUtil.class.getName());</span>
+
+    public static boolean executeProcess(String command) {
+
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if (command == null || command.isEmpty()) {</span>
+<span class="nc" id="L40">            throw new IllegalArgumentException(&quot;command is null or empty&quot;);</span>
+        }
+<span class="nc" id="L42">        Process proc = null;</span>
+<span class="nc" id="L43">        boolean status = true;</span>
+        try {
+<span class="nc" id="L45">            System.out.println(&quot;Executing ... {&quot; + command + &quot;}&quot;);</span>
+<span class="nc" id="L46">            proc = Runtime.getRuntime().exec(command);</span>
+<span class="nc" id="L47">            proc.waitFor();</span>
+<span class="nc" id="L48">        } catch (IOException | InterruptedException th) {</span>
+<span class="nc" id="L49">            logger.error(&quot;Could not execute {&quot; + command + &quot;}&quot;, th);</span>
+<span class="nc" id="L50">            status = false;</span>
+        } finally {
+<span class="nc bnc" id="L52" title="All 6 branches missed.">            if (proc != null) {</span>
+<span class="nc" id="L53">                ResourceUtil.close(proc.getOutputStream());</span>
+<span class="nc" id="L54">                ResourceUtil.close(proc.getInputStream());</span>
+<span class="nc" id="L55">                ResourceUtil.close(proc.getErrorStream());</span>
+<span class="nc" id="L56">                proc.destroy();</span>
+            }
+        }
+<span class="nc" id="L59">        return status;</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

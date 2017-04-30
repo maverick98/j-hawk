@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommonUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.exception</a> &gt; <span class="el_source">CommonUtil.java</span></div><h1>CommonUtil.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of j-hawk
+ * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ *
+ * 
+ *
+ * 1) If you modify a source file, make a comment in it containing your name and the date.
+ * 2) If you distribute a modified version, you must do it under the GPL 2.
+ * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
+ * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
+ *
+ * 
+ * 
+ *
+ * 
+ */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package org.commons.exception;
+
+import java.util.Collection;
+
+/**
+ *
+ * @author manosahu
+ */
+<span class="nc" id="L31">public class CommonUtil {</span>
+  public static Boolean areAllTrue(Collection&lt;Boolean&gt; bools){
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if(bools == null || bools.isEmpty()){</span>
+<span class="nc" id="L34">            return false;</span>
+        }
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        for(Boolean bool : bools){</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            if(!bool){</span>
+<span class="nc" id="L38">                return false;</span>
+            }
+<span class="nc" id="L40">        }</span>
+<span class="nc" id="L41">        return true;</span>
+    }
+  
+   public static boolean getBooleanData(double element) throws Exception {
+<span class="nc bnc" id="L45" title="All 4 branches missed.">        if (!(element == 1.0 || element == 0.0)) {</span>
+<span class="nc" id="L46">            throw new Exception(&quot;Can not convert element{&quot; + element + &quot;} to boolean.&quot;);</span>
+        }
+
+        boolean result;
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        result = (element == 1.0);</span>
+
+<span class="nc" id="L53">        return result;</span>
+    }
+    public static boolean greaterThan(Comparable c1, Comparable c2){
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        return c1.compareTo(c2) &gt; 0;</span>
+    }
+    public static boolean lessThan(Comparable c1, Comparable c2){
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        return c1.compareTo(c2) &lt; 0;</span>
+    }
+    public static boolean isEqual(Comparable c1, Comparable c2){
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        return c1.compareTo(c2) == 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

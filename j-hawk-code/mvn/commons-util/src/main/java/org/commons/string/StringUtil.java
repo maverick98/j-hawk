@@ -16,6 +16,7 @@
  */
 package org.commons.string;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
@@ -49,11 +50,18 @@ public class StringUtil {
 
     public static String stringifyArgs(String args[]) {
         StringBuilder sb = new StringBuilder();
-        if (args != null) {
-            for (String arg : args) {
-                sb.append(arg);
-                sb.append(" ");
-            }
+        if (args != null && args.length > 0) {
+            Arrays.stream(args,0,args.length-1)
+                  .forEach
+                    (
+                            arg
+                            ->
+                            {
+                                sb.append(arg);
+                                sb.append(" ");
+                            }
+                    );
+            sb.append(args[args.length-1]);
         }
         return sb.toString();
     }
@@ -63,12 +71,16 @@ public class StringUtil {
     }
 
     public static String parseDelimeterData(String input, int pos, char startingDelimChar, char closingDelimChar) {
+        if(pos < 0){
+            return null;
+        }
         String result = null;
         if (input != null && !input.isEmpty()) {
             String sd = String.valueOf(startingDelimChar);
             String cd = String.valueOf(closingDelimChar);
-            Stack<String> stack = new Stack<String>();
+            Stack<String> stack = new Stack<>();
             boolean atLeastOneStartingBracketFound = false;
+            boolean atLeastOneClosingBracketFound = false;
             int i = 0;
             int start = 0;
             int end = input.length();
@@ -81,6 +93,7 @@ public class StringUtil {
                     }
                     atLeastOneStartingBracketFound = true;
                 } else if (eleStr.equals(cd)) {
+                    atLeastOneClosingBracketFound = true;
                     if(!stack.isEmpty()){
                     stack.pop();
                     }else{
@@ -94,7 +107,7 @@ public class StringUtil {
                     break;
                 }
             }
-            if (atLeastOneStartingBracketFound && input.substring(pos).startsWith(sd)) {
+            if (atLeastOneStartingBracketFound && input.substring(pos).startsWith(sd) && atLeastOneClosingBracketFound) {
                 result = input.substring(start + 1, end);
             } else {
                 result = null;
@@ -110,8 +123,11 @@ public class StringUtil {
 
     public static String replace(String replacementData, Map<String, String> replacements) {
         String result = null;
-        if (replacementData == null || replacementData.isEmpty()) {
-            throw new Error("set the parameter properly");
+        if (isNullOrEmpty(replacementData)) {
+            throw new Error("Empty replacementData");
+        }
+        if(replacements == null || replacements.isEmpty()){
+            return replacementData;
         }
         Matcher m = REPLACEMENT_PATTERN.matcher(replacementData);
         while (m.find()) {
@@ -126,6 +142,9 @@ public class StringUtil {
     }
 
     public static String toggle(String str) {
+        if(isNullOrEmpty(str)){
+            return str;
+        }
         String part = str.substring(1);
         String tmp = String.valueOf(str.charAt(0));
         if (tmp.equals(tmp.toLowerCase(Locale.ENGLISH))) {

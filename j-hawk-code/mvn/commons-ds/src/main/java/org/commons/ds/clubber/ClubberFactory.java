@@ -35,7 +35,7 @@ public class ClubberFactory {
 
     private static final ClubberFactory theInstance = new ClubberFactory();
 
-    private final Map<String, Boolean> clubberCache = new HashMap<String, Boolean>();
+    private final Map<String, Boolean> clubberCache = new HashMap<>();
 
     public static ClubberFactory getInstance() {
         return theInstance;

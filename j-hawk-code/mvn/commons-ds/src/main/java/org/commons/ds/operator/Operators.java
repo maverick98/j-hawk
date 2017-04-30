@@ -15,7 +15,7 @@ import org.commons.xml.XMLUtil;
  */
 @XmlRootElement
 public class Operators {
-    private List<Operator> operator = new ArrayList<Operator>();
+    private List<Operator> operator = new ArrayList<>();
 
     public Operators() {
     }

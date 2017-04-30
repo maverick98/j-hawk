@@ -34,7 +34,7 @@ public class OperandFactory {
 
     private static final OperandFactory theInstance = new OperandFactory();
 
-    private final Map<String, Boolean> operandCache = new HashMap<String, Boolean>();
+    private final Map<String, Boolean> operandCache = new HashMap<>();
 
     public static OperandFactory getInstance() {
         return theInstance;

@@ -207,7 +207,7 @@ public class AppContainer {
 
     public <T extends Object> T getBean(Class<T> clazz) {
 
-        T result = null;
+        T result;
 
         result = this.getBeanFrom(clazz, this.getAllContexts());
 
@@ -216,7 +216,7 @@ public class AppContainer {
 
     public Object getBean(String clazzStr) {
 
-        Object result = null;
+        Object result;
 
         result = this.getBeanFrom(clazzStr, this.getAllContexts());
 
@@ -228,7 +228,7 @@ public class AppContainer {
         if (result != null) {
             return result;
         }
-        result = new ArrayList<Class>();
+        result = new ArrayList<>();
 
         if (this.getReflections() == null) {
             this.setReflections(new Reflections("org"));

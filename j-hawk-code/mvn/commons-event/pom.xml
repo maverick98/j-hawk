@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org</groupId>
     <artifactId>commons-event</artifactId>
-    <version>15.05</version>
+    <version>17.05</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.commons</groupId>
             <artifactId>commons-util</artifactId>
-            <version>15.05</version>
+            <version>17.05</version>
         </dependency>
     </dependencies>
 </project>

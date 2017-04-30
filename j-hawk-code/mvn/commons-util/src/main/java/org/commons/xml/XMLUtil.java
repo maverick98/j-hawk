@@ -24,8 +24,6 @@ package org.commons.xml;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;

@@ -21,6 +21,7 @@
  */
 package org.commons.process;
 
+import java.io.IOException;
 import org.commons.logger.ILogger;
 import org.commons.logger.LoggerFactory;
 import org.commons.resource.ResourceUtil;
@@ -44,7 +45,7 @@ public class ProcessUtil {
             System.out.println("Executing ... {" + command + "}");
             proc = Runtime.getRuntime().exec(command);
             proc.waitFor();
-        } catch (Throwable th) {
+        } catch (IOException | InterruptedException th) {
             logger.error("Could not execute {" + command + "}", th);
             status = false;
         } finally {

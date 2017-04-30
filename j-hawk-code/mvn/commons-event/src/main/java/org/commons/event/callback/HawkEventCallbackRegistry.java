@@ -39,7 +39,7 @@ import java.util.Map;
 public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
 
      private static final ILogger logger = LoggerFactory.getLogger(HawkEventCallbackRegistry.class.getName());
-    private final Map<Class<? extends IHawkEvent>, IHawkEvent> eventRegistry = new HashMap< Class< ? extends IHawkEvent>, IHawkEvent>();
+    private final Map<Class<? extends IHawkEvent>, IHawkEvent> eventRegistry = new HashMap< >();
 
     @Override
     public boolean register(Class< ? extends IHawkEvent> pluginEventClazz, IHawkEventCallback hawkPluginCallback) throws HawkEventException {

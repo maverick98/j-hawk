@@ -32,11 +32,11 @@ import org.commons.ds.stack.Stack;
  */
 public abstract class AbstractExpressionServiceImpl implements IExpressionService {
 
-    private final Map<String, InfixExpression> infixCache = new HashMap<String, InfixExpression>();
+    private final Map<String, InfixExpression> infixCache = new HashMap<>();
 
-    private final Map<String, PostfixExpression> postfixCache = new HashMap<String, PostfixExpression>();
+    private final Map<String, PostfixExpression> postfixCache = new HashMap<>();
 
-    private final Map<String, PrefixExpression> prefixCache = new HashMap<String, PrefixExpression>();
+    private final Map<String, PrefixExpression> prefixCache = new HashMap<>();
 
     @Override
     public InfixExpression toInfix(String inputExpression) throws Exception {
@@ -104,9 +104,9 @@ public abstract class AbstractExpressionServiceImpl implements IExpressionServic
 
         PostfixExpression postfixExpression = new PostfixExpression();
         postfixExpression.setEquation(infixExpression.getEquation());
-        List<IElement> postfix = new ArrayList<IElement>();
+        List<IElement> postfix = new ArrayList<>();
         int i = 0;
-        final Stack<IElement> stack = new Stack<IElement>();
+        final Stack<IElement> stack = new Stack<>();
 
         while (i < infix_len) {
 

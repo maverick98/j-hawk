@@ -42,7 +42,7 @@ public class ExcelFileUtil {
 
     public static <T> List<T> readExcel(String excelFile, Class<T> type) {
         FileInputStream file = null;
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         try {
 
             file = new FileInputStream(new File(excelFile));
@@ -50,7 +50,7 @@ public class ExcelFileUtil {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
 
-            Map<String, ColumnContainer> headerPosMap = new HashMap<String, ColumnContainer>();
+            Map<String, ColumnContainer> headerPosMap = new HashMap<>();
             Field fields[] = type.getDeclaredFields();
             if (fields != null && fields.length > 0) {
                 for (Field field : fields) {
@@ -79,7 +79,7 @@ public class ExcelFileUtil {
                 return null;
             }
             boolean headerDetected = false;
-            Map<Integer, ColumnContainer> posHeaderMap = new HashMap<Integer, ColumnContainer>();
+            Map<Integer, ColumnContainer> posHeaderMap = new HashMap<>();
             while (rowIterator.hasNext()) {
 
                 Row row = rowIterator.next();

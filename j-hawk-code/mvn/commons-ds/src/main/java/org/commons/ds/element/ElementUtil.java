@@ -38,7 +38,7 @@ public class ElementUtil {
      * @return returns the reverse of the list.
      */
     public static List<IElement> reverse(final List<IElement> list) {
-        List<IElement> result = new ArrayList<IElement>();
+        List<IElement> result = new ArrayList<>();
 
         for (int i = list.size() - 1, j = 0; i >= 0; i--, j++) {
             Element element = (Element) list.get(i);

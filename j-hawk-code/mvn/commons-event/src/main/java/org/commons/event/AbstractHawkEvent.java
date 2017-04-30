@@ -47,14 +47,8 @@ public abstract class AbstractHawkEvent implements IHawkEvent {
                 if (hawkEventAnnotation.type() == eventClazz) {
                     try {
                         method.invoke(callback, new Object[]{hawkPluginPayload});
-                    } catch (IllegalAccessException ex) {
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                         ex.printStackTrace();
-                        throw new HawkEventException(ex);
-                    } catch (IllegalArgumentException ex) {
-                       ex.printStackTrace();
-                        throw new HawkEventException(ex);
-                    } catch (InvocationTargetException ex) {
-                       ex.printStackTrace();
                         throw new HawkEventException(ex);
                     }
                 }

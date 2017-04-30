@@ -48,7 +48,7 @@ public class CommonUtil {
 
         boolean result;
 
-        result = (element == 1.0) ? true : false;
+        result = (element == 1.0);
 
         return result;
     }

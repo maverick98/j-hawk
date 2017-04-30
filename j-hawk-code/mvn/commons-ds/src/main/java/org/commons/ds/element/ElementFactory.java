@@ -149,7 +149,7 @@ public class ElementFactory {
 
     public List<IElement> parseElements(String equation) throws Exception {
         cacheParsingSequence();
-        List<IElement> elements = new ArrayList<IElement>();
+        List<IElement> elements = new ArrayList<>();
         int operatorCount = 0;
         int inputCount = 0;
         int pos = 0;

@@ -67,11 +67,12 @@ public class IOUtil {
      * This reads the hawk script file and returns them as a map with line no
      * and script as key value pair respectively.
      *
+     * @param in
      * @param scriptFile hawk script file
      * @return a map containing line no and the script
      */
     public static Map<Integer, String> dumpInputStreamToMap(InputStream in) {
-        Map<Integer, String> result = new TreeMap<Integer, String>();
+        Map<Integer, String> result = new TreeMap<>();
 
         BufferedReader bfr = null;
 

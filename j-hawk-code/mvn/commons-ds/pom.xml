@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.commons</groupId>
     <artifactId>commons-ds</artifactId>
-    <version>15.05</version>
+    <version>17.05</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,18 +14,18 @@
          <dependency>
             <groupId>org.commons</groupId>
             <artifactId>commons-util</artifactId>
-            <version>15.05</version>
+            <version>17.05</version>
         </dependency>
           <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>2.5</version>
             <scope>compile</scope>
         </dependency>
           <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
+            <version>1.2</version>
             <type>jar</type>
         </dependency>
           <dependency>
@@ -43,18 +43,18 @@
             <groupId>org.springframework</groupId>
             
             <artifactId>spring-context</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.3.8.RELEASE</version>
             <scope>compile</scope>
         </dependency>
          <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
+            <version>0.9.11</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.8.1</version>
+            <version>6.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

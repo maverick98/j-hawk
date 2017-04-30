@@ -26,7 +26,7 @@ public class Person {
     private String orgIds;
     
     @ExcelColumn(header = "orgIdSet",ignore = true)
-    private Set<String> orgIdSet = new HashSet<String>();
+    private Set<String> orgIdSet = new HashSet<>();
     
     public  String beforeOrgIdsSet(Object input){
         return input+",testing";

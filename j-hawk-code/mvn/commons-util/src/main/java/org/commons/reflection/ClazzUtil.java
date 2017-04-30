@@ -14,11 +14,6 @@
  *
  * 
  */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.commons.reflection;
 
@@ -114,15 +109,7 @@ public class ClazzUtil {
                 System.out.println("got  instance  erro for "+clazz);
                 logger.error(ex);
                 throw new Exception(ex);
-            } catch (IllegalAccessException ex) {
-                result = null;
-                logger.error(ex);
-                throw new Exception(ex);
-            } catch (SecurityException ex) {
-                result = null;
-                logger.error(ex);
-                throw new Exception(ex);
-            } catch (IllegalArgumentException ex) {
+            } catch (IllegalAccessException | SecurityException | IllegalArgumentException ex) {
                 result = null;
                 logger.error(ex);
                 throw new Exception(ex);
@@ -167,10 +154,7 @@ public class ClazzUtil {
         try {
             result = clazz.getDeclaredMethod(methodStr, parameterTypes);
 
-        } catch (NoSuchMethodException ex) {
-            logger.error(ex);
-            throw new Exception(ex);
-        } catch (SecurityException ex) {
+        } catch (NoSuchMethodException | SecurityException ex) {
             logger.error(ex);
             throw new Exception(ex);
         }
@@ -202,13 +186,7 @@ public class ClazzUtil {
         if (method != null) {
             try {
                 result = method.invoke(instance, args);
-            } catch (IllegalAccessException ex) {
-                logger.error(ex);
-                throw new Exception(ex);
-            } catch (IllegalArgumentException ex) {
-                logger.error(ex);
-                throw new Exception(ex);
-            } catch (InvocationTargetException ex) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 logger.error(ex);
                 throw new Exception(ex);
             }

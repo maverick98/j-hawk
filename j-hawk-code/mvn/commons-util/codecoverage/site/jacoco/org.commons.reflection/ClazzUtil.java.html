@@ -14,7 +14,6 @@
  *
  * 
  */
-
 package org.commons.reflection;
 
 import java.lang.reflect.InvocationTargetException;
@@ -28,87 +27,88 @@ import org.commons.string.StringUtil;
  *
  * @author manosahu
  */
-<span class="nc" id="L31">public class ClazzUtil {</span>
-<span class="fc" id="L32">     private static final ILogger logger = LoggerFactory.getLogger(ClazzUtil.class.getName());</span>
-     public static String getMethod(String field, String getOrSet) {
-<span class="fc" id="L34">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L35">        sb.append(getOrSet);</span>
-<span class="fc" id="L36">        sb.append(String.valueOf(field.charAt(0)).toUpperCase(Locale.ENGLISH));</span>
-<span class="fc" id="L37">        sb.append(field.substring(1));</span>
-<span class="fc" id="L38">        return sb.toString();</span>
+<span class="fc" id="L30">public class ClazzUtil {</span>
+
+<span class="fc" id="L32">    private static final ILogger logger = LoggerFactory.getLogger(ClazzUtil.class.getName());</span>
+
+    public static String getMethod(String field, String getOrSet) {
+<span class="fc" id="L35">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L36">        sb.append(getOrSet);</span>
+<span class="fc" id="L37">        sb.append(String.valueOf(field.charAt(0)).toUpperCase(Locale.ENGLISH));</span>
+<span class="fc" id="L38">        sb.append(field.substring(1));</span>
+<span class="fc" id="L39">        return sb.toString();</span>
     }
 
     public static String getSetterMethod(String field) {
-<span class="fc" id="L42">        return getMethod(field, &quot;set&quot;);</span>
+<span class="fc" id="L43">        return getMethod(field, &quot;set&quot;);</span>
     }
 
     public static String getGetterMethod(String field) {
-<span class="fc" id="L46">        return getMethod(field, &quot;get&quot;);</span>
+<span class="fc" id="L47">        return getMethod(field, &quot;get&quot;);</span>
     }
-    
-      public static Class loadClass(String clazzStr) throws Exception {
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (StringUtil.isNullOrEmpty(clazzStr)) {</span>
-<span class="nc" id="L51">            throw new Exception(&quot;illegal args&quot;);</span>
+
+    public static Class loadClass(String clazzStr) throws Exception {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (StringUtil.isNullOrEmpty(clazzStr)) {</span>
+<span class="fc" id="L52">            throw new Exception(&quot;illegal args&quot;);</span>
         }
         Class resultClazz;
 
         try {
-<span class="nc" id="L56">             resultClazz = Class.forName(clazzStr);</span>
-             
-<span class="nc" id="L58">        } catch (ClassNotFoundException cnfe) {</span>
+<span class="fc" id="L57">            resultClazz = Class.forName(clazzStr);</span>
 
-<span class="nc" id="L60">            logger.error(cnfe);</span>
-<span class="nc" id="L61">            throw new Exception(cnfe);</span>
+<span class="fc" id="L59">        } catch (ClassNotFoundException cnfe) {</span>
 
-<span class="nc" id="L63">        }</span>
-<span class="nc" id="L64">        return resultClazz;</span>
+<span class="fc" id="L61">            logger.error(cnfe);</span>
+<span class="fc" id="L62">            throw new Exception(cnfe);</span>
+
+<span class="fc" id="L64">        }</span>
+<span class="fc" id="L65">        return resultClazz;</span>
     }
 
     private static Method findCreateMethod(Class clazz) {
 
-<span class="nc" id="L69">        Method result = null;</span>
-<span class="nc" id="L70">        Method methods[] = clazz.getDeclaredMethods();</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Method method : methods) {</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (method.isAnnotationPresent(Create.class)) {</span>
-<span class="nc" id="L73">                result = method;</span>
-<span class="nc" id="L74">                break;</span>
+<span class="fc" id="L70">        Method result = null;</span>
+<span class="fc" id="L71">        Method methods[] = clazz.getDeclaredMethods();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (Method method : methods) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (method.isAnnotationPresent(Create.class)) {</span>
+<span class="fc" id="L74">                result = method;</span>
+<span class="fc" id="L75">                break;</span>
             }
         }
-<span class="nc" id="L77">        return result;</span>
+<span class="fc" id="L78">        return result;</span>
     }
 
     public static Object instantiate(String clazzStr) throws Exception {
-<span class="nc" id="L81">        return instantiate(loadClass(clazzStr));</span>
+<span class="fc" id="L82">        return instantiate(loadClass(clazzStr));</span>
     }
 
     public static Object instantiate(Class clazz) throws Exception {
-<span class="fc" id="L85">        return createObject(clazz);</span>
+<span class="fc" id="L86">        return createObject(clazz);</span>
     }
 
     public static &lt;T&gt; T instantiate(String clazzStr, Class&lt;T&gt; type) throws Exception {
-<span class="nc" id="L89">        Object instance = instantiate(clazzStr);</span>
-<span class="nc" id="L90">        return (T) instance;</span>
+<span class="fc" id="L90">        Object instance = instantiate(clazzStr);</span>
+<span class="fc" id="L91">        return (T) instance;</span>
 
     }
 
     public static &lt;T&gt; T instantiate(Class clazz, Class&lt;T&gt; type) throws Exception {
-<span class="nc" id="L95">        Object instance = instantiate(clazz);</span>
-<span class="nc" id="L96">        return (T) instance;</span>
+<span class="fc" id="L96">        Object instance = instantiate(clazz);</span>
+<span class="fc" id="L97">        return (T) instance;</span>
 
     }
 
     private static Object createObject(Class clazz) throws Exception {
-<span class="fc" id="L101">        Object result = null;</span>
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (clazz != null) {</span>
+<span class="fc" id="L102">        Object result = null;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (clazz != null) {</span>
             try {
-                
-<span class="fc" id="L105">                result = clazz.newInstance();</span>
 
-<span class="nc" id="L107">            } catch (InstantiationException ex) {</span>
-<span class="nc" id="L108">                result = null;</span>
-<span class="nc" id="L109">                System.out.println(&quot;got  instance  erro for &quot;+clazz);</span>
-<span class="nc" id="L110">                logger.error(ex);</span>
-<span class="nc" id="L111">                throw new Exception(ex);</span>
+<span class="fc" id="L106">                result = clazz.newInstance();</span>
+
+<span class="fc" id="L108">            } catch (InstantiationException ex) {</span>
+<span class="fc" id="L109">                result = null;</span>
+<span class="fc" id="L110">                logger.error(ex);</span>
+<span class="fc" id="L111">                throw new Exception(ex);</span>
 <span class="nc" id="L112">            } catch (IllegalAccessException | SecurityException | IllegalArgumentException ex) {</span>
 <span class="nc" id="L113">                result = null;</span>
 <span class="nc" id="L114">                logger.error(ex);</span>
@@ -120,29 +120,29 @@ import org.commons.string.StringUtil;
 
     public static Object instantiateFromSpring(Class clazz) throws Exception {
 
-<span class="nc" id="L123">        Object result = null;</span>
-<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (clazz != null) {</span>
-<span class="nc" id="L125">            Method createMethod = findCreateMethod(clazz);</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (createMethod != null) {</span>
-<span class="nc" id="L127">                result = invoke(createObject(clazz), createMethod, new Object[]{});</span>
+<span class="fc" id="L123">        Object result = null;</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (clazz != null) {</span>
+<span class="fc" id="L125">            Method createMethod = findCreateMethod(clazz);</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            if (createMethod != null) {</span>
+<span class="fc" id="L127">                result = invoke(createObject(clazz), createMethod, new Object[]{});</span>
             }
         }
-<span class="nc" id="L130">        return result;</span>
+<span class="fc" id="L130">        return result;</span>
     }
 
     public static Object instantiateFromSpring(String clazzStr) throws Exception {
-<span class="nc" id="L134">        return instantiateFromSpring(loadClass(clazzStr));</span>
+<span class="fc" id="L134">        return instantiateFromSpring(loadClass(clazzStr));</span>
     }
 
     public static &lt;T&gt; T instantiateFromSpring(String clazzStr, Class&lt;T&gt; type) throws Exception {
-<span class="nc" id="L138">        Object instance = instantiateFromSpring(clazzStr);</span>
-<span class="nc" id="L139">        return (T) instance;</span>
+<span class="fc" id="L138">        Object instance = instantiateFromSpring(clazzStr);</span>
+<span class="fc" id="L139">        return (T) instance;</span>
 
     }
 
     public static &lt;T&gt; T instantiateFromSpring(Class clazz, Class&lt;T&gt; type) throws Exception {
-<span class="nc" id="L144">        Object instance = instantiateFromSpring(clazz);</span>
-<span class="nc" id="L145">        return (T) instance;</span>
+<span class="fc" id="L144">        Object instance = instantiateFromSpring(clazz);</span>
+<span class="fc" id="L145">        return (T) instance;</span>
 
     }
 
@@ -172,12 +172,12 @@ import org.commons.string.StringUtil;
     }
 
     public static Object invoke(String clazzStr, String methodStr, Class[] parameterTypes, Object[] args) throws Exception {
-<span class="nc" id="L175">        Object instance = instantiate(clazzStr);</span>
-<span class="nc" id="L176">        return invoke(instance, methodStr, parameterTypes, args);</span>
+<span class="fc" id="L175">        Object instance = instantiate(clazzStr);</span>
+<span class="fc" id="L176">        return invoke(instance, methodStr, parameterTypes, args);</span>
     }
 
     public static Object invokeZeroArg(String clazzStr, String methodStr) throws Exception {
-<span class="nc" id="L180">        return invoke(clazzStr, methodStr, new Class[]{}, new Object[]{});</span>
+<span class="fc" id="L180">        return invoke(clazzStr, methodStr, new Class[]{}, new Object[]{});</span>
     }
 
     public static Object invoke(Object instance, Method method, Object[] args) throws Exception {

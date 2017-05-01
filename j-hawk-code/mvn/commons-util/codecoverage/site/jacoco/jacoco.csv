@@ -11,10 +11,10 @@ commons-util,org.commons.implementor,ImplementorVisitor,77,0,8,0,20,0,9,0,5,0
 commons-util,org.commons.implementor,ClazzLiteralVisitable,14,0,0,0,6,0,4,0,4,0
 commons-util,org.commons.implementor,ClazzVisitable,14,0,0,0,6,0,4,0,4,0
 commons-util,org.commons.implementor,InstanceVisitable,14,0,0,0,6,0,4,0,4,0
-commons-util,org.commons.reflection,ClazzUtil,171,94,14,4,51,28,21,9,12,9
+commons-util,org.commons.reflection,ClazzUtil,31,224,4,14,11,67,4,26,0,21
 commons-util,org.commons.resource,ResourceUtil,52,0,6,0,12,0,6,0,3,0
 commons-util,org.commons.logger,LoggerFactory,9,10,0,0,3,3,2,1,2,1
-commons-util,org.commons.logger,CommonLogger,40,7,0,0,15,3,8,2,8,2
+commons-util,org.commons.logger,CommonLogger,35,12,0,0,13,5,7,3,7,3
 commons-util,org.commons.io,IOUtil,277,0,10,0,65,0,15,0,10,0
 commons-util,org.common.properties,PropertiesUtil,158,0,12,0,35,0,12,0,6,0
 commons-util,org.commons.file,FileUtil,882,0,34,0,152,0,39,0,22,0

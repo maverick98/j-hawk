@@ -14,7 +14,6 @@
  *
  * 
  */
-
 package org.commons.reflection;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,8 +28,10 @@ import org.commons.string.StringUtil;
  * @author manosahu
  */
 public class ClazzUtil {
-     private static final ILogger logger = LoggerFactory.getLogger(ClazzUtil.class.getName());
-     public static String getMethod(String field, String getOrSet) {
+
+    private static final ILogger logger = LoggerFactory.getLogger(ClazzUtil.class.getName());
+
+    public static String getMethod(String field, String getOrSet) {
         StringBuilder sb = new StringBuilder();
         sb.append(getOrSet);
         sb.append(String.valueOf(field.charAt(0)).toUpperCase(Locale.ENGLISH));
@@ -45,16 +46,16 @@ public class ClazzUtil {
     public static String getGetterMethod(String field) {
         return getMethod(field, "get");
     }
-    
-      public static Class loadClass(String clazzStr) throws Exception {
+
+    public static Class loadClass(String clazzStr) throws Exception {
         if (StringUtil.isNullOrEmpty(clazzStr)) {
             throw new Exception("illegal args");
         }
         Class resultClazz;
 
         try {
-             resultClazz = Class.forName(clazzStr);
-             
+            resultClazz = Class.forName(clazzStr);
+
         } catch (ClassNotFoundException cnfe) {
 
             logger.error(cnfe);
@@ -101,12 +102,11 @@ public class ClazzUtil {
         Object result = null;
         if (clazz != null) {
             try {
-                
+
                 result = clazz.newInstance();
 
             } catch (InstantiationException ex) {
                 result = null;
-                System.out.println("got  instance  erro for "+clazz);
                 logger.error(ex);
                 throw new Exception(ex);
             } catch (IllegalAccessException | SecurityException | IllegalArgumentException ex) {

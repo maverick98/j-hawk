@@ -12,6 +12,12 @@
         <version>1.0</version>
     </parent>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            
+        </resources>
        
         <plugins>
             <plugin>

@@ -16,24 +16,24 @@ import sun.misc.BASE64Encoder;
 <span class="nc" id="L16">public class EncryptionUtil {</span>
 
     public static String encrypt(String plainPassword) throws Exception {
-<span class="nc" id="L19">        MessageDigest md = null;</span>
+<span class="fc" id="L19">        MessageDigest md = null;</span>
         try {
-<span class="nc" id="L21">            md = MessageDigest.getInstance(&quot;SHA&quot;);</span>
+<span class="fc" id="L21">            md = MessageDigest.getInstance(&quot;SHA&quot;);</span>
 <span class="nc" id="L22">        } catch (NoSuchAlgorithmException e) {</span>
 <span class="nc" id="L23">            throw new Exception(e.getMessage());</span>
-<span class="nc" id="L24">        }</span>
+<span class="fc" id="L24">        }</span>
         try {
-<span class="nc" id="L26">            md.update(plainPassword.getBytes(&quot;UTF-8&quot;));</span>
+<span class="fc" id="L26">            md.update(plainPassword.getBytes(&quot;UTF-8&quot;));</span>
 <span class="nc" id="L27">        } catch (UnsupportedEncodingException e) {</span>
 <span class="nc" id="L28">            throw new Exception(e.getMessage());</span>
-<span class="nc" id="L29">        }</span>
+<span class="fc" id="L29">        }</span>
 
-<span class="nc" id="L31">        byte raw[] = md.digest();</span>
+<span class="fc" id="L31">        byte raw[] = md.digest();</span>
         //TODO look for alternative.
         //String base64String = DatatypeConverter.printBase64Binary(baos.toByteArray());
         //byte[] bytearray = DatatypeConverter.parseBase64Binary(base64String);
-<span class="nc" id="L35">        String hash = (new BASE64Encoder()).encode(raw);</span>
-<span class="nc" id="L36">        return hash; //step 6</span>
+<span class="fc" id="L35">        String hash = (new BASE64Encoder()).encode(raw);</span>
+<span class="fc" id="L36">        return hash; //step 6</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

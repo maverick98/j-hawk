@@ -29,7 +29,7 @@ public class ResourceUtil {
     private static final Logger logger = Logger.getLogger(ResourceUtil.class.getName());
 
     public static boolean close(Closeable... closeables) {
-        boolean status = true;
+        boolean status = false;
         if (closeables != null) {
             for (Closeable closeable : closeables) {
                 try {
@@ -42,6 +42,7 @@ public class ResourceUtil {
                     throw new Error("unable to close resource " + closeable, ex);
                 }
             }
+            status = true;
         }
         return status;
 

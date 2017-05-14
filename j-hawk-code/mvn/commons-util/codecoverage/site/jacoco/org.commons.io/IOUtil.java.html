@@ -35,7 +35,9 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 import javax.imageio.ImageIO;
+import org.common.java.JavaUtil;
 import static org.commons.file.FileConstant.ENCODING;
 import org.commons.logger.ILogger;
 import org.commons.logger.LoggerFactory;
@@ -45,22 +47,25 @@ import org.commons.resource.ResourceUtil;
  *
  * @author manosahu
  */
-<span class="nc" id="L48">public class IOUtil {</span>
+<span class="nc" id="L50">public class IOUtil {</span>
 
-<span class="nc" id="L50">    private static final ILogger logger = LoggerFactory.getLogger(IOUtil.class.getName());</span>
+<span class="fc" id="L52">    private static final ILogger logger = LoggerFactory.getLogger(IOUtil.class.getName());</span>
 
     public static Reader createReader(String data) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (JavaUtil.isNull(data)) {</span>
+<span class="fc" id="L56">            return null;</span>
+        }
 
-<span class="nc" id="L54">        return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data.getBytes(Charset.forName(ENCODING))), Charset.forName(ENCODING)));</span>
+<span class="fc" id="L59">        return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data.getBytes(Charset.forName(ENCODING))), Charset.forName(ENCODING)));</span>
     }
 
     public static String readLineFromConsole() throws IOException {
 
         String data;
 
-<span class="nc" id="L61">        Scanner scanner = new Scanner(System.in, ENCODING);</span>
-<span class="nc" id="L62">        data = scanner.nextLine();</span>
-<span class="nc" id="L63">        return data;</span>
+<span class="nc" id="L66">        Scanner scanner = new Scanner(System.in, ENCODING);</span>
+<span class="nc" id="L67">        data = scanner.nextLine();</span>
+<span class="nc" id="L68">        return data;</span>
     }
 
     /**
@@ -68,120 +73,103 @@ import org.commons.resource.ResourceUtil;
      * and script as key value pair respectively.
      *
      * @param in
-     * @param scriptFile hawk script file
      * @return a map containing line no and the script
      */
     public static Map&lt;Integer, String&gt; dumpInputStreamToMap(InputStream in) {
-<span class="nc" id="L75">        Map&lt;Integer, String&gt; result = new TreeMap&lt;&gt;();</span>
-
-<span class="nc" id="L77">        BufferedReader bfr = null;</span>
-
+<span class="fc" id="L79">        Map&lt;Integer, String&gt; result = new TreeMap&lt;&gt;();</span>
+<span class="fc" id="L80">        BufferedReader bfr = null;</span>
         try {
-
-<span class="nc" id="L81">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
-            String line;
-<span class="nc" id="L83">            int i = 0;</span>
-            do {
-<span class="nc" id="L85">                line = bfr.readLine();</span>
-<span class="nc" id="L86">                result.put(i, line);</span>
-<span class="nc" id="L87">                i++;</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            } while (line != null);</span>
-
-<span class="nc" id="L90">        } catch (Exception ex) {</span>
-<span class="nc" id="L91">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
+<span class="fc" id="L82">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
+<span class="fc" id="L83">            bfr.lines().map(line -&gt; line).forEach(line -&gt; result.put(result.size(), line));</span>
+<span class="fc" id="L84">        } catch (Exception ex) {</span>
+<span class="fc" id="L85">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
         } finally {
-<span class="nc" id="L93">            ResourceUtil.close(bfr);</span>
-<span class="nc" id="L94">        }</span>
-
-<span class="nc" id="L96">        return result;</span>
+<span class="pc" id="L87">            ResourceUtil.close(bfr);</span>
+<span class="fc" id="L88">        }</span>
+<span class="fc" id="L89">        return result;</span>
     }
 
     public static String dumpInputStreamToString(InputStream in) {
-<span class="nc" id="L100">        StringBuilder result = new StringBuilder();</span>
-
-<span class="nc" id="L102">        BufferedReader bfr = null;</span>
-
+<span class="fc" id="L93">        StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L94">        BufferedReader bfr = null;</span>
+<span class="fc" id="L95">        result.append(&quot;&lt;html&gt;&quot;);</span>
         try {
-
-<span class="nc" id="L106">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
-            String line;
-<span class="nc" id="L108">            result.append(&quot;&lt;html&gt;&quot;);</span>
-            do {
-<span class="nc" id="L110">                line = bfr.readLine();</span>
-<span class="nc" id="L111">                result.append(line);</span>
-<span class="nc" id="L112">                result.append(&quot;&lt;br&gt;&quot;);</span>
-
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            } while (line != null);</span>
-<span class="nc" id="L115">            result.append(&quot;&lt;/html&gt;&quot;);</span>
-<span class="nc" id="L116">        } catch (Exception ex) {</span>
-<span class="nc" id="L117">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
+<span class="fc" id="L97">            bfr = new BufferedReader(new InputStreamReader(in, Charset.forName(ENCODING)));</span>
+<span class="fc" id="L98">            bfr.lines()</span>
+<span class="fc" id="L99">               .map(line -&gt; line)</span>
+<span class="fc" id="L100">               .forEach(line -&gt; {</span>
+<span class="fc" id="L101">                   result.append(line);</span>
+<span class="fc" id="L102">                   result.append(&quot;&lt;br&gt;&quot;);</span>
+<span class="fc" id="L103">               });</span>
+<span class="fc" id="L104">        } catch (Exception ex) {</span>
+<span class="fc" id="L105">            logger.error(&quot;error while reading &quot; + ex.getMessage());</span>
         } finally {
-<span class="nc" id="L119">            ResourceUtil.close(bfr);</span>
-<span class="nc" id="L120">        }</span>
-
-<span class="nc" id="L122">        return result.toString();</span>
+<span class="pc" id="L107">            ResourceUtil.close(bfr);</span>
+<span class="fc" id="L108">        }</span>
+<span class="fc" id="L109">        result.append(&quot;&lt;/html&gt;&quot;);</span>
+<span class="fc" id="L110">        return result.toString();</span>
     }
 
     public static boolean writeToPrintWriter(PrintWriter output, String data) {
 
         boolean status;
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (output != null) {</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (output != null) {</span>
             try {
-<span class="nc" id="L130">                output.write(data);</span>
-<span class="nc" id="L131">                status = true;</span>
-<span class="nc" id="L132">            } catch (Exception ex) {</span>
+<span class="fc" id="L118">                output.write(data);</span>
+<span class="fc" id="L119">                status = true;</span>
+<span class="fc" id="L120">            } catch (Exception ex) {</span>
 
-<span class="nc" id="L134">                logger.error(&quot;error while writing &quot;, ex);</span>
-<span class="nc" id="L135">                status = false;</span>
-<span class="nc" id="L136">            }</span>
+<span class="fc" id="L122">                logger.error(&quot;error while writing &quot;, ex);</span>
+<span class="fc" id="L123">                status = false;</span>
+<span class="fc" id="L124">            }</span>
         } else {
-<span class="nc" id="L138">            status = false;</span>
+<span class="nc" id="L126">            status = false;</span>
         }
-<span class="nc" id="L140">        return status;</span>
+<span class="fc" id="L128">        return status;</span>
     }
 
     public static boolean writeToStream(OutputStream output, String data) {
         boolean status;
-<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (output != null) {</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (output != null) {</span>
             try {
-<span class="nc" id="L147">                output.write(data.getBytes(Charset.forName(ENCODING)));</span>
-<span class="nc" id="L148">                status = true;</span>
-<span class="nc" id="L149">            } catch (Exception ex) {</span>
+<span class="fc" id="L135">                output.write(data.getBytes(Charset.forName(ENCODING)));</span>
+<span class="fc" id="L136">                status = true;</span>
+<span class="fc" id="L137">            } catch (Exception ex) {</span>
 
-<span class="nc" id="L151">                logger.error(&quot;error while writing &quot;, ex);</span>
-<span class="nc" id="L152">                status = false;</span>
-<span class="nc" id="L153">            }</span>
+<span class="fc" id="L139">                logger.error(&quot;error while writing &quot;, ex);</span>
+<span class="fc" id="L140">                status = false;</span>
+<span class="fc" id="L141">            }</span>
         } else {
-<span class="nc" id="L155">            status = false;</span>
+<span class="nc" id="L143">            status = false;</span>
         }
-<span class="nc" id="L157">        return status;</span>
+<span class="fc" id="L145">        return status;</span>
     }
 
     public static void sleep(long thinkTime) {
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (thinkTime &gt; 0) {</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (thinkTime &gt; 0) {</span>
             try {
 
-<span class="nc" id="L164">                Thread.sleep(thinkTime * 1000);</span>
-<span class="nc" id="L165">            } catch (InterruptedException ex) {</span>
-<span class="nc" id="L166">                logger.error(ex.getMessage());</span>
-<span class="nc" id="L167">            }</span>
+<span class="nc" id="L152">                Thread.sleep(thinkTime * 1000);</span>
+<span class="nc" id="L153">            } catch (InterruptedException ex) {</span>
+<span class="nc" id="L154">                logger.error(ex.getMessage());</span>
+<span class="nc" id="L155">            }</span>
         }
-<span class="nc" id="L169">    }</span>
+<span class="nc" id="L157">    }</span>
 
     public static boolean copyImage(String from, String formatName, File output) {
 
-<span class="nc" id="L173">        boolean result = false;</span>
-<span class="nc" id="L174">        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(from);</span>
+<span class="nc" id="L161">        boolean result = false;</span>
+<span class="nc" id="L162">        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(from);</span>
         BufferedImage bi;
         try {
-<span class="nc" id="L177">            bi = ImageIO.read(is);</span>
-<span class="nc" id="L178">            result = ImageIO.write(bi, formatName, output);</span>
+<span class="nc" id="L165">            bi = ImageIO.read(is);</span>
+<span class="nc" id="L166">            result = ImageIO.write(bi, formatName, output);</span>
 
-<span class="nc" id="L180">        } catch (Exception ex) {</span>
+<span class="nc" id="L168">        } catch (Exception ex) {</span>
 
-<span class="nc" id="L182">            logger.error(&quot;Could not copy &quot;+from, ex);</span>
-<span class="nc" id="L183">        }</span>
-<span class="nc" id="L184">        return result;</span>
+<span class="nc" id="L170">            logger.error(&quot;Could not copy &quot; + from, ex);</span>
+<span class="nc" id="L171">        }</span>
+<span class="nc" id="L172">        return result;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

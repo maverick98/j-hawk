@@ -45,6 +45,7 @@ public class ProcessUtil {
             System.out.println("Executing ... {" + command + "}");
             proc = Runtime.getRuntime().exec(command);
             proc.waitFor();
+            System.out.println("wait for "+command+" is over ");
         } catch (IOException | InterruptedException th) {
             logger.error("Could not execute {" + command + "}", th);
             status = false;

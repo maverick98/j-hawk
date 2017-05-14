@@ -26,24 +26,25 @@ import org.apache.log4j.Logger;
  */
 <span class="nc" id="L27">public class ResourceUtil {</span>
 
-<span class="nc" id="L29">    private static final Logger logger = Logger.getLogger(ResourceUtil.class.getName());</span>
+<span class="fc" id="L29">    private static final Logger logger = Logger.getLogger(ResourceUtil.class.getName());</span>
 
     public static boolean close(Closeable... closeables) {
-<span class="nc" id="L32">        boolean status = true;</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (closeables != null) {</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">            for (Closeable closeable : closeables) {</span>
+<span class="fc" id="L32">        boolean status = false;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (closeables != null) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            for (Closeable closeable : closeables) {</span>
                 try {
-<span class="nc bnc" id="L36" title="All 2 branches missed.">                    if (closeable != null) {</span>
-<span class="nc" id="L37">                        closeable.close();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">                    if (closeable != null) {</span>
+<span class="fc" id="L37">                        closeable.close();</span>
                     }
 
-<span class="nc" id="L40">                } catch (Exception ex) {</span>
-<span class="nc" id="L41">                    logger.error(ex);</span>
-<span class="nc" id="L42">                    throw new Error(&quot;unable to close resource &quot; + closeable, ex);</span>
-<span class="nc" id="L43">                }</span>
+<span class="fc" id="L40">                } catch (Exception ex) {</span>
+<span class="fc" id="L41">                    logger.error(ex);</span>
+<span class="fc" id="L42">                    throw new Error(&quot;unable to close resource &quot; + closeable, ex);</span>
+<span class="fc" id="L43">                }</span>
             }
+<span class="fc" id="L45">            status = true;</span>
         }
-<span class="nc" id="L46">        return status;</span>
+<span class="fc" id="L47">        return status;</span>
 
     }
 }

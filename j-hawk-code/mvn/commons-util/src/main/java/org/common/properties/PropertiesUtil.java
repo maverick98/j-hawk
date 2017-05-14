@@ -16,6 +16,7 @@
  */
 package org.common.properties;
 
+import static org.common.java.JavaUtil.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import org.apache.log4j.Logger;
-
 
 /**
  * An utility to save and load properties.
@@ -43,7 +43,9 @@ public class PropertiesUtil {
      * @return <tt>true</tt> on success <tt>false</tt> otherwise.
      */
     public static boolean saveProperties(Properties props, String file) {
-
+        if (isNull(props, file)) {
+            return false;
+        }
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
@@ -73,7 +75,6 @@ public class PropertiesUtil {
             logger.error(null, ex);
         }
         return result;
-
 
     }
 

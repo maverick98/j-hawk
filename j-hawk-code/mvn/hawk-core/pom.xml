@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org</groupId>
-    <artifactId>j-hawk</artifactId>
+    <groupId>org.hawkframework</groupId>
+    <artifactId>hawk-core</artifactId>
     <packaging>jar</packaging>
-    <name>j-hawk</name>
+    <name>hawk-core</name>
     <url>http://maven.apache.org</url>
   
     <build>
@@ -81,19 +81,19 @@
             <version>3.1</version>
         </dependency>
         <dependency>
-            <groupId>org.commons</groupId>
-            <artifactId>commons-util</artifactId>
-            <version>15.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-util</artifactId>
+            <version>17.05</version>
         </dependency>
         <dependency>
-            <groupId>org</groupId>
-            <artifactId>commons-event</artifactId>
-            <version>15.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-event</artifactId>
+            <version>17.05</version>
         </dependency>
         <dependency>
-            <groupId>org.commons</groupId>
-            <artifactId>commons-ds</artifactId>
-            <version>15.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-ds</artifactId>
+            <version>17.05</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -199,7 +199,7 @@
                 
         </dependency>
     </dependencies>
-    <version>15.05</version>
+    <version>17.05</version>
     <properties>
         <project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
     </properties>

@@ -41,7 +41,7 @@ public class ProcessUtilTest {
     /**
      * Test of executeProcess method, of class ProcessUtil.
      */
-    @Test
+    //@Test
     public void testExecuteProcess() {
         System.out.println("executeProcess");
         String command = "ls -ltr";

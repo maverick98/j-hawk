@@ -17,14 +17,14 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org</groupId>
-            <artifactId>j-hawk</artifactId>
-            <version>15.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-core</artifactId>
+            <version>17.05</version>
         </dependency>
         <dependency>
-            <groupId>org.commons</groupId>
-            <artifactId>commons-util</artifactId>
-            <version>15.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-util</artifactId>
+            <version>17.05</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

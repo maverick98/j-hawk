@@ -10,10 +10,10 @@
     <version>1.0</version>
   
     <modules>
-        <module>commons-util</module>
-        <module>commons-event</module>
-        <module>commons-ds</module>
-        <module>j-hawk</module>
         <module>codegen</module>
+        <module>hawk-core</module>
+        <module>hawk-commons-util</module>
+        <module>hawk-commons-event</module>
+        <module>hawk-commons-ds</module>
     </modules>
 </project>

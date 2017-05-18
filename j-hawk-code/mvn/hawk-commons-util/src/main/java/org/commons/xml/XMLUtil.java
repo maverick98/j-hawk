@@ -3,23 +3,7 @@
  * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
  *
  * 
- *
- * 1) If you modify a source file, make a comment in it containing your name and the date.
- * 2) If you distribute a modified version, you must do it under the GPL 2.
- * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
- * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
- *
- * 
- * 
- *
- * 
  */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.commons.xml;
 
 import java.io.File;
@@ -43,7 +27,8 @@ import org.w3c.dom.NodeList;
  *
  * @author manosahu
  */
-public class XMLUtil{
+public class XMLUtil {
+
     private static final ILogger logger = LoggerFactory.getLogger(XMLUtil.class.getName());
 
     public static Document parse(String fileName) {
@@ -148,11 +133,6 @@ public class XMLUtil{
         return childNode;
     }
 
-
-
-   
-
-  
     public static <T> T unmarshal(File xmlFile, Class<T> type) {
         if (type == null || xmlFile == null) {
             return null;
@@ -160,46 +140,43 @@ public class XMLUtil{
         if (!xmlFile.exists()) {
             return null;
         }
-       
+
         T instance = null;
         try {
-
 
             JAXBContext jaxbContext = JAXBContext.newInstance(type);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             instance = (T) jaxbUnmarshaller.unmarshal(xmlFile);
 
-
         } catch (JAXBException ex) {
             ex.printStackTrace();
             logger.error("error while unmarshalling {" + xmlFile + "}", ex);
-            
+
         }
         return instance;
     }
-     public static <T> T unmarshal(InputStream xmlStream, Class<T> type)  {
+
+    public static <T> T unmarshal(InputStream xmlStream, Class<T> type) {
         if (type == null || xmlStream == null) {
             return null;
         }
-         T instance = null;
+        T instance = null;
         try {
-
 
             JAXBContext jaxbContext = JAXBContext.newInstance(type);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             instance = (T) jaxbUnmarshaller.unmarshal(xmlStream);
 
-
         } catch (JAXBException ex) {
             ex.printStackTrace();
             logger.error("error while unmarshalling ", ex);
-            
+
         }
         return instance;
     }
-    
+
     public static <T> T unmarshal(String xmlFile, Class<T> type) {
         if (type == null || StringUtil.isNullOrEmpty(xmlFile)) {
             return null;
@@ -207,14 +184,14 @@ public class XMLUtil{
         return unmarshal(new File(xmlFile), type);
     }
 
-    public static boolean marshal(Object instance, String xmlFile)  {
+    public static boolean marshal(Object instance, String xmlFile) {
         if (instance == null || StringUtil.isNullOrEmpty(xmlFile)) {
-           return false;
+            return false;
         }
         return marshal(instance, new File(xmlFile));
     }
 
-    public static boolean marshal(Object instance, File xmlFile)  {
+    public static boolean marshal(Object instance, File xmlFile) {
         if (instance == null || xmlFile == null) {
             return false;
         }

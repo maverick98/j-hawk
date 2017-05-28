@@ -161,7 +161,7 @@ public class HttpModule extends HawkCoreModule {
      */
     public boolean resetThreads(Object... args) throws Exception {
         boolean status = false;
-        this.threads = new ArrayList<Thread>();
+        this.threads = new ArrayList<>();
         PerfDataProcessor hawkPerfDataCollector = AppContainer.getInstance().getBean(PerfDataProcessor.class);
         hawkPerfDataCollector.dump(true);
         status = true;

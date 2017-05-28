@@ -44,7 +44,7 @@ public class XMLStructIncludeScript extends AbstractIncludeScript{
      /**
      * A map containing module's xmls
      */
-    private Map<String,Map<String,Object>> xmlStructMap = new LinkedHashMap<>();
+    private final Map<String,Map<String,Object>> xmlStructMap = new LinkedHashMap<>();
 
     public Map<String, Map<String, Object>> getXmlStructMap() {
         return xmlStructMap;

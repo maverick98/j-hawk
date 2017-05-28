@@ -37,10 +37,10 @@ public class HttpRequest {
 
     private String targetURL;
     private RequestTypeEnum requestTypeEnum;
-    private Map<String, String> request = new HashMap<String, String>();
-    private Map<String, String> header = new HashMap<String, String>();
-    private Map<String, String> auth = new HashMap<String, String>();
-    private Map<String, String> body = new HashMap<String, String>();
+    private Map<String, String> request = new HashMap<>();
+    private Map<String, String> header = new HashMap<>();
+    private Map<String, String> auth = new HashMap<>();
+    private Map<String, String> body = new HashMap<>();
     private HttpRequestFinder httpRequestFinder = new HttpRequestFinder();
     private Map hawkMap = new HashMap();
 
@@ -168,7 +168,7 @@ public class HttpRequest {
         
         return this.getParamsInternal(this.getBody());
     }
-    private static final Set<String> KEYWORDS = new TreeSet<String>();
+    private static final Set<String> KEYWORDS = new TreeSet<>();
     
     static {
         KEYWORDS.add(TARGET_URL);
@@ -177,15 +177,9 @@ public class HttpRequest {
         KEYWORDS.add(OUT);
     }
     private Map<String,String> filterKeywords(Map<String,String> map){
-        Map<String,String> result = new HashMap<String,String>();
+        Map<String,String> result = new HashMap<>();
         
-        for(Entry<String,String> entry : map.entrySet()){
-           if(KEYWORDS.contains(entry.getKey()) ){
-               continue;
-           }else{
-               result.put(entry.getKey(),entry.getValue());
-           }
-       }
+        map.entrySet().stream().filter((entry) -> !(KEYWORDS.contains(entry.getKey()) ));
         
         return result;
     }

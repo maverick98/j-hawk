@@ -53,11 +53,11 @@ public class ParameterScript extends SingleLineScript{
     private  static final Pattern FUNCTION_PARAMETER_PATTERN=
             Pattern.compile("\\s*([a-z|A-Z]{1,}[a-z|A-Z|\\d]*)\\s*([a-z|A-Z]{1,}[a-z|A-Z|\\d]*)\\s*(\\[?\\s*\\]?)\\s*");
 
-    protected Map<Variable,IObjectScript> paramScripts = new LinkedHashMap<Variable,IObjectScript>();
+    protected Map<Variable,IObjectScript> paramScripts = new LinkedHashMap<>();
 
     
 
-    private Set<String> localStructs = new TreeSet<String>();
+    private Set<String> localStructs = new TreeSet<>();
 
     public Map<Variable, IObjectScript> getParamScripts() {
         return paramScripts;
@@ -186,17 +186,17 @@ public class ParameterScript extends SingleLineScript{
     public ParameterScript copy(){
         ParameterScript copyParameterScript = new ParameterScript();
         copyParameterScript.setLocalStructs(this.localStructs);
-        Map<Variable,IObjectScript> copyParamScript =  new LinkedHashMap<Variable,IObjectScript>();
-        for (Entry<Variable, IObjectScript> entry : this.paramScripts.entrySet()) {
+        Map<Variable,IObjectScript> copyParamScript =  new LinkedHashMap<>();
+        this.paramScripts.entrySet().stream().forEach((entry) -> {
             copyParamScript.put
-                            (
-                                entry.getKey().copy(),
-                                entry.getValue()!= null
-                                                ?
-                                                        (IObjectScript)entry.getValue().copy()
+                                    (
+                                            entry.getKey().copy(),
+                                            entry.getValue()!= null
+                                                    ?
+                                                    (IObjectScript)entry.getValue().copy()
                                                     :   null
-                            );
-        }
+                                    );
+        });
         copyParameterScript.setParamScripts(copyParamScript);
         return copyParameterScript;
     }

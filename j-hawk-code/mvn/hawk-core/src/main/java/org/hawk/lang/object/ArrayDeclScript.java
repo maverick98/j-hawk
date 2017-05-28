@@ -218,11 +218,11 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
         if(!this.isInitialized()){
             return this.getRhsArrayDeclScript().copyMembers();
         }
-        Map<Integer,IObjectScript>  copyMembers = new TreeMap<Integer,IObjectScript>();
+        Map<Integer,IObjectScript>  copyMembers = new TreeMap<>();
 
-        for(Entry<Integer,IObjectScript> entry:this.getMembers().entrySet()){
-           copyMembers.put(entry.getKey(), (IObjectScript)(entry.getValue().copy()));
-        }
+        this.getMembers().entrySet().stream().forEach((entry) -> {
+            copyMembers.put(entry.getKey(), (IObjectScript)(entry.getValue().copy()));
+        });
 
         return copyMembers;
     }
@@ -256,7 +256,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
     
    
     private void reset(){
-        this.members = new  TreeMap<Integer,IObjectScript>();
+        this.members = new  TreeMap<>();
     }
     @Override
     public IObjectScript execute() throws Exception {
@@ -539,7 +539,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
         if(this.isInitialized()){
             clonedArrayScript.setMembers(this.copyMembers());
         }else{
-            clonedArrayScript.members = new TreeMap<Integer,IObjectScript>();
+            clonedArrayScript.members = new TreeMap<>();
         }
 
         return clonedArrayScript;
@@ -587,7 +587,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
 
     @Override
     public String toUI() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Map<Integer,IObjectScript> map = this.isInitialized()
                                             ?
                                                     this.getMembers()
@@ -603,8 +603,8 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
     @Override
     public Map<Object, Object> toJavaMap() throws Exception {
 
-          Map<Object,Object> javaMap = new LinkedHashMap<Object,Object>();
-          Map<Object,Object> memberMap = new LinkedHashMap<Object,Object>();
+          Map<Object,Object> javaMap = new LinkedHashMap<>();
+          Map<Object,Object> memberMap = new LinkedHashMap<>();
 
           Map<Integer,IObjectScript> map = this.isInitialized()
                                             ?

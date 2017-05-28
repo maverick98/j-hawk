@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Classpath {
 
-    private List<Jar> jar = new ArrayList<Jar>();
+    private List<Jar> jar = new ArrayList<>();
 
     public List<Jar> getJar() {
         return jar;

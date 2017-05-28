@@ -125,11 +125,11 @@ public class JavaArrayScript extends ArrayDeclScript  {
     @Override
     public Map<Integer, IObjectScript> copyMembers() {
 
-        Map<Integer, IObjectScript> copyMembers = new TreeMap<Integer, IObjectScript>();
+        Map<Integer, IObjectScript> copyMembers = new TreeMap<>();
 
-        for (Entry<Integer, IObjectScript> entry : this.members.entrySet()) {
+        this.members.entrySet().stream().forEach((entry) -> {
             copyMembers.put(entry.getKey(), (IObjectScript)entry.getValue().copy());
-        }
+        });
 
         return copyMembers;
     }
@@ -171,20 +171,20 @@ public class JavaArrayScript extends ArrayDeclScript  {
 
     @Override
     public String toUI() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Map<Integer, IObjectScript> map = this.members;
 
-        for (Entry<Integer, IObjectScript> entry : map.entrySet()) {
+        map.entrySet().stream().forEach((entry) -> {
             result.add(entry.getValue().toUI());
-        }
+        });
         return result.toString();
     }
 
     @Override
     public Map<Object, Object> toJavaMap() throws Exception {
 
-        Map<Object, Object> javaMap = new LinkedHashMap<Object, Object>();
-        Map<Object, Object> memberMap = new LinkedHashMap<Object, Object>();
+        Map<Object, Object> javaMap = new LinkedHashMap<>();
+        Map<Object, Object> memberMap = new LinkedHashMap<>();
 
         Map<Integer, IObjectScript> map = this.members;
 

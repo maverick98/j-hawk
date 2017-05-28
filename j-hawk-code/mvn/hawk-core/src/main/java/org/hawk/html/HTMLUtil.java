@@ -65,7 +65,7 @@ public class HTMLUtil {
         Matcher m = selectPattern.matcher(html);
         int i=0;
         Select select = new Select();
-        Set<Option> options = new HashSet<Option>();
+        Set<Option> options = new HashSet<>();
         select.setOptions(options);
         select.setName(selectTagName);
         while(m.find())
@@ -109,7 +109,7 @@ public class HTMLUtil {
        if(html == null || html.isEmpty()){
            return null;
        }
-       Map<String, String> replacements = new TreeMap<String,String>();
+       Map<String, String> replacements = new TreeMap<>();
        replacements.put("1", hiddenParam);
        String pattern = StringUtil.replace(HIDDEN_PARAM_PATTERN_STR,replacements);
        Pattern HIDDEN_PARAM_PATTERN = Pattern.compile(pattern);
@@ -136,7 +136,7 @@ public class HTMLUtil {
        return findHiddenParam(html, sessionToken);
    }
     public static  Map<Integer,String> splitRow(String row){
-       Map<Integer,String> map = new TreeMap<Integer,String>();  
+       Map<Integer,String> map = new TreeMap<>();  
        String a[] = row.split(tdStartRegex);
        for(int i=0;i<a.length;i++){
            

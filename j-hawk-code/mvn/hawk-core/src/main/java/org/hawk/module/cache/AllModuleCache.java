@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AllModuleCache extends AbstractModuleCache implements IAllModuleCache {
 
-    private Map<Integer, IModuleCache> priorityModuleCache = new TreeMap<Integer, IModuleCache>();
+    private Map<Integer, IModuleCache> priorityModuleCache = new TreeMap<>();
 
     @Autowired
     private ISequenceProvider moduleCacheSequenceProvider;

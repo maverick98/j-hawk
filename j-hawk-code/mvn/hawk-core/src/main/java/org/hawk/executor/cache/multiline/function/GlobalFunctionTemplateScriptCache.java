@@ -41,7 +41,7 @@ public class GlobalFunctionTemplateScriptCache extends AbstractFunctionTemplateS
 
     @Override
     public boolean cache() throws Exception {
-        Set<VerticalStrip> all = new TreeSet<VerticalStrip>();
+        Set<VerticalStrip> all = new TreeSet<>();
         VerticalStrip theWholeStrip = new VerticalStrip(0, this.getHawkInput().getScriptMap().size());
         all.add(theWholeStrip);
         FunctionNode createdRootFunctionNode = this.createRootFunctionNode(all);

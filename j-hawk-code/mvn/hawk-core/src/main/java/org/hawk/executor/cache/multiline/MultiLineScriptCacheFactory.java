@@ -32,7 +32,7 @@ import org.hawk.logger.HawkLogger;
 public class MultiLineScriptCacheFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(MultiLineScriptCacheFactory.class.getName());
-    private static Map<Integer, IMultiLineScriptCache> cachedMultiLineScriptCache = new TreeMap<Integer, IMultiLineScriptCache>();
+    private static Map<Integer, IMultiLineScriptCache> cachedMultiLineScriptCache = new TreeMap<>();
 
     public static boolean isInsideMultiLineScript(int i) {
         boolean status = false;

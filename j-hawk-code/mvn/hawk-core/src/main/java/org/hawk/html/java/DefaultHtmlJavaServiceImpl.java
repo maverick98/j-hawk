@@ -133,7 +133,7 @@ public class DefaultHtmlJavaServiceImpl implements IHtmlJavaService {
     }
 
     private List<HtmlJavaBean> toJavaListInternal(Map<Integer, String> dataMap, Class clazz) throws Exception {
-        List<HtmlJavaBean> result = new ArrayList<HtmlJavaBean>();
+        List<HtmlJavaBean> result = new ArrayList<>();
         if (dataMap != null && !dataMap.isEmpty()) {
             for (Map.Entry<Integer, String> entry : dataMap.entrySet()) {
                 if (!StringUtil.isNullOrEmpty(entry.getValue())) {
@@ -239,16 +239,16 @@ public class DefaultHtmlJavaServiceImpl implements IHtmlJavaService {
     private Set<HTMLTableColumnContainer> getSortedHTMLTableRowMethods(Object javaObject) throws Exception {
 
         Map<Integer, HTMLTableColumnContainer> map = this.getSortedHTMLTableRowMethodMap(javaObject.getClass());
-        Set<HTMLTableColumnContainer> result = new TreeSet<HTMLTableColumnContainer>();
-        for (Map.Entry<Integer, HTMLTableColumnContainer> entry : map.entrySet()) {
+        Set<HTMLTableColumnContainer> result = new TreeSet<>();
+        map.entrySet().stream().forEach((entry) -> {
             result.add(entry.getValue());
-        }
+        });
         return result;
     }
 
     private Map<Integer, HTMLTableColumnContainer> getSortedHTMLTableRowMethodMap(Class clazz) throws Exception {
 
-        Map<Integer, HTMLTableColumnContainer> result = new TreeMap<Integer, HTMLTableColumnContainer>();
+        Map<Integer, HTMLTableColumnContainer> result = new TreeMap<>();
 
         Method[] methods = clazz.getDeclaredMethods();
         Class[] parameterTypes = new Class[0];

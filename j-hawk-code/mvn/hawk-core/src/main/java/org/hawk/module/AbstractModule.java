@@ -40,11 +40,11 @@ public abstract class AbstractModule implements IModule {
      * @see SubTaskContainer
      * @see IModule
      */
-    private Map<String, SubTaskContainer> cachedSubTasks;
+    private final Map<String, SubTaskContainer> cachedSubTasks;
 
     protected AbstractModule() {
 
-        this.cachedSubTasks = new HashMap<String, SubTaskContainer>();
+        this.cachedSubTasks = new HashMap<>();
 
     }
 
@@ -97,12 +97,11 @@ public abstract class AbstractModule implements IModule {
 
         }
 
-        Set<SubTaskContainer> sortedTasks = new TreeSet<SubTaskContainer>();
+        Set<SubTaskContainer> sortedTasks = new TreeSet<>();
 
-        for (Entry<String, SubTaskContainer> entry : subTasks.entrySet()) {
-
+        subTasks.entrySet().stream().forEach((entry) -> {
             sortedTasks.add(entry.getValue());
-        }
+        });
 
         return sortedTasks;
     }

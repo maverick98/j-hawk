@@ -60,7 +60,7 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
     private static final HawkLogger logger = HawkLogger.getLogger(StructureScript.class.getName());
     private String structName;
     private Variable structVarName;
-    private Map<String, IObjectScript> members = new HashMap<String, IObjectScript>();
+    private Map<String, IObjectScript> members = new HashMap<>();
     private ControlRequest controlRequest;
 
     @Autowired(required = true)
@@ -145,13 +145,11 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
 
     public Map<String, IObjectScript> copyMembers() {
 
-        Map<String, IObjectScript> copyMembers = new HashMap<String, IObjectScript>();
+        Map<String, IObjectScript> copyMembers = new HashMap<>();
 
-        for (Entry<String, IObjectScript> entry : this.getMembers().entrySet()) {
-
+        this.getMembers().entrySet().stream().forEach((entry) -> {
             copyMembers.put(entry.getKey(), (IObjectScript) (entry.getValue().copy()));
-
-        }
+        });
 
         return copyMembers;
     }
@@ -308,7 +306,7 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
     @Override
     public Map<Object, Object> toJavaMap() throws Exception {
 
-        Map<Object, Object> javaMap = new LinkedHashMap<Object, Object>();
+        Map<Object, Object> javaMap = new LinkedHashMap<>();
 
         for (Entry<String, IObjectScript> entry : this.getMembers().entrySet()) {
 

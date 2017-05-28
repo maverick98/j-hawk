@@ -32,7 +32,7 @@ import org.hawk.logger.HawkLogger;
 public class ScriptCacheProvider  implements IScriptCacheProvider{
 
     private static final HawkLogger logger = HawkLogger.getLogger(ScriptCacheProvider.class.getName());
-    private Map<Integer, IScriptCache> cachedScriptCache = new TreeMap<Integer, IScriptCache>();
+    private Map<Integer, IScriptCache> cachedScriptCache = new TreeMap<>();
 
     public ScriptCacheProvider(){
         

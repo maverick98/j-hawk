@@ -41,7 +41,7 @@ public class AbstractStructRequestFinder implements IStructRequestFinder {
     @Override
     public Map<String, String> findMap(Object mapObj) throws Exception {
         if(mapObj == null){
-            return new HashMap<String,String>();
+            return new HashMap<>();
         }
         if ( !(mapObj instanceof Map)) {
 

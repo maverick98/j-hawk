@@ -36,9 +36,9 @@ public class DefaultHawkPluginEvent extends AbstractHawkEvent {
 
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultHawkPluginEvent.class.getName());
 
-    private final Set<IHawkPluginCallbackCore> coreCallbacks = new TreeSet<IHawkPluginCallbackCore>();
+    private final Set<IHawkPluginCallbackCore> coreCallbacks = new TreeSet<>();
 
-    private final Set<IHawkPluginCallbackPlugin> pluginCallbacks = new TreeSet<IHawkPluginCallbackPlugin>();
+    private final Set<IHawkPluginCallbackPlugin> pluginCallbacks = new TreeSet<>();
 
     public Set<IHawkPluginCallbackCore> getCoreCallbacks() {
         return coreCallbacks;

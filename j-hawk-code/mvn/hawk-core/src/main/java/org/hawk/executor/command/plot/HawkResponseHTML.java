@@ -34,9 +34,9 @@ public class HawkResponseHTML extends FileTemplateJavaBean {
     @FieldData("#TARGET_MODULE#")
     private String targetModule;
     @FieldData(value = "#MODULE_NAME#", multiple = true, pre = false, post = true)
-    private List<String> moduleNames = new ArrayList<String>();
+    private List<String> moduleNames = new ArrayList<>();
     @FieldData(value = "#MODULE_SUBTASK_NAME#", multiple = true, pre = false, post = true)
-    private List<String> moduleSubTaskNames = new ArrayList<String>();
+    private List<String> moduleSubTaskNames = new ArrayList<>();
     @FieldData("#MODULENAMEPATH#")
     private String moduleNamePath;
     @FieldData("#FILEPATH#")

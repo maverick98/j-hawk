@@ -47,7 +47,7 @@ public class ExecBackgroundSingleLineScript extends ExecFunctionScript {
     private static final Pattern FUNCTION_EXEC_BACKGROUND_PATTERN
             = Pattern.compile("\\s*" + execBackground + "\\s*([a-z|A-Z]{1,}[a-z|A-Z|\\d]*)\\s*\\(\\s*(.*)\\s*\\)\\s*");
 
-    private static List<Thread> threads = new ArrayList<Thread>();
+    private static List<Thread> threads = new ArrayList<>();
     private IScript result = null;
     
     

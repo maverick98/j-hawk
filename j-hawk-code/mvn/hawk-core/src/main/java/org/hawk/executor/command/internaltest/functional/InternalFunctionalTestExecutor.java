@@ -84,7 +84,7 @@ public class InternalFunctionalTestExecutor implements IHawkCommandExecutor {
     public boolean execute(IHawkExecutionCommand hawkCommand) throws Exception {
         boolean status = true;
 
-        List<HtmlJavaBean> hawkTests = new ArrayList<HtmlJavaBean>();
+        List<HtmlJavaBean> hawkTests = new ArrayList<>();
 
         if (!this.getHawkTestProperties().isLoaded()) {
             this.getHawkTestProperties().load();

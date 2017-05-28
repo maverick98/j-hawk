@@ -47,7 +47,7 @@ public class InternalFuncTestHTMLJavaServiceImpl extends DefaultHtmlJavaServiceI
 
 
     public Map<String, InternalFunctionalTest> extractHawkTestRows1(String testResultFile) throws Exception {
-        Map<String, InternalFunctionalTest> result = new HashMap<String, InternalFunctionalTest>();
+        Map<String, InternalFunctionalTest> result = new HashMap<>();
 
 
         Map<Integer, String> dataMap = FileUtil.dumpFileToMap(testResultFile);

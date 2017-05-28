@@ -119,10 +119,10 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     private boolean addPluginJars(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
         Classpath classpath = hawkPlugin.getPluginMetaData().getClasspath();
 
-        List<String> jars = new ArrayList<String>();
-        for (Jar jar : classpath.getJar()) {
+        List<String> jars = new ArrayList<>();
+        classpath.getJar().stream().forEach((jar) -> {
             jars.add(hawkPlugin.getAbsolutePath(jar.getPath()));
-        }
+        });
         return this.addPluginJars(jars);
 
     }
@@ -298,7 +298,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
    
     @Override
     public Set<HawkPlugin> findAvailablePlugins() throws HawkPluginException,HawkEventException {
-        Set<HawkPlugin> availablePlugins = new HashSet<HawkPlugin>();
+        Set<HawkPlugin> availablePlugins = new HashSet<>();
         List<HtmlJavaBean> list = null;
         try {
              list = this.getInternalFuncTestHTMLJavaServiceImpl().toJavaList(new URL("http://j-hawk.sourceforge.net/plugin.html"), AvailablePluginHtmlJavaBean.class);
@@ -318,7 +318,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     @Override
     public Set<HawkPlugin> findDownloadedPlugins() throws HawkPluginException,HawkEventException {
         Collection<File> downloadedPluginArchiveFiles = this.listAllPluginArchives();
-        Set<HawkPlugin> downloadedPlugins = new TreeSet<HawkPlugin>();
+        Set<HawkPlugin> downloadedPlugins = new TreeSet<>();
         if (downloadedPluginArchiveFiles != null) {
             for (File downloadedPluginArchivFile : downloadedPluginArchiveFiles) {
                 HawkPlugin downloadedPlugin = new HawkPlugin(downloadedPluginArchivFile.getName(), this.getPluginRootDir());
@@ -372,7 +372,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             return null;
         }
         if (b == null) {
-            b = new TreeSet<HawkPlugin>();
+            b = new TreeSet<>();
         }
         Set<HawkPlugin> result;
         a.removeAll(b);

@@ -36,7 +36,7 @@ import static org.hawk.ds.exp.HawkDSConstant.ASSIGNMENT_PATTERN;
 public class HawkExpressionServiceImpl extends AbstractExpressionServiceImpl {
 
    
-    private static Map<String, String> equationCache = new HashMap<String, String>();
+    private static Map<String, String> equationCache = new HashMap<>();
 
     @Override
     public String preProcess(String equation) throws Exception {
@@ -45,8 +45,8 @@ public class HawkExpressionServiceImpl extends AbstractExpressionServiceImpl {
         }
         String result;
         result = equation;
-        Map<Integer, String> tmpArrayStartPositions = new HashMap<Integer, String>();
-        Map<Integer, String> tmpArrayEndPositions = new HashMap<Integer, String>();
+        Map<Integer, String> tmpArrayStartPositions = new HashMap<>();
+        Map<Integer, String> tmpArrayEndPositions = new HashMap<>();
         do {
             Matcher mEqnMatcher = ARRAY_EXISTENCE_PATTERN.matcher(result);
             if (mEqnMatcher.find()) {

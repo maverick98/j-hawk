@@ -173,7 +173,7 @@ public class FunctionScript extends MultiLineScript implements IObjectScript {
 
     private ForLoopScript defaultForLoopScript = null;
 
-    private final Stack<ParameterScript> parameterScriptStack = new Stack<ParameterScript>();
+    private final Stack<ParameterScript> parameterScriptStack = new Stack<>();
 
     private ParameterScript parameterScript = null;
 
@@ -463,7 +463,7 @@ public class FunctionScript extends MultiLineScript implements IObjectScript {
         }
         //FunctionScript.parseFunctions(null, null)
         VerticalStrip verticalStrip = new VerticalStrip(i, multiLineScript.getMultiLineContainer().getEnd());
-        Set<VerticalStrip> all = new TreeSet<VerticalStrip>();
+        Set<VerticalStrip> all = new TreeSet<>();
         all.add(verticalStrip);
         
         if(multiLineScript.getRootFunctionNode() == null){

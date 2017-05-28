@@ -48,7 +48,7 @@ import org.common.di.ScanMe;
 public class DoWhileLoopScript extends MultiLineScript{
 
     private static final HawkLogger logger = HawkLogger.getLogger(DoWhileLoopScript.class.getName());
-    private Stack<String> boundaryCheckExpStack = new Stack<String>();
+    private Stack<String> boundaryCheckExpStack = new Stack<>();
     private String boundaryCheckExp = null;
     private String boundaryCheckExpOrig = null;
 

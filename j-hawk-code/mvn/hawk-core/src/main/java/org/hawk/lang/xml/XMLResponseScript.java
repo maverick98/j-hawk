@@ -54,7 +54,7 @@ public class XMLResponseScript extends SingleLineScript implements ContentHandle
      *   If the xml contains, hawk should treat as ArrayDeclScript.
      *   Currently it is checked if it is a list or not
      */
-    private Map<String, Object> innerXMLMap = new HashMap<String, Object>();
+    private Map<String, Object> innerXMLMap = new HashMap<>();
 
     private static final String DELIM = OperatorEnum.REFERENCE.getOperator();
 
@@ -292,7 +292,7 @@ public class XMLResponseScript extends SingleLineScript implements ContentHandle
     @Override
     public Map<Object, Object> toJavaMap() throws Exception {
 
-        Map<Object,Object> javaMap = new LinkedHashMap<Object,Object>();
+        Map<Object,Object> javaMap = new LinkedHashMap<>();
 
         
 

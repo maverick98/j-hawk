@@ -37,16 +37,10 @@ public class HawkPerfUtil {
             return null;
         }
 
-        List<HawkPerfData> result = new ArrayList<HawkPerfData>();
+        List<HawkPerfData> result = new ArrayList<>();
 
 
-        Collections.sort(all, new Comparator<HawkPerfData>() {
-
-            @Override
-            public int compare(HawkPerfData o1, HawkPerfData o2) {
-               return  Long.valueOf(o1.getModuleStartTimeLong()).compareTo(Long.valueOf(o2.getModuleStartTimeLong()));
-            }
-        });
+        Collections.sort(all, (HawkPerfData o1, HawkPerfData o2) -> Long.valueOf(o1.getModuleStartTimeLong()).compareTo(Long.valueOf(o2.getModuleStartTimeLong())));
         result.add(all.get(0));
         result.add(all.get(all.size()-1));
         return result;
@@ -54,15 +48,11 @@ public class HawkPerfUtil {
 
     public static List<String> fetchBoundaryTime(List<HawkPerfData> all){
 
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
-        Collections.sort(all, new Comparator<HawkPerfData>() {
-
-            @Override
-            public int compare(HawkPerfData o1, HawkPerfData o2) {
-               long diff = o1.getModuleStartTimeLong()-o2.getModuleStartTimeLong();
-               return (int)diff;
-            }
+        Collections.sort(all, (HawkPerfData o1, HawkPerfData o2) -> {
+            long diff = o1.getModuleStartTimeLong()-o2.getModuleStartTimeLong();
+            return (int)diff;
         });
         result.add(all.get(0).getModuleStartTime());
         result.add(all.get(all.size()-1).getModuleStartTime());

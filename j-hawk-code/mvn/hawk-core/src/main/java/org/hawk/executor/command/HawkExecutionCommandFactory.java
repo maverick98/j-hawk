@@ -35,7 +35,7 @@ import org.commons.string.StringUtil;
 public class HawkExecutionCommandFactory implements IHawkExecutionCommandFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkExecutionCommandFactory.class.getName());
-    private static List<IHawkExecutionCommand> cachedHawkExecutionCommands = new ArrayList<IHawkExecutionCommand>();
+    private static List<IHawkExecutionCommand> cachedHawkExecutionCommands = new ArrayList<>();
 
     @Override
     public List<IHawkExecutionCommand> getHawkExecutionCommands() throws Exception {

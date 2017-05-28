@@ -151,7 +151,7 @@ public class XMLUtil {
         String file = "/home/manoranjan/jax/login.xml";
         Document dom = parse(file);
         Node f = dom.getDocumentElement();
-        Map<String, Object> hawkParamMap = new LinkedHashMap<String, Object>();
+        Map<String, Object> hawkParamMap = new LinkedHashMap<>();
         scan(f, hawkParamMap);
         System.out.println(hawkParamMap);
         //StructureDefnScript.parseStructMembers(hawkParamMap);
@@ -164,7 +164,7 @@ public class XMLUtil {
             return null;
         }
         Node f = dom.getDocumentElement();
-        Map<String, Object> hawkParamMap = new LinkedHashMap<String, Object>();
+        Map<String, Object> hawkParamMap = new LinkedHashMap<>();
         scan(f, hawkParamMap);
         return hawkParamMap;
     }

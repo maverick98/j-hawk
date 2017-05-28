@@ -54,7 +54,7 @@ import org.commons.string.StringUtil;
 public class HttpExecutor implements IHttpExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HttpUtil.class.getName());
-    protected static final HttpSessionLocal<HttpSessionInfo> httpSessionLocal = new HttpSessionLocal<HttpSessionInfo>();
+    protected static final HttpSessionLocal<HttpSessionInfo> httpSessionLocal = new HttpSessionLocal<>();
     private String httpModuleName;
     private StructureScript structureScript;
     private HttpRequest httpRequest;

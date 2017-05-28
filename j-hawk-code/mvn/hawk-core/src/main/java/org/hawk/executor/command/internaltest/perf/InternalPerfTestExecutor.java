@@ -86,7 +86,7 @@ public class InternalPerfTestExecutor implements IHawkCommandExecutor {
         if (!this.getHawkTestProperties().isLoaded()) {
             this.getHawkTestProperties().load();
         }
-        List<HtmlJavaBean> hawkTests = new ArrayList<HtmlJavaBean>();
+        List<HtmlJavaBean> hawkTests = new ArrayList<>();
         for (Map.Entry<String, String> entry : this.getHawkTestProperties().getTestSuites().entrySet()) {
             InternalPerfTest hawkTest = InternalPerfTest.prepareHawkTest(entry.getKey(), entry.getValue());
             hawkTests.add(hawkTest);

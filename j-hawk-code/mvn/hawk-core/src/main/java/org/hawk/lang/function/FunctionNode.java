@@ -32,7 +32,7 @@ public class FunctionNode implements IVisitable {
 
     private FunctionNode parent = null;
 
-    private Map<String, FunctionNode> children = new HashMap<String, FunctionNode>();
+    private Map<String, FunctionNode> children = new HashMap<>();
 
     private FunctionScript value = null;
 
@@ -230,7 +230,7 @@ public class FunctionNode implements IVisitable {
             throw new Exception("invalid function name");
 
         }
-        final List<FunctionScript> result = new ArrayList<FunctionScript>();
+        final List<FunctionScript> result = new ArrayList<>();
 
         this.visitFunctionNode
                 (

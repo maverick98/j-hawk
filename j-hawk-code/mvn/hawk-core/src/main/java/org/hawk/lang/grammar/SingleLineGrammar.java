@@ -33,7 +33,7 @@ public class SingleLineGrammar {
 
     private Integer parsingSequence;
 
-    private Set<LinePattern> linePattern = new TreeSet<LinePattern>();
+    private Set<LinePattern> linePattern = new TreeSet<>();
 
     public Integer getParsingSequence() {
         return parsingSequence;

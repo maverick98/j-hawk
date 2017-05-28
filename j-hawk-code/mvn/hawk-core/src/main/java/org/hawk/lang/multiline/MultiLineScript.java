@@ -58,10 +58,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MultiLineScript extends AbstractScript implements IMultiLineScript {
 
     private static final HawkLogger logger = HawkLogger.getLogger(MultiLineScript.class.getName());
-    protected Map<Integer, IScript> innerScripts = new TreeMap<Integer, IScript>();
+    protected Map<Integer, IScript> innerScripts = new TreeMap<>();
     protected FunctionScript functionScript = null;
-    protected Stack<Map<Variable, IScript>> localVariableTableStack = new Stack<Map<Variable, IScript>>();
-    protected Stack<Set<String>> localStructStack = new Stack<Set<String>>();
+    protected Stack<Map<Variable, IScript>> localVariableTableStack = new Stack<>();
+    protected Stack<Set<String>> localStructStack = new Stack<>();
     protected MultiLineContainer multiLineContainer = null;
     @Autowired(required = true)
        
@@ -128,17 +128,13 @@ public class MultiLineScript extends AbstractScript implements IMultiLineScript 
     @Override
     public void pushLocalVars() {
 
-        Map<Variable, IScript> localVariableTable = new LinkedHashMap<Variable, IScript>();
+        Map<Variable, IScript> localVariableTable = new LinkedHashMap<>();
         this.localVariableTableStack.push(localVariableTable);
-        Set<String> localStructs = new TreeSet<String>();
+        Set<String> localStructs = new TreeSet<>();
         this.localStructStack.push(localStructs);
-        for (Entry<Integer, IScript> entry : this.innerScripts.entrySet()) {
-            if (entry.getValue() instanceof IMultiLineScript) {
-                IMultiLineScript multiLineScript = (IMultiLineScript) entry.getValue();
-                multiLineScript.pushLocalVars();
-            }
-
-        }
+        this.innerScripts.entrySet().stream().filter((entry) -> (entry.getValue() instanceof IMultiLineScript)).map((entry) -> (IMultiLineScript) entry.getValue()).forEach((multiLineScript) -> {
+            multiLineScript.pushLocalVars();
+        });
     }
 
     @Override
@@ -489,7 +485,7 @@ public class MultiLineScript extends AbstractScript implements IMultiLineScript 
     public MultiLineContainer extractMultiLineContainer(Map<Integer, String> scriptMap, int x) throws Exception {
         MultiLineContainer mlc = new MultiLineContainer();
         boolean firstStartBracktFound = false;
-        Stack<String> stack = new Stack<String>();
+        Stack<String> stack = new Stack<>();
         int start = x + 1;
         int end = -1;
         int i = x;

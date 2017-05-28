@@ -51,7 +51,7 @@ public class ExecParallelSingleLineScript extends ExecFunctionScript{
 
     private static final HawkLogger logger = HawkLogger.getLogger(ExecParallelSingleLineScript.class.getName());
   
-    private static ThreadLocal<List<Thread>> threadLocals = new ThreadLocal<List<Thread>>();
+    private static ThreadLocal<List<Thread>> threadLocals = new ThreadLocal<>();
 
     private IScript result = null;
 
@@ -60,7 +60,7 @@ public class ExecParallelSingleLineScript extends ExecFunctionScript{
     public List<Thread> getThreads() {
         List<Thread> threads = threadLocals.get();
         if(threads == null){
-            threads = new ArrayList<Thread>();
+            threads = new ArrayList<>();
             this.setThreads(threads);
         }
         return threads;

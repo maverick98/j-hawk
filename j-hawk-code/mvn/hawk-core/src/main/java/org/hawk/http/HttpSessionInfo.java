@@ -46,7 +46,7 @@ public class HttpSessionInfo {
 
     public List<Cookie> getCookies() {
         if (cookies == null) {
-            cookies = new ArrayList<Cookie>();
+            cookies = new ArrayList<>();
         }
         return cookies;
     }

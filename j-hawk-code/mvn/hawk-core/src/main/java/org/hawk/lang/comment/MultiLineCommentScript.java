@@ -76,7 +76,7 @@ public class MultiLineCommentScript extends MultiLineScript {
 
     public static Map<Integer, Integer> cacheGlobalMultiLineScripts() throws Exception {
 
-        Map<Integer, Integer> globalMultiLineScriptMap = new TreeMap<Integer, Integer>();
+        Map<Integer, Integer> globalMultiLineScriptMap = new TreeMap<>();
         HawkInput hawkInput = AppContainer.getInstance().getBean( HawkInput.class);
         IFunctionScriptCache functionScriptCache = AppContainer.getInstance().getBean(FunctionScriptCache.class);
         IStructureDefinitionScriptCache structureDefinitionCache = AppContainer.getInstance().getBean(StructureDefinitionScriptCache.class);

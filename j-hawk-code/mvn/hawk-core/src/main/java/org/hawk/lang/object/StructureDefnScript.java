@@ -81,14 +81,11 @@ public class StructureDefnScript extends MultiLineScript {
     public Map<String, IObjectScript> instantiate() throws Exception {
 
 
-        Map<String, IObjectScript> structInstance = new HashMap<String, IObjectScript>();
+        Map<String, IObjectScript> structInstance = new HashMap<>();
 
-        for (Entry<Integer, IScript> entry : this.getInnerScripts().entrySet()) {
-
-            IObjectScript script = (IObjectScript)entry.getValue();
-
+        this.getInnerScripts().entrySet().stream().map((entry) -> (IObjectScript)entry.getValue()).forEach((script) -> {
             structInstance.put(script.getVariable().getName(), (IObjectScript)script.copy());
-        }
+        });
 
         return structInstance;
     }
@@ -97,6 +94,7 @@ public class StructureDefnScript extends MultiLineScript {
      * This converts the hawk structure into java map..
      *
      * @return
+     * @throws java.lang.Exception
      * @throws org.hawk.exception.Exception
      */
     @Override
@@ -104,13 +102,11 @@ public class StructureDefnScript extends MultiLineScript {
 
         Map<String, IObjectScript> instance = this.instantiate();
 
-        Map<Object, Object> javaMap = new LinkedHashMap<Object, Object>();
+        Map<Object, Object> javaMap = new LinkedHashMap<>();
 
-        for (Entry<String, IObjectScript> entry : instance.entrySet()) {
-
+        instance.entrySet().stream().forEach((entry) -> {
             javaMap.put(entry.getValue().getVariable().getName(), entry.getValue().getVariableValue() + "");
-
-        }
+        });
 
         return javaMap;
     }

@@ -45,7 +45,7 @@ public class InternalPerfTestHTMLJavaServiceImpl extends DefaultHtmlJavaServiceI
    
    
     public Map<String, InternalPerfTest> extractHawkTestRows(String testResultFile) throws Exception {
-        Map<String, InternalPerfTest> result = new HashMap<String, InternalPerfTest>();
+        Map<String, InternalPerfTest> result = new HashMap<>();
 
 
         List<HtmlJavaBean> hawkJavaBeans = this.toJavaList(new File(testResultFile), InternalPerfTest.class);

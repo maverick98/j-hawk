@@ -64,7 +64,7 @@ public class TestModule extends HawkCoreModule {
         student1.setAge(4);
         student1.setName("Mrinali");
 
-        List<Student> studs = new ArrayList<Student>();
+        List<Student> studs = new ArrayList<>();
         studs.add(student);
         studs.add(student1);
         double x = 5;

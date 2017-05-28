@@ -150,7 +150,7 @@ public class HttpUtil {
         return response;
     }
     public static Map<Integer, String> dumpURLToMap(URL sourceURL) {
-        Map<Integer, String> result = new TreeMap<Integer, String>();
+        Map<Integer, String> result = new TreeMap<>();
         String response;
         DataInputStream inStream = null;
         BufferedReader bfr = null;

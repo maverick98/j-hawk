@@ -50,7 +50,7 @@ public class GlobalVariableScriptCache extends SingleLineScriptCache implements 
      *
      * @see VariableDeclScript
      */
-    protected Map<Variable, IObjectScript> globalVariableTable = new LinkedHashMap<Variable, IObjectScript>();
+    protected Map<Variable, IObjectScript> globalVariableTable = new LinkedHashMap<>();
 
     /**
      * Setter for global variable
@@ -176,7 +176,7 @@ public class GlobalVariableScriptCache extends SingleLineScriptCache implements 
 
     @Override
     public boolean reset() {
-         globalVariableTable = new LinkedHashMap<Variable,IObjectScript>();
+         globalVariableTable = new LinkedHashMap<>();
          return true;
     }
     @Override

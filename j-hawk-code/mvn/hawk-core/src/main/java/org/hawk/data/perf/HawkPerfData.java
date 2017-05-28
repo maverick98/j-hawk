@@ -411,46 +411,40 @@ public class HawkPerfData {
 
     public static  Map<String, List<HawkPerfData>> groupByModule(List<HawkPerfData> all){
         
-        Map<String, List<HawkPerfData>> moduleMap = new HashMap<String, List<HawkPerfData>>();
+        Map<String, List<HawkPerfData>> moduleMap = new HashMap<>();
 
-        for (HawkPerfData perfData : all) {
-
+        all.stream().forEach((perfData) -> {
             List<HawkPerfData> moduleData = moduleMap.get(perfData.getModule());
 
             if (moduleData == null) {
 
-                moduleData = new ArrayList<HawkPerfData>();
+                moduleData = new ArrayList<>();
 
             }
 
             moduleData.add(perfData);
 
             moduleMap.put(perfData.getModule(), moduleData);
-
-        }
+         });
         return moduleMap;
     }
     
     public static  Map<String, List<HawkPerfData>> groupByModuleSubTask(List<HawkPerfData> all){
-        Map<String, List<HawkPerfData>> moduleTaskMap = new HashMap<String, List<HawkPerfData>>();
+        Map<String, List<HawkPerfData>> moduleTaskMap = new HashMap<>();
         
-        for (HawkPerfData perfData : all) {
-
+        all.stream().forEach((perfData) -> {
             List<HawkPerfData> moduleData = moduleTaskMap.get(perfData.getModuleSubTaskName());
 
             if (moduleData == null) {
 
-                moduleData = new ArrayList<HawkPerfData>();
+                moduleData = new ArrayList<>();
 
             }
 
             moduleData.add(perfData);
-
-            moduleTaskMap.put(perfData.getModuleSubTaskName(), moduleData);
-
             
-
-        }
+            moduleTaskMap.put(perfData.getModuleSubTaskName(), moduleData);
+         });
         
         return moduleTaskMap;
     }

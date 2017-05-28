@@ -80,7 +80,7 @@ public class SubTaskContainer implements Comparable<SubTaskContainer> {
      * params for subtasks
      *
      */
-    List<Object> params = new ArrayList<Object>();
+    List<Object> params = new ArrayList<>();
 
     public Object[] getParams() {
 
@@ -212,7 +212,7 @@ public class SubTaskContainer implements Comparable<SubTaskContainer> {
     public void setHawkExecutionParams(String hawkExecutionParams) {
         this.hawkExecutionParams = hawkExecutionParams;
         if (!StringUtil.isNullOrEmpty(this.hawkExecutionParams)) {
-            List<Object> hawkExecutionParamsList = new ArrayList<Object>();
+            List<Object> hawkExecutionParamsList = new ArrayList<>();
             StringTokenizer strTok = new StringTokenizer(this.hawkExecutionParams, HAWK_EXECUTION_PARAMS_DELIMETER);
             while (strTok.hasMoreElements()) {
                 hawkExecutionParamsList.add(strTok.nextElement());

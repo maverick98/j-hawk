@@ -39,16 +39,16 @@ public class ExecParameterScript extends SingleLineScript{
 
     private static final HawkLogger logger = HawkLogger.getLogger(ExecParameterScript.class.getName());
 
-    private Map<Integer,IObjectScript> paramMap = new TreeMap<Integer,IObjectScript>();
+    private Map<Integer,IObjectScript> paramMap = new TreeMap<>();
 
     private String params ;
 
 
     public List<IObjectScript> getParamList(){
-        List<IObjectScript> result = new ArrayList<IObjectScript>();
-        for(Entry<Integer,IObjectScript> entry:this.paramMap.entrySet()){
+        List<IObjectScript> result = new ArrayList<>();
+        this.paramMap.entrySet().stream().forEach((entry) -> {
             result.add(entry.getValue());
-        }
+        });
         return result;
     }
     public Map<Integer,IObjectScript> getParamMap(){
@@ -57,10 +57,10 @@ public class ExecParameterScript extends SingleLineScript{
     public Map<Integer, IObjectScript> cloneParamMap() {
 
         logger.info("Executing in thread {"+Thread.currentThread().getName()+"}");
-        Map<Integer,IObjectScript> clonedParamMap = new TreeMap<Integer,IObjectScript>();
-        for(Entry<Integer,IObjectScript> entry:this.paramMap.entrySet()){
+        Map<Integer,IObjectScript> clonedParamMap = new TreeMap<>();
+        this.paramMap.entrySet().stream().forEach((entry) -> {
             clonedParamMap.put(entry.getKey(),(IObjectScript)entry.getValue().copy());
-        }
+        });
 
         return clonedParamMap;
 

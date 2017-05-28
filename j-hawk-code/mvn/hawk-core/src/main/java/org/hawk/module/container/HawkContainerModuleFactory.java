@@ -26,7 +26,7 @@ import org.commons.implementor.InstanceVisitable;
  */
 public class HawkContainerModuleFactory {
 
-    private static final Map<Integer, IContainerModule> cachedHawkContainerModuleMap =  new TreeMap<Integer, IContainerModule>();
+    private static final Map<Integer, IContainerModule> cachedHawkContainerModuleMap =  new TreeMap<>();
     /**
      * This checks if a module is a container
      *
@@ -37,7 +37,7 @@ public class HawkContainerModuleFactory {
 
         ClazzLiteralVisitable clazzLiteralVisitable = new ClazzLiteralVisitable();
         clazzLiteralVisitable.setClazz(HawkContainerModule.class);
-        final List<Boolean> isHawkContainerModule = new ArrayList<Boolean>();
+        final List<Boolean> isHawkContainerModule = new ArrayList<>();
         new HawkContainerModuleCheckVisitor() {
             @Override
             public void onVisit(String clazzStr) {

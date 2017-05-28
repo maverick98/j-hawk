@@ -173,7 +173,7 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
     @Override
     public Map<Object, Object> toJavaMap() throws Exception {
 
-          Map<Object,Object> javaMap = new LinkedHashMap<Object,Object>();
+          Map<Object,Object> javaMap = new LinkedHashMap<>();
          
           javaMap.put(this.getVariable().getName(), this.getJson());
           return javaMap;

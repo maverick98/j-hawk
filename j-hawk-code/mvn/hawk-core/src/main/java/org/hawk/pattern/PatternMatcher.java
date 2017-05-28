@@ -49,7 +49,7 @@ public class PatternMatcher {
         if(pattern == null || input == null || input.isEmpty()){
             return null;
         }
-        Map<Integer,String> map = new HashMap<Integer,String>();
+        Map<Integer,String> map = new HashMap<>();
 
         Matcher matcher = pattern.matcher(input);
         if(matcher.matches()){

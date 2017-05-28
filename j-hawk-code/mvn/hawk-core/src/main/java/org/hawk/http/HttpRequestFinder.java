@@ -111,7 +111,7 @@ public class HttpRequestFinder extends AbstractStructRequestFinder {
         return findMap(mainMap.get(HTTP_REQUEST));
     }
     public Map<String, String> findHttpAuth(Map mainMap) throws Exception {
-        Map<String, String> authMap = new HashMap<String, String>();
+        Map<String, String> authMap = new HashMap<>();
         Map map = (Map) mainMap.get(HTTP_AUTH);
 
         for (Object t : map.keySet()) {
@@ -143,32 +143,32 @@ public class HttpRequestFinder extends AbstractStructRequestFinder {
     }
 
     public Map<String, String> findHttpHeader(Map mainMap) throws Exception {
-        Map<String, String> headerMap = new HashMap<String, String>();
+        Map<String, String> headerMap = new HashMap<>();
         Map map = (Map) mainMap.get(HTTP_HEADER);
 
         for (Object t : map.keySet()) {
 
             if (map.get(t) instanceof Map) {
                 Map tmpMap = (Map) (map.get(t));
-                String h1Key = null;
-                String h1Value = null;
-                for (Object key : tmpMap.keySet()) {
-                    Object value = tmpMap.get(key);
-
-                    if (value instanceof Map) {
-                        Map tmpMap1 = (Map) value;
-                        for (Object key1 : tmpMap1.keySet()) {
-                            Object value1 = tmpMap1.get(key1);
-                            if (h1Key == null) {
-                                h1Key = value1.toString();
-                            } else {
-                                h1Value = value1.toString();
-                            }
-
+            String h1Key = null;
+            String h1Value = null;
+            for (Object key : tmpMap.keySet()) {
+                Object value = tmpMap.get(key);
+                
+                if (value instanceof Map) {
+                    Map tmpMap1 = (Map) value;
+                    for (Object key1 : tmpMap1.keySet()) {
+                        Object value1 = tmpMap1.get(key1);
+                        if (h1Key == null) {
+                            h1Key = value1.toString();
+                        } else {
+                            h1Value = value1.toString();
                         }
+                        
                     }
                 }
-                headerMap.put(h1Key, h1Value);
+            }
+            headerMap.put(h1Key, h1Value);
             }
         }
         return headerMap;

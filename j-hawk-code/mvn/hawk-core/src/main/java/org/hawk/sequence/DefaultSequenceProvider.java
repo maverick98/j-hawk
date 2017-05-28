@@ -29,7 +29,7 @@ import org.hawk.logger.HawkLogger;
 public  class DefaultSequenceProvider implements ISequenceProvider{
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultSequenceProvider.class.getName());
     
-    private final Map<Class, Integer> sequenceMap = new HashMap<Class, Integer>();
+    private final Map<Class, Integer> sequenceMap = new HashMap<>();
 
     @Override
     public Map<Class,Integer> getSequenceMap() {

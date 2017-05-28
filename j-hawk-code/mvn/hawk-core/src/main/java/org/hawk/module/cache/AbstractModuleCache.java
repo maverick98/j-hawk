@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class AbstractModuleCache implements IModuleCache {
 
-    private Map<String, IModule> modules = new LinkedHashMap<String, IModule>();
+    private Map<String, IModule> modules = new LinkedHashMap<>();
 
     @Autowired
     private ISubTaskCache subTaskCache;

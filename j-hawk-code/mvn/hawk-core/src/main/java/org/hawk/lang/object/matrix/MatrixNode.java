@@ -21,7 +21,7 @@ public class MatrixNode implements IMatrixNode {
 
     private String symbol;
 
-    private Map<Integer, IMatrixNode> children = new HashMap<Integer, IMatrixNode>();
+    private Map<Integer, IMatrixNode> children = new HashMap<>();
 
     private IMatrixPayload payload;
 

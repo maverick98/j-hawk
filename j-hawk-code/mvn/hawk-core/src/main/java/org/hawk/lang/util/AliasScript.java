@@ -61,7 +61,7 @@ public class AliasScript extends SingleLineScript{
     /**
      * A map containing module's aliases
      */
-    private Map<String,String> moduleAliases = new HashMap<String,String>();
+    private Map<String,String> moduleAliases = new HashMap<>();
 
     /**
      * Default CTOR
@@ -187,7 +187,7 @@ public class AliasScript extends SingleLineScript{
     }
 
     public boolean reset() {
-        moduleAliases = new HashMap<String,String>();
+        moduleAliases = new HashMap<>();
         return true;
     }
 

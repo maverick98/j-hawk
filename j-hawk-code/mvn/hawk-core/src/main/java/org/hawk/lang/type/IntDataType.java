@@ -31,7 +31,7 @@ import org.commons.ds.operator.OperatorEnum;
  */
 public class IntDataType extends AbstractDataType {
 
-    private static final Map<Integer, String> toStringCache = new HashMap<Integer, String>();
+    private static final Map<Integer, String> toStringCache = new HashMap<>();
     private static final Pattern INTEGERPATTERN = Pattern.compile("(\\-?\\d*)");
     private int data;
 

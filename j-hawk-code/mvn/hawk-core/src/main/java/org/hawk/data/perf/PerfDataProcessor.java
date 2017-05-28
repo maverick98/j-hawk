@@ -59,8 +59,8 @@ public class PerfDataProcessor {
     private final HawkLogger logger = HawkLogger.getLogger(PerfDataProcessor.class.getName());
     private final int DUMPSIZE = 500;
     private static final String PERF_DATA_FILE = "perf.data";
-    private List<HawkPerfData> allPerfData = new ArrayList<HawkPerfData>();
-    private static ThreadLocal<HawkPerfData> currentPerfDataLocal = new ThreadLocal<HawkPerfData>();
+    private List<HawkPerfData> allPerfData = new ArrayList<>();
+    private static final ThreadLocal<HawkPerfData> currentPerfDataLocal = new ThreadLocal<>();
     @Autowired(required = true)
        
     private PlottingExecutor plottingExecutor;
@@ -97,7 +97,7 @@ public class PerfDataProcessor {
 
     private boolean resetCollector() {
 
-        allPerfData = new ArrayList<HawkPerfData>();
+        allPerfData = new ArrayList<>();
 
         resetCurrentPerfData();
 
@@ -483,7 +483,7 @@ public class PerfDataProcessor {
         if (!perfDataExists()) {
             throw new Exception("could not find perf.data file ....");
         }
-        List<HawkPerfData> all = new ArrayList<HawkPerfData>();
+        List<HawkPerfData> all = new ArrayList<>();
         HawkPerfData perfData;
         Map<Integer, String> map = FileUtil.dumpFileToMap(this.getPerfDataFilePath());
         for (Entry<Integer, String> entry : map.entrySet()) {
@@ -560,8 +560,8 @@ public class PerfDataProcessor {
     }
 
     public List<PlottingData> createPlotData(Map<String, List<HawkPerfData>> map) {
-        List<PlottingData> result = new ArrayList<PlottingData>();
-        for (Entry<String,List<HawkPerfData>> entry : map.entrySet()) {
+        List<PlottingData> result = new ArrayList<>();
+        map.entrySet().stream().forEach((entry) -> {
             String key = entry.getKey();
             String modulePerfFilePath = this.getPerfDataModuleFilePath(key);
             List<HawkPerfData> all = entry.getValue();
@@ -578,14 +578,12 @@ public class PerfDataProcessor {
             plottingData.setModuleNamePath(logPath + "/" + key);
             plottingData.setStartTimestamp(startTime);
             plottingData.setEndTimestamp(endTime);
-
-
-        }
+        });
         return result;
     }
 
     public List<PlottingData> createSubTaskPlotData(Map<String, List<HawkPerfData>> moduleMap) {
-        List<PlottingData> result = new ArrayList<PlottingData>();
+        List<PlottingData> result = new ArrayList<>();
 
         return result;
     }

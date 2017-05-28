@@ -31,7 +31,7 @@ import org.hawk.plugin.exception.HawkPluginException;
  */
 public class HawkPluginModuleFactory {
      private static final HawkLogger logger = HawkLogger.getLogger(HawkPluginModuleFactory.class.getName());
-    private static final Map<Integer, IPluginModule> cachedHawkPluginModuleMap =  new TreeMap<Integer, IPluginModule>();
+    private static final Map<Integer, IPluginModule> cachedHawkPluginModuleMap =  new TreeMap<>();
    
     public static Map<Integer, IPluginModule> getCachedHawkPluginModules() throws HawkPluginException{
         if(cachedHawkPluginModuleMap != null && !cachedHawkPluginModuleMap.isEmpty()){

@@ -37,7 +37,7 @@ import org.hawk.logger.HawkLogger;
 public class DefaultHawkOutputEvent extends AbstractHawkEvent{
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultHawkOutputEvent.class.getName());
 
-    private final Set<IHawkEventCallback> callbacks = new TreeSet<IHawkEventCallback>();
+    private final Set<IHawkEventCallback> callbacks = new TreeSet<>();
 
     @Override
     public Boolean notifyCallbacks(HawkEventPayload hawkEventPayload) throws HawkEventException {

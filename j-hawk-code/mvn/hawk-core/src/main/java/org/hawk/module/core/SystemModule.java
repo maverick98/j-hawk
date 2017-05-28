@@ -116,10 +116,10 @@ public class SystemModule extends HawkCoreModule {
         ArrayDeclScript arrayDeclScript = (ArrayDeclScript) args[0];
         Map<Integer, IObjectScript> map = arrayDeclScript.getMembers();
         Collection<IObjectScript> memberColl = map.values();
-        List<IObjectScript> members = new ArrayList<IObjectScript>();
-        for (IObjectScript script : memberColl) {
+        List<IObjectScript> members = new ArrayList<>();
+        memberColl.stream().forEach((script) -> {
             members.add(script);
-        }
+        });
         Collections.sort(members, new ScriptComparator());
         for (int i = 0; i < map.size(); i++) {
             map.put(i + 1, members.get(i));

@@ -37,7 +37,7 @@ public class HawkTestProperties {
     
     private Properties props = null;
     
-    private Map<String,String> testSuites = new LinkedHashMap<String,String>();
+    private Map<String,String> testSuites = new LinkedHashMap<>();
 
     public Map<String, String> getTestSuites() {
         return testSuites;

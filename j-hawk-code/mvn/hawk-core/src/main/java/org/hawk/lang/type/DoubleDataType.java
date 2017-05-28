@@ -63,7 +63,7 @@ public class DoubleDataType extends AbstractDataType{
         return status;
     }
 
-    private static final Map<Double,String> toStringCache = new HashMap<Double,String>();
+    private static final Map<Double,String> toStringCache = new HashMap<>();
     @Override
     public String toString(){
         if(toStringCache.containsKey(this.data)){

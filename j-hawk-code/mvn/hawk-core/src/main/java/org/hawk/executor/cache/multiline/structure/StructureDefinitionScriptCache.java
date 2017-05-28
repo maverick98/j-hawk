@@ -42,7 +42,7 @@ public class StructureDefinitionScriptCache extends MultiLineScriptCache impleme
      *
      * @see MultiLineContainer
      */
-    private Map<String, StructureDefnScript> structureDefnMap = new HashMap<String, StructureDefnScript>();
+    private Map<String, StructureDefnScript> structureDefnMap = new HashMap<>();
 
     
     @Override
@@ -158,7 +158,7 @@ public class StructureDefinitionScriptCache extends MultiLineScriptCache impleme
 
     @Override
     public boolean reset() {
-        structureDefnMap = new HashMap<String, StructureDefnScript>();
+        structureDefnMap = new HashMap<>();
         return true;
     }
 

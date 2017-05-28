@@ -49,9 +49,9 @@ public class ForLoopScript extends MultiLineScript {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ForLoopScript.class.getName());
     private boolean defaultForLoop = false;
-    private Stack<LocalVarDeclScript> variableInitScriptStack = new Stack<LocalVarDeclScript>();
-    private Stack<String> boundaryCheckExpStack = new Stack<String>();
-    private Stack<AssignmentScript> variableIterationScriptStack = new Stack<AssignmentScript>();
+    private final Stack<LocalVarDeclScript> variableInitScriptStack = new Stack<>();
+    private final Stack<String> boundaryCheckExpStack = new Stack<>();
+    private final Stack<AssignmentScript> variableIterationScriptStack = new Stack<>();
     private LocalVarDeclScript variableInitScript = null;
     private String boundaryCheckExp = null;
     private AssignmentScript variableIterationScript = null;

@@ -27,10 +27,10 @@ import org.hawk.lang.object.IObjectScript;
  */
 public abstract class AbstractFunctionStackUtility {
 
-    private static final ThreadLocal<Stack<FunctionInvocationInfo>> functionStack = new ThreadLocal<Stack<FunctionInvocationInfo>>();
+    private static final ThreadLocal<Stack<FunctionInvocationInfo>> functionStack = new ThreadLocal<>();
 
     static {
-        Stack<FunctionInvocationInfo> functionInvocationStack = new Stack<FunctionInvocationInfo>();
+        Stack<FunctionInvocationInfo> functionInvocationStack = new Stack<>();
         functionStack.set(functionInvocationStack);
     }
     
@@ -47,7 +47,7 @@ public abstract class AbstractFunctionStackUtility {
 
         if (fStack == null) {
 
-            fStack = new Stack<FunctionInvocationInfo>();
+            fStack = new Stack<>();
 
         }
 

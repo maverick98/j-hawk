@@ -81,17 +81,18 @@ public class CookieManager {
      * method or a IOException will be thrown.
      *
      * @param conn a java.net.URLConnection - must be open, or IOException will be thrown
+     * @return 
      * @throws java.io.IOException Thrown if conn is not open.
      */
     public static Map<String, Map<String, String>> getCookie(URLConnection conn) throws IOException {
 
-        Map<String, Map<String, String>> domainStore = new HashMap<String, Map<String, String>>();
+        Map<String, Map<String, String>> domainStore = new HashMap<>();
         // OK, now we are ready to get the cookies out of the URLConnection
 
         String headerName;
         for (int i = 1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
             if (headerName.equalsIgnoreCase(SET_COOKIE)) {
-                Map<String, String> cookie = new HashMap<String, String>();
+                Map<String, String> cookie = new HashMap<>();
                 StringTokenizer st = new StringTokenizer(conn.getHeaderField(i), COOKIE_VALUE_DELIMITER);
 
                 // the specification dictates that the first name/value pair

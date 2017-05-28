@@ -51,7 +51,7 @@ public class JavaObjectScript extends SingleLineScript implements IObjectScript{
     }
 
     
-    private Map<String, IObjectScript> members = new HashMap<String, IObjectScript>();
+    private Map<String, IObjectScript> members = new HashMap<>();
 
     private static IObjectScript createScript(Field field, Object inputJavaObject) throws Exception {
         IObjectScript resultScript = null;

@@ -199,7 +199,7 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
         zipLinePattern.setSequence(2);
         zipLinePattern.setPattern(ZIP_REVERSE_PATTERN);
         
-        Set<LinePattern> all = new TreeSet<LinePattern>();
+        Set<LinePattern> all = new TreeSet<>();
         all.add(plgLinePattern);
         all.add(zipLinePattern);
         

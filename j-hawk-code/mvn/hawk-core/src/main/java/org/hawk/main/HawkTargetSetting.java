@@ -36,8 +36,8 @@ import org.commons.reflection.ClazzUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HAWKTARGETSETTING)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkTargetSetting {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkTargetSetting.class.getName());

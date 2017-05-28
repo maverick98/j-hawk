@@ -29,8 +29,8 @@ import org.hawk.sequence.DefaultSequenceProvider;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SCRIPTCACHINGSEQUENCEPROVIDER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptCachingSequenceProvider extends DefaultSequenceProvider {
 
     public ScriptCachingSequenceProvider() {

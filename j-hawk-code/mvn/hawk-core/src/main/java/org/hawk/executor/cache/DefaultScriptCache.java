@@ -27,16 +27,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-//@Component(DEFAULTSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class DefaultScriptCache implements IScriptCache {
 
     
     @Autowired(required = true)
-    //@Qualifier(SCRIPTCACHINGSEQUENCEPROVIDER)
+       
     private ScriptCachingSequenceProvider scriptCachingSequenceProvider;
     @Autowired(required = true)
-    //@Qualifier(HAWKINPUT)
+       
     private HawkInput hawkInput;
 
     public HawkInput getHawkInput() {

@@ -52,8 +52,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @VERSION 1.0 6 Apr, 2010
  * @author msahu
  */
-//@Component(HAWKPERFDATACOLLECTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PerfDataProcessor {
 
     private final HawkLogger logger = HawkLogger.getLogger(PerfDataProcessor.class.getName());
@@ -62,7 +62,7 @@ public class PerfDataProcessor {
     private List<HawkPerfData> allPerfData = new ArrayList<HawkPerfData>();
     private static ThreadLocal<HawkPerfData> currentPerfDataLocal = new ThreadLocal<HawkPerfData>();
     @Autowired(required = true)
-    //@Qualifier(DEFAULTQUALIFIER)
+       
     private PlottingExecutor plottingExecutor;
 
     public PlottingExecutor getPlottingExecutor() {

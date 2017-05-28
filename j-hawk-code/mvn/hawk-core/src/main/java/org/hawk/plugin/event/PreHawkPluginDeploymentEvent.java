@@ -24,8 +24,8 @@ import org.commons.event.IHawkEvent;
  *
  * @author Manoranjan Sahu
  */
-//@Component(PREPLUGINDEPLOYMENTEVENT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PreHawkPluginDeploymentEvent extends DefaultHawkPluginEvent {
 
     public PreHawkPluginDeploymentEvent() {

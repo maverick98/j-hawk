@@ -29,8 +29,8 @@ import org.common.properties.PropertiesUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HAWKTESTPROPERTIES)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkTestProperties {
 
     private String testConfig = "conf/hawktst.conf";

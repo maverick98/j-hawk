@@ -20,8 +20,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(HELPCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ParasiteCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-parasite\\s*-cs\\s*=\\s*([a-z|A-Z|\\.]*)\\s*-f\\s*(.*)\\s*";

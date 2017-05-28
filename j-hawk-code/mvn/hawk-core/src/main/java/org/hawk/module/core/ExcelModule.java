@@ -34,8 +34,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(EXCELMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ExcelModule extends HawkCoreModule {
 
     @Override

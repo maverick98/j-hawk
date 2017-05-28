@@ -60,7 +60,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
 
     }
     @Autowired(required = true)
-    //@Qualifier("default")
+       
     private IStructureDefinitionScriptCache  structureDefinitionScriptCache;
 
     protected Map<Integer,IObjectScript> members = new TreeMap<>();

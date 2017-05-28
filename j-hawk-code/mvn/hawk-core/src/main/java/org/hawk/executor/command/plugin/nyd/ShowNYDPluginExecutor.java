@@ -28,8 +28,8 @@ import org.hawk.plugin.HawkPlugin;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SHOWNYDPLUGINEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowNYDPluginExecutor extends  DefaultPluginExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ShowNYDPluginExecutor.class.getName());

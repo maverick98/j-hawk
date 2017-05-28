@@ -35,8 +35,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author msahu
  * @see HawkConfig
  */
-//@Component(HAWKMODULEPROPERTIESMANAGER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkModulePropertiesManager {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkModulePropertiesManager.class.getName());
@@ -57,7 +57,7 @@ public class HawkModulePropertiesManager {
      */
     private String targetMainModule;
     @Autowired(required = true)
-    //@Qualifier(HAWKTARGETSETTING)
+       
     private HawkTargetSetting hawkTargetSetting;
 
     public HawkTargetSetting getHawkTargetSetting() {

@@ -65,15 +65,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  * TODO refactor me... I am putting on weight
  * @author Manoranjan Sahu
  */
-//@Component(HAWKPLUGINSERVICE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 
 public class HawkPluginServiceImpl implements IHawkPluginService {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkPluginServiceImpl.class.getName());
 
     //@Autowired(required = true)
-    ////@Qualifier(HAWKPLUGINCALLBACKREGISTRY)
+    //   
     //private IHawkPluginCallbackRegistry hawkPluginCallbackRegistry;
     public IHawkEventCallbackRegistry getHawkPluginCallbackRegistry() {
         return AppContainer.getInstance().getBean(HawkEventCallbackRegistry.class);
@@ -284,7 +284,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         return true;
     }
      @Autowired(required = true)
-    //@Qualifier(INTERNALFUNCTESTHTMLJAVASERVICE)
+       
     private InternalFuncTestHTMLJavaServiceImpl internalFuncTestHTMLJavaServiceImpl;
 
     public InternalFuncTestHTMLJavaServiceImpl getInternalFuncTestHTMLJavaServiceImpl() {

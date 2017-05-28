@@ -25,8 +25,8 @@ import org.hawk.executor.cache.DefaultScriptCache;
  * @author Manoranjan Sahu
  */
 
-//@Component(MULTILINESCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class MultiLineScriptCache extends DefaultScriptCache implements IMultiLineScriptCache{
 
     @Override

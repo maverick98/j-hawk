@@ -35,19 +35,19 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @VERSION 1.0 30 Mar, 2010
  * @author msahu
  */
-//@Component(MODULEEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ModuleExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ModuleExecutor.class.getName());
 
 
   //  @Autowired(required = true)
-    //@Qualifier(DEFAULTQUALIFIER)
+       
    // ModuleCache moduleFactory;
 
     @Autowired(required = true)
-    //@Qualifier(DEFAULTQUALIFIER)
+       
     HawkCommandParser hawkUsage;
 
     public HawkCommandParser getHawkUsage() {

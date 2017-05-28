@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(ALIASSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class AliasScriptCache extends SingleLineScriptCache implements IAliasScriptCache{
 
     @Override

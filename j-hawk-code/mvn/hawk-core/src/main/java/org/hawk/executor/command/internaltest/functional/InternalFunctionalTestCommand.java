@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(INTERNALFUNCTIONALTESTCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class InternalFunctionalTestCommand extends InternalTestCommand {
 
     private static final String REGEX = "\\s*-inttest func\\s*";

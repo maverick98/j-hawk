@@ -28,12 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HELPEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HelpExecutor implements IHawkCommandExecutor{
 
     @Autowired(required = true)
-    //@Qualifier(HAWKEXECUTIONCOMMANDFACTORY)
+       
     private IHawkExecutionCommandFactory hawkExecutionCommandFactory;
 
     public IHawkExecutionCommandFactory getHawkExecutionCommandFactory() {

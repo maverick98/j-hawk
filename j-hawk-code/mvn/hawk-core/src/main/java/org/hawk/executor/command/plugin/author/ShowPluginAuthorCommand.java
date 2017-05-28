@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SHOWPLUGINAUTHORCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowPluginAuthorCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-showAuthor\\s*plugin\\s*-f\\s*(.*)";

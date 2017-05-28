@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SHOWPLUGINVERSIONCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowPluginVersionCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-showVersion\\s*plugin\\s*-f\\s*(.*)";

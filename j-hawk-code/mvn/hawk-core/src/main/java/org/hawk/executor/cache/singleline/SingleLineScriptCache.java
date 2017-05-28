@@ -22,8 +22,8 @@ import org.hawk.executor.cache.DefaultScriptCache;
 
 
 
-//@Component(SINGLELINESCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class SingleLineScriptCache extends DefaultScriptCache implements ISingleLineScriptCache{
 
    

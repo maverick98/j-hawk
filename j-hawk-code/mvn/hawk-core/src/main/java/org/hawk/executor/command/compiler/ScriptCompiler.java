@@ -25,8 +25,8 @@ import org.hawk.executor.command.IHawkExecutionCommand;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SCRIPTCOMPILER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptCompiler extends DefaultScriptExecutor {
    
     @Override

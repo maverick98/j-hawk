@@ -26,8 +26,8 @@ import org.hawk.logger.HawkLogger;
  *
  * @author Manoranjan Sahu
  */
-//@Component(PLUGINDEPLOYMENTEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PluginDeploymentExecutor extends  DefaultPluginExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(PluginDeploymentExecutor.class.getName());

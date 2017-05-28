@@ -30,8 +30,8 @@ import org.common.di.ScanMe;
  */
 @ScanMe(true)
 
-//@Component(TRAININGCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class TrainingCommand extends HawkExecutionCommand{
 
     private static final String REGEX = "\\s*-training\\s*";

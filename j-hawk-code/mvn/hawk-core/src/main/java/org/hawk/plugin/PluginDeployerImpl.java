@@ -31,13 +31,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author manosahu
  */
 @ScanMe(true)
-//@Component(PLUGINDEPOYER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PluginDeployerImpl implements IPluginDeployer {
 
     private static final HawkLogger logger = HawkLogger.getLogger(PluginDeployerImpl.class.getName());
     @Autowired(required = true)
-    //@Qualifier(HAWKPLUGINSERVICE)
+       
     private HawkPluginServiceImpl hawkPluginServiceImpl;
 
     public HawkPluginServiceImpl getHawkPluginService() {

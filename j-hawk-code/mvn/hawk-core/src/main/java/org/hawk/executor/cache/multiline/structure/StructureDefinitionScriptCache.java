@@ -32,8 +32,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(STRUCTUREDEFNSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class StructureDefinitionScriptCache extends MultiLineScriptCache implements IStructureDefinitionScriptCache {
 
     /**

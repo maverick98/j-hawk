@@ -30,8 +30,8 @@ import org.commons.event.IHawkEvent;
  *
  * @author manosahu
  */
-//@Component(HAWKERROREVENT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkErrorEvent extends DefaultHawkOutputEvent {
 
     public HawkErrorEvent() {

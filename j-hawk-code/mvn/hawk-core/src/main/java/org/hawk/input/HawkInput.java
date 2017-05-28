@@ -26,8 +26,8 @@ import org.hawk.logger.HawkLogger;
  *
  * @author manosahu
  */
-//@Component(HAWKINPUT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkInput {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkInput.class.getName());

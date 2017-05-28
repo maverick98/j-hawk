@@ -25,8 +25,8 @@ import org.common.di.ScanMe;
 
 @ScanMe(true)
 
-//@Component(SCRIPTHTMLCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptHTMLCommand extends HawkExecutionCommand {
  private static final String REGEX = "\\s*-homepage format-scripts\\s*";
     

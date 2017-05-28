@@ -11,8 +11,8 @@ import org.commons.ds.operator.OperatorEnum;
  *
  * @author user
  */
-//@Component(INTEGEROVERFLOW)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class IntegerOverflow {
 
     public boolean detectOverflow(int a, int b, OperatorEnum operatorEnum) {

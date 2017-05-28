@@ -39,11 +39,11 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(GLOBALVARSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class GlobalVariableScriptCache extends SingleLineScriptCache implements IGlobalVariableScriptCache{
 
-    //@Qualifier(FUNCTIONSCRIPTCACHE)
+       
     private IMultiLineScriptCache functionScriptCache;
     /**
      * Global map containing global var and its value

@@ -29,8 +29,8 @@ import org.commons.reflection.Create;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SHUTDOWNHOOKCONFIG)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShutdownHookConfig extends DefaultHawkConfig {
 
     @Override

@@ -24,8 +24,8 @@ import org.hawk.logger.HawkLogger;
  *
  * @author Manoranjan Sahu
  */
-//@Component(DEFAULTSEQUENCEPROVIDER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public  class DefaultSequenceProvider implements ISequenceProvider{
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultSequenceProvider.class.getName());
     

@@ -26,8 +26,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SCRIPTINTERPRRETATIONPERFCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptInterpretationPerfCommand extends ScriptInterpretationCommand {
 
     private static final String REGEX = "\\s*-perf\\s*-f\\s*(.*)";

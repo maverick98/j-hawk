@@ -28,13 +28,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-//@Component(PLUGINUNDEPLOYMENTEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PluginUnDeploymentExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(PluginUnDeploymentExecutor.class.getName());
     @Autowired(required = true)
-    //@Qualifier(HAWKPLUGINSERVICE)
+       
     private IHawkPluginService hawkPluginService;
 
     public IHawkPluginService getHawkPluginService() {

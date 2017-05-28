@@ -30,8 +30,8 @@ import org.hawk.plugin.event.callback.IHawkPluginCallbackPlugin;
  *
  * @author Manoranjan Sahu
  */
-//@Component(DEFAULTPLUGINEVENT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class DefaultHawkPluginEvent extends AbstractHawkEvent {
 
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultHawkPluginEvent.class.getName());

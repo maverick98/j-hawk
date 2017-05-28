@@ -51,7 +51,7 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
     private PluginDeploymentCallback pluginDeployementCallback = new PluginDeploymentCallback();
 
     @Autowired(required = true)
-    //@Qualifier(HAWKPLUGINSERVICE)
+       
     private HawkPluginServiceImpl hawkPluginServiceImpl;
 
     @Override

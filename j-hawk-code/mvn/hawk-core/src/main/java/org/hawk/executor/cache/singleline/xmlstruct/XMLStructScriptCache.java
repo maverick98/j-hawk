@@ -28,8 +28,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(XMLSTRUCTSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class XMLStructScriptCache extends SingleLineScriptCache implements IXMLStructScriptCache{
 
     @Override

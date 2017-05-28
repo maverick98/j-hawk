@@ -27,8 +27,8 @@ import org.commons.string.StringUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(DEFAULTHTMLFORMATTER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class DefaultHtmlFormatter implements IHtmlFormatter{
     public static void main(String args[]) throws HTMLFormatException{
         DefaultHtmlFormatter htmlFormatter = new DefaultHtmlFormatter();

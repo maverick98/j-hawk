@@ -24,8 +24,8 @@ import org.commons.event.IHawkEvent;
  *
  * @author Manoranjan Sahu
  */
-//@Component(POSTPLUGINUNDEPLOYMENTEVENT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PostHawkPluginUndeploymentEvent extends DefaultHawkPluginEvent {
 
     public PostHawkPluginUndeploymentEvent(){

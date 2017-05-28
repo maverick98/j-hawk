@@ -44,8 +44,8 @@ import org.hawk.http.HttpRestExecutor;
  * @see SystemModule
  */
 @ScanMe(true)
-//@Component(HTTPMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 @CollectPerfData(myself = true)
 
 public class HttpModule extends HawkCoreModule {

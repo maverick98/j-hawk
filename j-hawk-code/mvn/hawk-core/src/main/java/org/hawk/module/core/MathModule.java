@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author msahu
  */
 @ScanMe(true)
-//@Component(MATHMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 
 public class MathModule extends HawkCoreModule {
 

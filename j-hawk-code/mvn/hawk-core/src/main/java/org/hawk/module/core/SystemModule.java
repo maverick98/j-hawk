@@ -40,8 +40,8 @@ import org.hawk.lang.object.VariableDeclScript;
  * @author msahu
  */
 @ScanMe(true)
-//@Component(SYSTEMMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 
 public class SystemModule extends HawkCoreModule {
 

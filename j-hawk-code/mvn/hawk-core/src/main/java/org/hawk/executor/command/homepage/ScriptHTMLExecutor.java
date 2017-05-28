@@ -33,11 +33,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SCRIPTHTMLEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptHTMLExecutor implements IHawkCommandExecutor {
     @Autowired(required = true)
-    //@Qualifier(DEFAULTHTMLFORMATTER)
+       
     private IHtmlFormatter htmlFormatter;
 
     public IHtmlFormatter getHtmlFormatter() {

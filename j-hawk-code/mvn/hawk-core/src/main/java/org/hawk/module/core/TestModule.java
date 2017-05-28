@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author manoranjan
  */
 @ScanMe(true)
-//@Component(TESTMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 
 public class TestModule extends HawkCoreModule {
 

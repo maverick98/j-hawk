@@ -26,13 +26,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author msahu
  * @see BuildModeEnum
  */
-//@Component(HAWKCOMMANDPARSER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkCommandParser {
 
     private IHawkExecutionCommand hawkExecutionCommand;
     @Autowired(required = true)
-    //@Qualifier(HAWKEXECUTIONCOMMANDFACTORY)
+       
     private IHawkExecutionCommandFactory hawkExecutionCommandFactory;
 
     public IHawkExecutionCommandFactory getHawkExecutionCommandFactory() {

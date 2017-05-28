@@ -30,8 +30,8 @@ import org.commons.reflection.Create;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(LOGGINGCONFIG)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class LoggingConfig extends DefaultHawkConfig {
 
     @Override

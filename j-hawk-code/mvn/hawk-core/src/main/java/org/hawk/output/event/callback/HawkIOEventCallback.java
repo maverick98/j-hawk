@@ -28,8 +28,8 @@ import org.hawk.output.event.HawkOutputEvent;
  *
  * @author manosahu
  */
-//@Component(HAWKIOEVENTCALLBACK)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkIOEventCallback implements IHawkEventCallback {
 
     @Override

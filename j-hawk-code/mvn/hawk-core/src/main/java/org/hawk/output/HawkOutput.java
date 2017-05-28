@@ -35,8 +35,8 @@ import org.hawk.output.event.HawkOutputEvent;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HAWKOUTPUT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkOutput {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkOutput.class.getName());

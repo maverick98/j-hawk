@@ -33,8 +33,8 @@ import org.hawk.tst.HawkTestCaseStatusEnum;
  *
  * @author Manoranjan Sahu
  */
-//@Component(INTERNALPERFTESTHTMLJAVASERVICE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class InternalPerfTestHTMLJavaServiceImpl extends DefaultHtmlJavaServiceImpl {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalPerfTestHTMLJavaServiceImpl.class.getName());

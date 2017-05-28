@@ -26,8 +26,8 @@ import org.hawk.executor.command.IHawkExecutionCommand;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SCRIPTEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptExecutor extends DefaultScriptExecutor {
     
     /**

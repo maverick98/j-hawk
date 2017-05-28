@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  */
 @ScanMe(true)
 
-//@Component(VERSIONCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class VersionCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-version\\s*";

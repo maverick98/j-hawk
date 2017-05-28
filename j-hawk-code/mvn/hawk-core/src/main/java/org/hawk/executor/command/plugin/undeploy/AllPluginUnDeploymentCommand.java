@@ -27,8 +27,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(ALLPLUGINUNDEPLOYMENTCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class AllPluginUnDeploymentCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-undeploy\\s*plugin\\s*-all\\s*";

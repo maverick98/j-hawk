@@ -64,7 +64,7 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
     private ControlRequest controlRequest;
 
     @Autowired(required = true)
-    //@Qualifier("default")
+       
     private IStructureDefinitionScriptCache structureDefnScriptCache;
 
     /**

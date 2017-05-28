@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(MULTILINECOMMENTSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class MultiLineCommentScriptCache extends  MultiLineScriptCache implements IMultiLineCommentScriptCache{
 
     /**

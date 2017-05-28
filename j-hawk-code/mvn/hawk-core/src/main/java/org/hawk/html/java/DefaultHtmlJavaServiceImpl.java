@@ -44,8 +44,8 @@ import org.commons.string.StringUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(DEFAULTHTMLJAVASERVICE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class DefaultHtmlJavaServiceImpl implements IHtmlJavaService {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalPerfTestHTMLJavaServiceImpl.class.getName());

@@ -64,7 +64,7 @@ public class MultiLineScript extends AbstractScript implements IMultiLineScript 
     protected Stack<Set<String>> localStructStack = new Stack<Set<String>>();
     protected MultiLineContainer multiLineContainer = null;
     @Autowired(required = true)
-    //@Qualifier(MULTILINESCRIPTVERTICALSEQUENCEPROVIDER)
+       
     private ISequenceProvider multiLineScriptVerticalSequenceProvider;
 
     public ISequenceProvider getMultiLineScriptVerticalSequenceProvider() {

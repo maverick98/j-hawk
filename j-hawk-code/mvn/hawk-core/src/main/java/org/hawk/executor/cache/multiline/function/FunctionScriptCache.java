@@ -37,8 +37,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(FUNCTIONSCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class FunctionScriptCache extends MultiLineScriptCache implements IFunctionScriptCache {
 
     private static final HawkLogger logger = HawkLogger.getLogger(FunctionScriptCache.class.getName());
@@ -53,7 +53,7 @@ public class FunctionScriptCache extends MultiLineScriptCache implements IFuncti
     private FunctionScript mainFunction = null;
 
     @Autowired(required = true)
-    //@Qualifier(GLOBALFUNCTIONTEMPLATESCRIPTCACHE)
+       
     private GlobalFunctionTemplateScriptCache functionTemplateScriptCache;
 
     public GlobalFunctionTemplateScriptCache getFunctionTemplateScriptCache() {

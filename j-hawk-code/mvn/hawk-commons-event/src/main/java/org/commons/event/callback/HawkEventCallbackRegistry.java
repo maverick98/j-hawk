@@ -33,8 +33,8 @@ import java.util.Map;
  * @author Manoranjan Sahu
  */
 @API(since = "13.03",deprecatedSince = "14.01")
-//@Component(HAWKPLUGINCALLBACKREGISTRY)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 
 public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
 

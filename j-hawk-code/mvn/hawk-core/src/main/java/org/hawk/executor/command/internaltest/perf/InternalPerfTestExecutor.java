@@ -41,19 +41,19 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-//@Component(INTERNALTESTPERFEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class InternalPerfTestExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalPerfTestExecutor.class.getName());
     @Autowired(required = true)
-    //@Qualifier(HAWKOUTPUT)
+       
     private HawkOutput hawkOutput;
     @Autowired(required = true)
-    //@Qualifier(HAWKTESTPROPERTIES)
+       
     private HawkTestProperties hawkTestProperties;
     @Autowired(required = true)
-    //@Qualifier(INTERNALPERFTESTHTMLJAVASERVICE)
+       
     private InternalPerfTestHTMLJavaServiceImpl internalPerfTestHTMLJavaServiceImpl;
 
     public InternalPerfTestHTMLJavaServiceImpl getHtmlJavaService() {

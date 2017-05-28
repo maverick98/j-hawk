@@ -27,8 +27,8 @@ import org.hawk.plugin.HawkPlugin;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SHOWPLUGINVERSIONEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowPluginVersionExecutor extends DefaultPluginExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ShowPluginVersionExecutor.class.getName());

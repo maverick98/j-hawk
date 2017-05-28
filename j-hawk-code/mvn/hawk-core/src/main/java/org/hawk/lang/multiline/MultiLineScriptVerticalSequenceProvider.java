@@ -28,8 +28,8 @@ import org.hawk.sequence.DefaultSequenceProvider;
  *
  * @author Manoranjan Sahu
  */
-//@Component(MULTILINESCRIPTVERTICALSEQUENCEPROVIDER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class MultiLineScriptVerticalSequenceProvider extends DefaultSequenceProvider {
 
     public MultiLineScriptVerticalSequenceProvider() {

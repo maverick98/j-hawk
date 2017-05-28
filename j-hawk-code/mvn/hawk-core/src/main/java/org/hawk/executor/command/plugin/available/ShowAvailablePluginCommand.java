@@ -28,8 +28,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SHOWAVAILABLEPLUGINCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowAvailablePluginCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-show\\s*plugin\\s*-available\\s*";

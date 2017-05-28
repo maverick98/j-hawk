@@ -39,22 +39,22 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(HAWKMODULECONFIG)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkModuleConfig extends DefaultHawkConfig {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkModuleConfig.class.getName());
     @Autowired(required = true)
-    //@Qualifier(HAWKPLUGINCALLBACKREGISTRY)
+       
     HawkEventCallbackRegistry hawkPluginCallbackRegistry;
     @Autowired(required = true)
     private IAllModuleCache moduleCache;
     @Autowired(required = true)
-    //@Qualifier(MODULECACHE)
+       
     private IPluginModuleCache  pluginModuleCache;
     
     @Autowired(required = true)
-    //@Qualifier(HAWKIOEVENTCALLBACK)
+       
     private IHawkEventCallback hawkIOEventCallback;
 
     public IHawkEventCallback getHawkEventCallback() {

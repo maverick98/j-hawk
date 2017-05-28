@@ -37,8 +37,8 @@ import org.hawk.logger.HawkLogger;
  * @author manosahu
  */
 /*@ScanMe(true)
-//@Component(LOCALFUNCTIONTEMPLATESCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)*/
 public class LocalFunctionTemplateScriptCache extends AbstractFunctionTemplateScriptCache {
    private static final HawkLogger logger = HawkLogger.getLogger(LocalFunctionTemplateScriptCache.class.getName());

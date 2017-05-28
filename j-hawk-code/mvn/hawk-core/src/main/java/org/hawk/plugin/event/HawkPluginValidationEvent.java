@@ -13,8 +13,8 @@ import org.commons.event.IHawkEvent;
  *
  * @author manosahu
  */
-//@Component(PLUGINVALIDATIONEVENT)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkPluginValidationEvent extends DefaultHawkPluginEvent {
 
    

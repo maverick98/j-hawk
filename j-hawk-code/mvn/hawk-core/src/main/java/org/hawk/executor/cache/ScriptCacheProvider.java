@@ -27,8 +27,8 @@ import org.hawk.logger.HawkLogger;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SCRIPTCACHEPROVIDER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptCacheProvider  implements IScriptCacheProvider{
 
     private static final HawkLogger logger = HawkLogger.getLogger(ScriptCacheProvider.class.getName());

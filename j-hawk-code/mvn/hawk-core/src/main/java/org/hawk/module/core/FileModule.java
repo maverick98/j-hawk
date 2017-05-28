@@ -39,8 +39,8 @@ import org.common.di.ScanMe;
  * @author msahu
  */
 @ScanMe(true)
-//@Component(FILEMODULE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class FileModule extends HawkCoreModule {
 
     @Override

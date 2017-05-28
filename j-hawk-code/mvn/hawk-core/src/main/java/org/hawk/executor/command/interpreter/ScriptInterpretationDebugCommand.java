@@ -26,8 +26,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SCRIPTINTERPRETATIONDEBUGCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptInterpretationDebugCommand extends ScriptInterpretationCommand {
 
     private static final String REGEX = "\\s*-debug\\s*-f\\s*(.*)";

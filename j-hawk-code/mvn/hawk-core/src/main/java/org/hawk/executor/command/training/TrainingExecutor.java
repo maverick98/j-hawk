@@ -27,8 +27,8 @@ import org.hawk.module.cache.AllModuleCache;
  *
  * @author Manoranjan Sahu
  */
-//@Component(TRAININGEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class TrainingExecutor implements IHawkCommandExecutor{
 
    

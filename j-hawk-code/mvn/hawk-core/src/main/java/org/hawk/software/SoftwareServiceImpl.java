@@ -24,8 +24,8 @@ import org.hawk.xml.XMLUtil;
  *
  * @author manosahu
  */
-//@Component(SOFTWARESERVICE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class SoftwareServiceImpl implements ISoftwareService {
 
     @Override

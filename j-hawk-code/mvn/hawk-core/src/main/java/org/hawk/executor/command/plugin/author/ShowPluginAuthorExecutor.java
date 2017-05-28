@@ -28,8 +28,8 @@ import org.hawk.plugin.exception.HawkPluginException;
  *
  * @author Manoranjan Sahu
  */
-//@Component(SHOWPLUGINAUTHOREXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ShowPluginAuthorExecutor extends DefaultPluginExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ShowPluginAuthorExecutor.class.getName());

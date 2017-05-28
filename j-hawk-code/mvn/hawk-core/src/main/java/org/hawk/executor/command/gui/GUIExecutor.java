@@ -27,8 +27,8 @@ import org.hawk.ide.HawkIDE;
  *
  * @author Manoranjan Sahu
  */
-//@Component(GUIEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class GUIExecutor implements IHawkCommandExecutor{
 
     @Override

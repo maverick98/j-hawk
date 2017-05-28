@@ -30,8 +30,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(SCRIPTCOMPILATIONCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class ScriptCompilationCommand extends HawkExecutionCommand {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ScriptCompilationCommand.class.getName());

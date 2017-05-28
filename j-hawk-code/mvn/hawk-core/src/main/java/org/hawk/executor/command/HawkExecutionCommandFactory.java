@@ -30,8 +30,8 @@ import org.commons.string.StringUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HAWKEXECUTIONCOMMANDFACTORY)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkExecutionCommandFactory implements IHawkExecutionCommandFactory {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkExecutionCommandFactory.class.getName());

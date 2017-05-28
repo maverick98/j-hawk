@@ -25,8 +25,8 @@ import org.hawk.sequence.DefaultSequenceProvider;
  *
  * @author Manoranjan Sahu
  */
-//@Component(HAWKCONFIGSEQUENCEPROVIDER)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HawkConfigSequenceProvider extends DefaultSequenceProvider {
 
      public HawkConfigSequenceProvider() {

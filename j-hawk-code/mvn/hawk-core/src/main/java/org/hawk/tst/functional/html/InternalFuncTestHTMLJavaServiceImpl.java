@@ -34,8 +34,8 @@ import org.commons.string.StringUtil;
  *
  * @author Manoranjan Sahu
  */
-//@Component(INTERNALFUNCTESTHTMLJAVASERVICE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class InternalFuncTestHTMLJavaServiceImpl extends DefaultHtmlJavaServiceImpl {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalFuncTestHTMLJavaServiceImpl.class.getName());

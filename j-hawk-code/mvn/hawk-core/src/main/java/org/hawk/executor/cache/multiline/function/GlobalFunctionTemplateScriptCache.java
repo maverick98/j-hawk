@@ -32,8 +32,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(GLOBALFUNCTIONTEMPLATESCRIPTCACHE)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class GlobalFunctionTemplateScriptCache extends AbstractFunctionTemplateScriptCache {
 
     private static final HawkLogger logger = HawkLogger.getLogger(GlobalFunctionTemplateScriptCache.class.getName());

@@ -26,8 +26,8 @@ import org.hawk.executor.command.IHawkExecutionCommand;
  *
  * @author Manoranjan Sahu
  */
-//@Component(VERSIONEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class VersionExecutor implements IHawkCommandExecutor {
 
     @Override

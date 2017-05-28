@@ -18,16 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author manosahu
  */
-//@Component(FUNCTIONEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class FunctionExecutor implements IFunctionExecutor {
 
     @Autowired(required = true)
-    //@Qualifier(FUNCTIONSCRIPTCACHE)
+       
     private IFunctionScriptCache functionScriptCache;
 
     @Autowired(required = true)
-    //@Qualifier(MODULECACHE)
+       
     private IAllModuleCache moduleCache;
 
     @Override

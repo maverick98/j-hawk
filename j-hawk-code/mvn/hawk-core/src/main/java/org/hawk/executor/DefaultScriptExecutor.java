@@ -66,36 +66,36 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @see SubTaskContainer
  * @see SubTask
  */
-//@Component(DEFAULTSCRIPTEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class DefaultScriptExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(DefaultScriptExecutor.class.getName());
     
     @Autowired(required = true)
-    //@Qualifier(HAWKOUTPUT)
+       
     private HawkOutput hawkOutput;
     
     @Autowired(required = true)
-    //@Qualifier(HAWKINPUT)
+       
     private HawkInput hawkInput;
     
     
     @Autowired(required = true)
-    //@Qualifier(MULTILINECOMMENTSCRIPTCACHE)
+       
     private IMultiLineCommentScriptCache multilineCommentScriptCache;
     
     @Autowired(required = true)
-    //@Qualifier(FUNCTIONSCRIPTCACHE)
+       
     private IFunctionScriptCache functionScriptCache;
     
     @Autowired(required = true)
-    //@Qualifier(STRUCTUREDEFNSCRIPTCACHE)
+       
     private IStructureDefinitionScriptCache structureDefinitionCache;
     
     
     @Autowired(required = true)
-    //@Qualifier(SCRIPTCACHEPROVIDER)
+       
     private IScriptCacheProvider scriptCacheProvider;
 
     public IMultiLineCommentScriptCache getMultilineCommentScriptCache() {

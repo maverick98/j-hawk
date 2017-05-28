@@ -32,18 +32,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @VERSION 1.0 14 Apr, 2010
  * @author msahu
  */
-//@Component(PLOTTINGEXECUTOR)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class PlottingExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(PlottingExecutor.class.getName());
     
     @Autowired(required = true)
-    //@Qualifier(HAWKTARGETSETTING)
+       
     private HawkTargetSetting hawkTargetSetting;
     
     @Autowired(required = true)
-    //@Qualifier(HAWKPERFDATACOLLECTOR)
+       
     private PerfDataProcessor perfDataProcessor;
 
     public HawkTargetSetting getHawkTargetSetting() {

@@ -27,8 +27,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(HELPCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class HelpCommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-help\\s*";

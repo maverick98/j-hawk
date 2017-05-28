@@ -27,8 +27,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(GUICOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class GUICommand extends HawkExecutionCommand {
 
     private static final String REGEX = "\\s*-ide\\s*";

@@ -29,8 +29,8 @@ import org.common.di.ScanMe;
  * @author Manoranjan Sahu
  */
 @ScanMe(true)
-//@Component(INTERNALPERFTESTCOMMAND)
-//@Qualifier(DEFAULTQUALIFIER)
+   
+   
 public class InternalPerfTestCommand extends InternalTestCommand {
 
     private static final String REGEX = "\\s*-inttest perf\\s*";

@@ -16,25 +16,26 @@
  */
 package org.hawk.executor.command.plot;
 
+import org.hawk.codegen.FieldData;
+import org.hawk.codegen.FileTemplateJavaBean;
 import org.hawk.logger.HawkLogger;
 
 /**
  *
  * @author Manoranjan Sahu
  */
-public class PlottingData {
-//extends  FileTemplateJavaBean {
+public class PlottingData extends  FileTemplateJavaBean {
 
     private static final String GNUTEMPLATE = "conf/gnu.template";
-    //@FieldData("#MODULENAME#")
+    @FieldData("#MODULENAME#")
     private String moduleName;
-    ////@FieldData("#MODULENAMEPATH#")
+    @FieldData("#MODULENAMEPATH#")
     private String moduleNamePath;
-    //@FieldData("#FILEPATH#")
+    @FieldData("#FILEPATH#")
     private String filePath;
-    //@FieldData("#STARTTIME#")
+    @FieldData("#STARTTIME#")
     private String startTimestamp;
-    //@FieldData("#ENDTIME#")
+    @FieldData("#ENDTIME#")
     private String endTimestamp;
 
     private String gnuDataFile;

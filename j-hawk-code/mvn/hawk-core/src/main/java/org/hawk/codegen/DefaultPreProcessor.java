@@ -15,7 +15,7 @@
  * 
  */
 
-package org.codegen;
+package org.hawk.codegen;
 
 /**
  *

@@ -18,42 +18,42 @@ package org.hawk.executor.command.plot;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.hawk.codegen.FieldData;
+import org.hawk.codegen.FileTemplateJavaBean;
 
 import org.hawk.logger.HawkLogger;
-
 
 /**
  *
  * @author Manoranjan Sahu
  */
-public class HawkResponseHTML {
-//extends FileTemplateJavaBean {
+public class HawkResponseHTML extends FileTemplateJavaBean {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkResponseHTML.class.getName());
     private static final String HAWKRESPONSEHTMLTEMPLATE = "conf/hawkresponse.html";
-    //@FieldData("#TARGET_MODULE#")
+    @FieldData("#TARGET_MODULE#")
     private String targetModule;
-    //@FieldData(value = "#MODULE_NAME#", multiple = true, pre = false, post = true)
+    @FieldData(value = "#MODULE_NAME#", multiple = true, pre = false, post = true)
     private List<String> moduleNames = new ArrayList<String>();
-    //@FieldData(value = "#MODULE_SUBTASK_NAME#", multiple = true, pre = false, post = true)
+    @FieldData(value = "#MODULE_SUBTASK_NAME#", multiple = true, pre = false, post = true)
     private List<String> moduleSubTaskNames = new ArrayList<String>();
-    //@FieldData("#MODULENAMEPATH#")
+    @FieldData("#MODULENAMEPATH#")
     private String moduleNamePath;
-    //@FieldData("#FILEPATH#")
+    @FieldData("#FILEPATH#")
     private String filePath;
-    //@FieldData("#START_TIMESTAMP#")
+    @FieldData("#START_TIMESTAMP#")
     private String startTimestamp;
-    //@FieldData("#END_TIMESTAMP#")
+    @FieldData("#END_TIMESTAMP#")
     private String endTimestamp;
-    //@FieldData("#DURATION_HOURS#")
+    @FieldData("#DURATION_HOURS#")
     private String durationHours;
-    //@FieldData("#DURATION_MINS#")
+    @FieldData("#DURATION_MINS#")
     private String durationMins;
-    //@FieldData("#DURATION_SECS#")
+    @FieldData("#DURATION_SECS#")
     private String durationSecs;
-    //@FieldData("#MODULE_COUNT#")
+    @FieldData("#MODULE_COUNT#")
     private String moduleCount;
-    //@FieldData("#MODULE_SUBTASK_COUNT#")
+    @FieldData("#MODULE_SUBTASK_COUNT#")
     private String moduleSubTaskCount;
 
     public String getTargetModule() {
@@ -159,51 +159,51 @@ public class HawkResponseHTML {
     public void setModuleSubTaskCount(String moduleSubTaskCount) {
         this.moduleSubTaskCount = moduleSubTaskCount;
     }
-/*
-    @Override
-    public String getInputFile() {
-        return HAWKRESPONSEHTMLTEMPLATE;
-    }
+    /*
+     @Override
+     public String getInputFile() {
+     return HAWKRESPONSEHTMLTEMPLATE;
+     }
 
-    public static void main(String args[]) throws Exception {
+     public static void main(String args[]) throws Exception {
     
-        HawkResponseHTML hawkResponseHTML = new HawkResponseHTML();
-        hawkResponseHTML.setFilePath("abc");
-        //hawkResponseHTML.setModuleName("def");
-        List<String> modules = new ArrayList<String>();
-        modules.add("abc1");
-        modules.add("abc2");
-        modules.add("abc3");
-        modules.add("abc4");
+     HawkResponseHTML hawkResponseHTML = new HawkResponseHTML();
+     hawkResponseHTML.setFilePath("abc");
+     //hawkResponseHTML.setModuleName("def");
+     List<String> modules = new ArrayList<String>();
+     modules.add("abc1");
+     modules.add("abc2");
+     modules.add("abc3");
+     modules.add("abc4");
 
-        hawkResponseHTML.setModuleNames(modules);
-        List<String> subTasks = new ArrayList<String>();
-        subTasks.add("abc1");
-        subTasks.add("abc2");
-        subTasks.add("abc3");
-        subTasks.add("abc4");
-        hawkResponseHTML.setModuleSubTaskNames(subTasks);
-        hawkResponseHTML.setModuleNamePath("deff");
-        hawkResponseHTML.setStartTimestamp("star");
-        hawkResponseHTML.setEndTimestamp("end");
-        hawkResponseHTML.setTargetModule("AGAIN TESTING YAAR");
-        hawkResponseHTML.setModuleCount("4");
-        hawkResponseHTML.setModuleSubTaskCount("4");
-        hawkResponseHTML.setDurationHours("11");
-        hawkResponseHTML.setDurationMins("12");
-        hawkResponseHTML.setDurationSecs("13");
-        hawkResponseHTML.setOutputFile("hawkResponse.html");
-        hawkResponseHTML.setErrorFile("hawkResponseError.html");
-        //    Map<Integer, String> data = FileUtil.dumpStringToMap(FileUtil.preProcess(hawkResponseHTML));
+     hawkResponseHTML.setModuleNames(modules);
+     List<String> subTasks = new ArrayList<String>();
+     subTasks.add("abc1");
+     subTasks.add("abc2");
+     subTasks.add("abc3");
+     subTasks.add("abc4");
+     hawkResponseHTML.setModuleSubTaskNames(subTasks);
+     hawkResponseHTML.setModuleNamePath("deff");
+     hawkResponseHTML.setStartTimestamp("star");
+     hawkResponseHTML.setEndTimestamp("end");
+     hawkResponseHTML.setTargetModule("AGAIN TESTING YAAR");
+     hawkResponseHTML.setModuleCount("4");
+     hawkResponseHTML.setModuleSubTaskCount("4");
+     hawkResponseHTML.setDurationHours("11");
+     hawkResponseHTML.setDurationMins("12");
+     hawkResponseHTML.setDurationSecs("13");
+     hawkResponseHTML.setOutputFile("hawkResponse.html");
+     hawkResponseHTML.setErrorFile("hawkResponseError.html");
+     //    Map<Integer, String> data = FileUtil.dumpStringToMap(FileUtil.preProcess(hawkResponseHTML));
 
-        HawkConfigHelper.configure();
-        ITemplateService templateService = AppContainer.getInstance().getBean(TemplateServiceImpl.class);
-        templateService.toFile(hawkResponseHTML);
-        System.out.println("-----------");
-        System.out.println(hawkResponseHTML.getCurrentData());
+     HawkConfigHelper.configure();
+     ITemplateService templateService = AppContainer.getInstance().getBean(TemplateServiceImpl.class);
+     templateService.toFile(hawkResponseHTML);
+     System.out.println("-----------");
+     System.out.println(hawkResponseHTML.getCurrentData());
        
 
 
-}
-    */
+     }
+     */
 }

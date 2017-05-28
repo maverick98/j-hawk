@@ -13,7 +13,7 @@
  *
  * 
  */
-package org.codegen;
+package org.hawk.codegen;
 
 import java.io.File;
 import java.lang.reflect.Field;

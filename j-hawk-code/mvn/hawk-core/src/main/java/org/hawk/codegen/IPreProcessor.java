@@ -14,24 +14,21 @@
  *
  * 
  */
-
-package org.codegen;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.hawk.codegen;
 
 /**
  *
  * @author user
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface FieldData {
+public interface IPreProcessor {
 
-    String value();
-    boolean multiple() default false;
-    boolean pre() default true;
-    boolean post() default false;
+    public boolean processMultipleDataPre(IntermediateTemplateData intermediateTemplateData);
+    
+    public boolean handleMultipleDataPreProcessFinished(IntermediateTemplateData intermediateTemplateData);
+    
+    public boolean processSingleDataPre(IntermediateTemplateData intermediateTemplateData);
+    
+    public boolean handlePreProcessFinished(IntermediateTemplateData intermediateTemplateData);
+    
+    
 }

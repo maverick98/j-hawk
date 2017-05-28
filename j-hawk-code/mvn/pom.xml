@@ -10,7 +10,6 @@
     <version>1.0</version>
   
     <modules>
-        <module>codegen</module>
         <module>hawk-core</module>
         <module>hawk-commons-util</module>
         <module>hawk-commons-event</module>

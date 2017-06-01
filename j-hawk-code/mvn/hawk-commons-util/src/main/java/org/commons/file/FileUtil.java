@@ -50,6 +50,9 @@ public class FileUtil {
      * @return a map containing line no and the script
      */
     public static Map<Integer, String> dumpFileToMap(File scriptFile) {
+        if (scriptFile == null) {
+            throw new IllegalArgumentException("null file");
+        }
         try {
             return dumpInputStreamToMap(new FileInputStream(scriptFile));
         } catch (FileNotFoundException ex) {
@@ -66,16 +69,22 @@ public class FileUtil {
      * @return a map containing line no and the script
      */
     public static Map<Integer, String> dumpFileToMap(String scriptFile) {
+        if (StringUtil.isNullOrEmpty(scriptFile)) {
+            throw new IllegalArgumentException("null file");
+        }
         return dumpFileToMap(new File(scriptFile));
     }
 
     public static Map<Integer, String> dumpStringToMap(String scriptFileData) {
+        if (StringUtil.isNullOrEmpty(scriptFileData)) {
+            throw new IllegalArgumentException("null filedata");
+        }
         return dumpInputStreamToMap(new ByteArrayInputStream(scriptFileData.getBytes(Charset.forName(ENCODING))));
     }
 
     public static Reader readFileAsStream(String fileName) {
 
-        if (fileName == null || fileName.isEmpty()) {
+        if (StringUtil.isNullOrEmpty(fileName)) {
             throw new IllegalArgumentException("Invalid fileName");
         }
         return readFileAsStream(new File(fileName));
@@ -103,7 +112,7 @@ public class FileUtil {
     }
 
     public static String readFile(String fileName, boolean readFromClazzpath) {
-        if (fileName == null || fileName.isEmpty()) {
+        if (StringUtil.isNullOrEmpty(fileName)) {
             throw new IllegalArgumentException("Invalid fileName");
         }
         String result;

@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.common.di.AppContainer;
-import org.hawk.config.spring.SpringConfigUtil;
 
 import org.commons.implementor.InstanceVisitable;
 import org.hawk.di.spring.SpringConfig;
@@ -37,9 +36,10 @@ public class HawkConfigHelper {
             //debatable ... but when was the last time,I advocated for software patent.
             long start2 = System.currentTimeMillis();
             AppContainer.getInstance().registerConfig(SpringConfig.class);
+            
             AppContainer.getInstance().refreshAppCtx();
             long diff2 = System.currentTimeMillis() - start2;
-            System.out.println("spring took {" + diff2 + "}ms");
+            System.out.println("my spring took {" + diff2 + "}ms");
 
         }
         long start1 = System.currentTimeMillis();

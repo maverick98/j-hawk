@@ -30,10 +30,10 @@ public class AppContainer {
     private static final AppContainer theInstance = new AppContainer();
     private AnnotationConfigApplicationContext containerCtx ;
     private AnnotationConfigApplicationContext appContext ;
-    private Map<String, AnnotationConfigApplicationContext> pluginCtxMap = new HashMap<String, AnnotationConfigApplicationContext>();
+    private Map<String, AnnotationConfigApplicationContext> pluginCtxMap = new HashMap<>();
     private Reflections reflections = null;
 
-    private Map<Class, List<Class>> subTypesMap = new HashMap<Class, List<Class>>();
+    private Map<Class, List<Class>> subTypesMap = new HashMap<>();
 
     public AnnotationConfigApplicationContext getContainerCtx() {
         return containerCtx;
@@ -126,7 +126,7 @@ public class AppContainer {
     }
 
     public List<AnnotationConfigApplicationContext> getPluginContexts() {
-        List<AnnotationConfigApplicationContext> pluginCtxs = new ArrayList<AnnotationConfigApplicationContext>();
+        List<AnnotationConfigApplicationContext> pluginCtxs = new ArrayList<>();
         for (Entry<String, AnnotationConfigApplicationContext> entry : this.getPluginCtxMap().entrySet()) {
             AnnotationConfigApplicationContext pluginCtx = entry.getValue();
             pluginCtxs.add(pluginCtx);
@@ -136,7 +136,7 @@ public class AppContainer {
     }
 
     public List<AnnotationConfigApplicationContext> getCoreContexts() {
-        List<AnnotationConfigApplicationContext> coreCtxs = new ArrayList<AnnotationConfigApplicationContext>();
+        List<AnnotationConfigApplicationContext> coreCtxs = new ArrayList<>();
         if(this.getAppContext()!= null){
         coreCtxs.add(this.getAppContext());
         }
@@ -144,7 +144,7 @@ public class AppContainer {
     }
 
     public List<AnnotationConfigApplicationContext> getContainerContexts() {
-        List<AnnotationConfigApplicationContext> containerCtxs = new ArrayList<AnnotationConfigApplicationContext>();
+        List<AnnotationConfigApplicationContext> containerCtxs = new ArrayList<>();
         if(this.getContainerCtx()!= null){
             containerCtxs.add(this.getContainerCtx());
         }
@@ -155,7 +155,7 @@ public class AppContainer {
         List<AnnotationConfigApplicationContext> containerCtxs = this.getContainerContexts();
         List<AnnotationConfigApplicationContext> coreCtxs = this.getCoreContexts();
         List<AnnotationConfigApplicationContext> pluginCtxs = this.getPluginContexts();
-        List<AnnotationConfigApplicationContext> allCtxs = new ArrayList<AnnotationConfigApplicationContext>();
+        List<AnnotationConfigApplicationContext> allCtxs = new ArrayList<>();
         allCtxs.addAll(containerCtxs);
         allCtxs.addAll(coreCtxs);
         allCtxs.addAll(pluginCtxs);
@@ -167,6 +167,7 @@ public class AppContainer {
         if (ctxs != null) {
             for (AnnotationConfigApplicationContext ctx : ctxs) {
                 try {
+                   
                     bean = ctx.getBean(clazzStr);
                     
                 } catch (BeansException bex) {
@@ -190,7 +191,7 @@ public class AppContainer {
 // Ok I dint know it throws a exception if it is not present. poor API. 
 //it shud not throw anything.. rather a null I wud expect
                 } catch (BeansException bex) {
-                    bex.printStackTrace();
+                  
                 }
                 if (bean != null) {
                     break;

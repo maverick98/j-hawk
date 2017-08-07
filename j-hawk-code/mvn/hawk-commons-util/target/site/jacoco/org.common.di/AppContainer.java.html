@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppContainer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hawk-commons-util</a> &gt; <a href="index.source.html" class="el_package">org.common.di</a> &gt; <span class="el_source">AppContainer.java</span></div><h1>AppContainer.java</h1><pre class="source lang-java linenums">/*
+ * This file is part of hawkeye
+ * CopyLeft (C) BigBang&lt;--&gt;BigCrunch Manoranjan Sahu, All Rights are left.
+ *
+ *
+ *
+ * 
+ */
+package org.common.di;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.reflections.Reflections;
+import org.springframework.beans.BeansException;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+/**
+ * The client code will make use of this to get spring managed beans. clients
+ * would be separated from the DI framework with this class.
+ *
+ * @author manoranjan
+ */
+public class AppContainer {
+
+<span class="nc" id="L30">    private static final AppContainer theInstance = new AppContainer();</span>
+    private AnnotationConfigApplicationContext containerCtx ;
+    private AnnotationConfigApplicationContext appContext ;
+<span class="nc" id="L33">    private Map&lt;String, AnnotationConfigApplicationContext&gt; pluginCtxMap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L34">    private Reflections reflections = null;</span>
+
+<span class="nc" id="L36">    private Map&lt;Class, List&lt;Class&gt;&gt; subTypesMap = new HashMap&lt;&gt;();</span>
+
+    public AnnotationConfigApplicationContext getContainerCtx() {
+<span class="nc" id="L39">        return containerCtx;</span>
+    }
+
+    public void setContainerCtx(AnnotationConfigApplicationContext containerCtx) {
+<span class="nc" id="L43">        this.containerCtx = containerCtx;</span>
+<span class="nc" id="L44">    }</span>
+
+    public AnnotationConfigApplicationContext getAppContext() {
+<span class="nc" id="L47">        return appContext;</span>
+    }
+
+    public void setAppContext(AnnotationConfigApplicationContext appContext) {
+<span class="nc" id="L51">        this.appContext = appContext;</span>
+<span class="nc" id="L52">    }</span>
+
+    public Reflections getReflections() {
+<span class="nc" id="L55">        return reflections;</span>
+    }
+
+    public void setReflections(Reflections reflections) {
+<span class="nc" id="L59">        this.reflections = reflections;</span>
+<span class="nc" id="L60">    }</span>
+
+   
+
+    public boolean registerConfig(Class springConfig) {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if(this.getAppContext() ==  null){</span>
+<span class="nc" id="L66">            this.setAppContext(new AnnotationConfigApplicationContext());</span>
+        }
+<span class="nc" id="L68">        this.getAppContext().register(springConfig);</span>
+<span class="nc" id="L69">        return true;</span>
+    }
+
+    public boolean registerContainerConfig(Class springConfig) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">         if(this.getContainerCtx() ==  null){</span>
+<span class="nc" id="L74">            this.setContainerCtx(new AnnotationConfigApplicationContext());</span>
+        }
+<span class="nc" id="L76">        this.getContainerCtx().register(springConfig);</span>
+        // this.refresh();
+<span class="nc" id="L78">        return true;</span>
+    }
+
+    public Map&lt;String, AnnotationConfigApplicationContext&gt; getPluginCtxMap() {
+<span class="nc" id="L82">        return pluginCtxMap;</span>
+    }
+
+    public void setPluginCtxMap(Map&lt;String, AnnotationConfigApplicationContext&gt; pluginCtxMap) {
+<span class="nc" id="L86">        this.pluginCtxMap = pluginCtxMap;</span>
+<span class="nc" id="L87">    }</span>
+
+    public boolean registerPluginConfig(String pluginName, Class springConfig) {
+<span class="nc" id="L90">        AnnotationConfigApplicationContext pluginAppCtx = new AnnotationConfigApplicationContext();</span>
+<span class="nc" id="L91">        pluginAppCtx.register(springConfig);</span>
+<span class="nc" id="L92">        this.getPluginCtxMap().put(pluginName, pluginAppCtx);</span>
+<span class="nc" id="L93">        pluginAppCtx.refresh();</span>
+<span class="nc" id="L94">        return true;</span>
+    }
+
+    public boolean deregisterPlugin(String pluginName) {
+<span class="nc" id="L98">        AnnotationConfigApplicationContext pluginAppCtx = this.getPluginCtxMap().get(pluginName);</span>
+        boolean deregistered;
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (pluginAppCtx != null) {</span>
+<span class="nc" id="L101">            pluginAppCtx.destroy();</span>
+<span class="nc" id="L102">            this.getPluginCtxMap().remove(pluginAppCtx);</span>
+<span class="nc" id="L103">            deregistered = true;</span>
+        } else {
+<span class="nc" id="L105">            deregistered = false;</span>
+        }
+<span class="nc" id="L107">        return deregistered;</span>
+
+    }
+
+    public boolean refreshAppCtx() {
+<span class="nc" id="L112">        this.getAppContext().refresh();</span>
+<span class="nc" id="L113">        return true;</span>
+    }
+     public boolean refreshAppContainerCtx() {
+<span class="nc" id="L116">        this.getContainerCtx().refresh();</span>
+<span class="nc" id="L117">        return true;</span>
+    }
+
+<span class="nc" id="L120">    private AppContainer() {</span>
+<span class="nc" id="L121">    }</span>
+
+    public static AppContainer getInstance() {
+
+<span class="nc" id="L125">        return theInstance;</span>
+    }
+
+    public List&lt;AnnotationConfigApplicationContext&gt; getPluginContexts() {
+<span class="nc" id="L129">        List&lt;AnnotationConfigApplicationContext&gt; pluginCtxs = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        for (Entry&lt;String, AnnotationConfigApplicationContext&gt; entry : this.getPluginCtxMap().entrySet()) {</span>
+<span class="nc" id="L131">            AnnotationConfigApplicationContext pluginCtx = entry.getValue();</span>
+<span class="nc" id="L132">            pluginCtxs.add(pluginCtx);</span>
+<span class="nc" id="L133">        }</span>
+<span class="nc" id="L134">        return pluginCtxs;</span>
+
+    }
+
+    public List&lt;AnnotationConfigApplicationContext&gt; getCoreContexts() {
+<span class="nc" id="L139">        List&lt;AnnotationConfigApplicationContext&gt; coreCtxs = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if(this.getAppContext()!= null){</span>
+<span class="nc" id="L141">        coreCtxs.add(this.getAppContext());</span>
+        }
+<span class="nc" id="L143">        return coreCtxs;</span>
+    }
+
+    public List&lt;AnnotationConfigApplicationContext&gt; getContainerContexts() {
+<span class="nc" id="L147">        List&lt;AnnotationConfigApplicationContext&gt; containerCtxs = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if(this.getContainerCtx()!= null){</span>
+<span class="nc" id="L149">            containerCtxs.add(this.getContainerCtx());</span>
+        }
+<span class="nc" id="L151">        return containerCtxs;</span>
+    }
+
+    public AnnotationConfigApplicationContext[] getAllContexts() {
+<span class="nc" id="L155">        List&lt;AnnotationConfigApplicationContext&gt; containerCtxs = this.getContainerContexts();</span>
+<span class="nc" id="L156">        List&lt;AnnotationConfigApplicationContext&gt; coreCtxs = this.getCoreContexts();</span>
+<span class="nc" id="L157">        List&lt;AnnotationConfigApplicationContext&gt; pluginCtxs = this.getPluginContexts();</span>
+<span class="nc" id="L158">        List&lt;AnnotationConfigApplicationContext&gt; allCtxs = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L159">        allCtxs.addAll(containerCtxs);</span>
+<span class="nc" id="L160">        allCtxs.addAll(coreCtxs);</span>
+<span class="nc" id="L161">        allCtxs.addAll(pluginCtxs);</span>
+<span class="nc" id="L162">        return allCtxs.toArray(new AnnotationConfigApplicationContext[]{});</span>
+    }
+
+    public Object getBeanFrom(String clazzStr, AnnotationConfigApplicationContext... ctxs) {
+<span class="nc" id="L166">        Object bean = null;</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (ctxs != null) {</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">            for (AnnotationConfigApplicationContext ctx : ctxs) {</span>
+                try {
+<span class="nc" id="L170">                    bean = ctx.getBean(clazzStr);</span>
+                    
+<span class="nc" id="L172">                } catch (BeansException bex) {</span>
+
+<span class="nc" id="L174">                }</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">                if (bean != null) {</span>
+<span class="nc" id="L176">                    break;</span>
+                }
+            }
+        }
+<span class="nc" id="L180">        return bean;</span>
+    }
+
+    public &lt;T extends Object&gt; T getBeanFrom(Class&lt;T&gt; clazz, AnnotationConfigApplicationContext... ctxs) {
+<span class="nc" id="L184">        T bean = null;</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (ctxs != null) {</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">            for (AnnotationConfigApplicationContext ctx : ctxs) {</span>
+                try {
+                    
+<span class="nc" id="L189">                    bean = ctx.getBean(clazz);</span>
+// Ok I dint know it throws a exception if it is not present. poor API. 
+//it shud not throw anything.. rather a null I wud expect
+<span class="nc" id="L192">                } catch (BeansException bex) {</span>
+<span class="nc" id="L193">                    bex.printStackTrace();</span>
+<span class="nc" id="L194">                }</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">                if (bean != null) {</span>
+<span class="nc" id="L196">                    break;</span>
+                }
+            }
+        }
+<span class="nc" id="L200">        return bean;</span>
+    }
+
+    public &lt;T extends Object&gt; T getBean(String clazzStr, Class&lt;T&gt; type) {
+<span class="nc" id="L204">        T result = (T) this.getBean(clazzStr);</span>
+<span class="nc" id="L205">        return result;</span>
+    }
+
+    public &lt;T extends Object&gt; T getBean(Class&lt;T&gt; clazz) {
+
+        T result;
+
+<span class="nc" id="L212">        result = this.getBeanFrom(clazz, this.getAllContexts());</span>
+
+<span class="nc" id="L214">        return result;</span>
+    }
+
+    public Object getBean(String clazzStr) {
+
+        Object result;
+
+<span class="nc" id="L221">        result = this.getBeanFrom(clazzStr, this.getAllContexts());</span>
+
+<span class="nc" id="L223">        return result;</span>
+    }
+
+    public List&lt;Class&gt; getSubTypesOf(Class parentClazz) {
+<span class="nc" id="L227">        List&lt;Class&gt; result = this.subTypesMap.get(parentClazz);</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (result != null) {</span>
+<span class="nc" id="L229">            return result;</span>
+        }
+<span class="nc" id="L231">        result = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L233" title="All 2 branches missed.">        if (this.getReflections() == null) {</span>
+<span class="nc" id="L234">            this.setReflections(new Reflections(&quot;org&quot;));</span>
+        }
+
+<span class="nc" id="L237">        Set&lt;Class&gt; all = this.getReflections().getSubTypesOf(parentClazz);</span>
+<span class="nc bnc" id="L238" title="All 4 branches missed.">        if (all != null &amp;&amp; !all.isEmpty()) {</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">            for (Class clazzImpl : all) {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">                if (clazzImpl.isAnnotationPresent(ScanMe.class)) {</span>
+<span class="nc" id="L241">                    boolean shouldScan = ((ScanMe) clazzImpl.getAnnotation(ScanMe.class)).value();</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">                    if (shouldScan) {</span>
+<span class="nc" id="L243">                        result.add(clazzImpl);</span>
+                    }
+                }
+<span class="nc" id="L246">            }</span>
+        }
+<span class="nc" id="L248">        this.subTypesMap.put(parentClazz, result);</span>
+<span class="nc" id="L249">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -76,6 +76,11 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>3.1</version>
@@ -83,17 +88,17 @@
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>17.05</version>
+            <version>17.08</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-event</artifactId>
-            <version>17.05</version>
+            <version>17.08</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-ds</artifactId>
-            <version>17.05</version>
+            <version>17.08</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -199,7 +204,7 @@
                 
         </dependency>
     </dependencies>
-    <version>17.05</version>
+    <version>17.08</version>
     <properties>
         <project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
     </properties>

@@ -22,11 +22,22 @@ import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class SpringConfig {
-        
+
     @Bean
-    public SpringContextEventListener springContextEventListener(){
+    public org.hawk.codegen.TemplateServiceImpl getTemplateServiceImpl() {
+        return new org.hawk.codegen.TemplateServiceImpl();
+    }
+
+    @Bean
+    public org.hawk.codegen.FileTemplateJavaBean getFileTemplateJavaBean() {
+        return new org.hawk.codegen.FileTemplateJavaBean();
+    }
+
+    @Bean
+    public SpringContextEventListener springContextEventListener() {
         return new SpringContextEventListener();
     }
+
     @Bean
     public org.hawk.executor.command.plugin.details.ShowPluginDetailsCommand getShowPluginDetailsCommand() {
         return new org.hawk.executor.command.plugin.details.ShowPluginDetailsCommand();
@@ -46,8 +57,6 @@ public class SpringConfig {
     public org.hawk.lang.multiline.MultiLineScriptVerticalSequenceProvider getMultiLineScriptVerticalSequenceProvider() {
         return new org.hawk.lang.multiline.MultiLineScriptVerticalSequenceProvider();
     }
-
-   
 
     @Bean
     public org.hawk.executor.command.HawkCommandParser getHawkCommandParser() {
@@ -78,7 +87,7 @@ public class SpringConfig {
     public org.hawk.module.core.HttpModule getHttpModule() {
         return new org.hawk.module.core.HttpModule();
     }
-    
+
     @Bean
     public org.hawk.executor.ModuleExecutor getModuleExecutor() {
         return new org.hawk.executor.ModuleExecutor();
@@ -218,8 +227,6 @@ public class SpringConfig {
     public org.hawk.executor.command.gui.GUIExecutor getGUIExecutor() {
         return new org.hawk.executor.command.gui.GUIExecutor();
     }
-
-  
 
     @Bean
     public org.hawk.html.DefaultHtmlFormatter getDefaultHtmlFormatter() {

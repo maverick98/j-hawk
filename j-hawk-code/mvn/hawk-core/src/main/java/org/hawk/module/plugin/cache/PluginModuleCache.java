@@ -236,20 +236,14 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
             HawkPlugin hawkPlugin = (HawkPlugin) (HawkPlugin) hawkPluginPayload.getPayload();
 
             if (hawkPlugin.getLoaded()) {
-                //SpringConfigUtil.getInstance().configure(null, "org");
-                //AppContainer.getInstance().registerConfig(null);
-
                 try {
-                    // HawkConfigHelper.configure();
-
                     IHawkPluginConfig hawkPluginConfig = this.loadPluginConfig(hawkPlugin);
-                    HawkConfigHelper.configure();
+                   
+                  
                     hawkPluginConfig.configure(hawkPlugin);
-
-                    //hawkPluginConfig.register(AppContainer.getInstance().getBean(HAWKPLUGINCALLBACKREGISTRY, IHawkEventCallbackRegistry.class));
-                } catch (Throwable ex) {
+             } catch (Throwable ex) {
                     throw new HawkPluginException(ex);
-                }
+             }
 
             } else {
                 System.out.println("hawk is not loaded .... bad");

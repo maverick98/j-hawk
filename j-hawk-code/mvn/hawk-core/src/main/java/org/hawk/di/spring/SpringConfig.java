@@ -223,10 +223,7 @@ public class SpringConfig {
         return new org.hawk.executor.command.compiler.ScriptCompilationCommand();
     }
 
-    @Bean
-    public org.hawk.executor.command.gui.GUIExecutor getGUIExecutor() {
-        return new org.hawk.executor.command.gui.GUIExecutor();
-    }
+  
 
     @Bean
     public org.hawk.html.DefaultHtmlFormatter getDefaultHtmlFormatter() {
@@ -311,11 +308,6 @@ public class SpringConfig {
     @Bean
     public org.hawk.executor.command.plugin.installed.ShowInstalledPluginExecutor getShowInstalledPluginExecutor() {
         return new org.hawk.executor.command.plugin.installed.ShowInstalledPluginExecutor();
-    }
-
-    @Bean
-    public org.hawk.executor.command.gui.GUICommand getGUICommand() {
-        return new org.hawk.executor.command.gui.GUICommand();
     }
 
     @Bean

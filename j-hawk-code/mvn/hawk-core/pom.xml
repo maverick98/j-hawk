@@ -123,26 +123,6 @@
             <version>4.2.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.pivot</groupId>
-            <artifactId>pivot-core</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pivot</groupId>
-            <artifactId>pivot-wtk</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pivot</groupId>
-            <artifactId>pivot-wtk-terra</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pivot</groupId>
-            <artifactId>pivot-charts</artifactId>
-            <version>2.0.4</version>
-        </dependency>
         
         <dependency>
             <groupId>org.reflections</groupId>

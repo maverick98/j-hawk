@@ -2,8 +2,6 @@ package org.hawk.lang.object;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.common.di.ScanMe;
@@ -12,6 +10,7 @@ import org.commons.file.FileUtil;
 import org.hawk.ds.exp.IHawkObject;
 import org.hawk.lang.IScript;
 import org.hawk.lang.enumeration.VarTypeEnum;
+import org.hawk.lang.type.StringDataType;
 import org.hawk.lang.type.Variable;
 
 /**
@@ -40,13 +39,29 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
     @Override
     public IHawkObject refer(IHawkObject other) throws Exception {
         IObjectScript otherScript = (IObjectScript) other;
-        
+        IHawkObject result;
         Object rtn = this.getJson().get(otherScript.getVariable().getName());
-        JSONObjectScript script = new JSONObjectScript();
-        script.setVariable(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
-        script.setVariableValue(script.getVariable());
-     //   script.setJson(new JSONObject(rtn));
-        return script;
+        try{
+            JSONObject rtnJSON = new JSONObject(rtn.toString());
+            JSONObjectScript script = new JSONObjectScript();
+            script.setVariable(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
+            script.setVariableValue(script.getVariable());
+            script.setJson(rtnJSON);
+            result = script;
+            
+        }catch(JSONException ex){
+            LocalVarDeclScript lvds = LocalVarDeclScript.createDummyStringScript();
+            lvds.setLocalVar(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
+            lvds.setLocalVarValue(lvds.getLocalVar());
+            lvds.getVariableValue().setValue(new StringDataType(rtn.toString()));
+            
+            result = lvds;
+            
+        }
+        
+       
+        
+        return result;
     }
     
     @Override
@@ -158,13 +173,7 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
     
     @Override
     public String toUI() {
-        String ui = "";
-        try {
-            ui = this.getJson().toString(2);
-        } catch (JSONException ex) {
-            Logger.getLogger(JSONObjectScript.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ui;
+        return this.getJson().toString();
     }
      @Override
     public String toString() {

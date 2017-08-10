@@ -414,7 +414,7 @@ public class MultiLineScript extends AbstractScript implements IMultiLineScript 
             }
             try {
 
-                //System.out.println("finding pattern for "+ entry.getValue().getClass());
+                
                 Map<Integer, String> lineMatcherMap = PatternMatcher.match(entry.getValue().getPatterns(), scriptStr);
                 if (lineMatcherMap != null) {
 

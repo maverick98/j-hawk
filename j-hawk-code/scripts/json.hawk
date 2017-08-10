@@ -1,0 +1,9 @@
+function main()
+{
+	varx book = "book.json"
+        echo book->name
+        echo book->age
+        echo book->cars
+        echo book->cars->car1
+}
+

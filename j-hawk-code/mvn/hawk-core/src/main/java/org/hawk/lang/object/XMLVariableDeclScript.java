@@ -5,22 +5,11 @@
 package org.hawk.lang.object;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import org.commons.ds.exp.IObject;
 import org.hawk.ds.exp.IHawkObject;
 
-import static org.hawk.lang.constant.HawkLanguageKeyWord.varx;
-import org.hawk.lang.enumeration.VarTypeEnum;
-import org.hawk.lang.grammar.SingleLineGrammar;
-import org.hawk.lang.singleline.SingleLineScript;
-import org.hawk.lang.singleline.pattern.LinePattern;
 import org.hawk.lang.type.IDataType;
 import org.hawk.lang.type.IntDataType;
-import org.hawk.lang.type.Variable;
 import org.hawk.logger.HawkLogger;
-import org.hawk.module.annotation.PostCreateScript;
-import org.common.di.ScanMe;
 import org.hawk.xml.XMLUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

@@ -112,9 +112,7 @@ public class EchoScript extends SingleLineScript{
     public IScript execute() throws Exception {
         String echoOutput;
         if(this.isCandidateForEvaluation()){
-            if(this.message.contains("debug")){
-                System.out.println("debug reached");
-            }
+           
             echoOutput = this.evaluateLocalVariable(this.message).toUI();
         }else{
             echoOutput = this.getMessage();

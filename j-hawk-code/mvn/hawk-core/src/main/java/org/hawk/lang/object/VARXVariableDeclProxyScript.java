@@ -112,6 +112,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
         actualScript.setVariable(this.getVariable());
         actualScript.setVariableValue(this.getVariableValue());
         actualScript.execute();
+        actualScript.setOuterMultiLineScript(this.getOuterMultiLineScript());
         actualScript.outerMultiLineScript.setLocalValue(actualScript.getVariable(), this);
         if(result.getVariableValue() != null && this.getVariable() != null){
             actualScript.getVariable().setValue(result.getVariableValue().getValue());
@@ -122,7 +123,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
     @PostCreateScript
     public boolean checkVariable() throws Exception {
         boolean status = false;
-        actualScript.getOuterMultiLineScript().setLocalValue(actualScript.getVariable(), null);
+        this.getOuterMultiLineScript().setLocalValue(this.getVariable(), null);
         status = true;
 
         return status;
@@ -180,7 +181,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public IHawkObject refer(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.getActualObjectScript().refer(otherScript);
     }
 
     @Override

@@ -344,8 +344,6 @@ public abstract class AbstractScript implements IScript {
 
                     }else if (element instanceof MatrixElement) {
                         MatrixScript matrixScript;
-                       // Map<Integer, String> lineExecMatcherMap = PatternMatcher.match(new MatrixScript().getPatterns(),operand);
-                       // matrixScript = new MatrixScript().createScript(lineExecMatcherMap);
                         matrixScript = MatrixScript.createScript(operand, "", true);
                         IObjectScript rtnValue = null;
                         if(matrixScript!= null){
@@ -359,10 +357,7 @@ public abstract class AbstractScript implements IScript {
                         }
                     }else {
                         do {
-                            if(operand.equals("rtnValue")){
-                      //          System.out.println("I reached here");
-                                
-                            }
+                        
                             operandValueScript = (IObjectScript) multiLineScript.getLocalValue(operand);
                             if (operandValueScript != null) {
                                 operandValue = operandValueScript.getVariableValue();

@@ -193,24 +193,10 @@ public class DefaultScriptExecutor implements IHawkCommandExecutor {
      */
     public boolean interpret() throws Exception {
 
-        //OperatorCache oc = OperatorCache.getInstance();
+       
         boolean status = false;
         
-        String eqn = "abc[def[k]->def->y] + a*(b+d*e+(g->h->j))";
-        String eqn1 = "a*(b+c*d)+e";
-        String eqn2 = "enterpriseInfo->userAccountTO.enterpriseInfoTO.companyName = 	enterpriseInfo->userAccountTO.enterpriseInfoTO.companyName +\"\"+i";
-        ElementBinaryTree bt;
-        try {
-            bt = new ElementBinaryTree(eqn1);
-            bt.createTree();
-           // ElementBinTreePayload payload = new ElementBinTreePayload((bt.getRoot().getPayload());
-        //payload.setNode(bt.getRoot());
-                
-        PreOrderBinTreeIterator itr = new PreOrderBinTreeIterator(bt.getRoot());
-        itr.iterate();
-        } catch (Exception ex) {
-            Logger.getLogger(DefaultScriptExecutor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
         
         
         if (this.functionScriptCache.getMainFunction() == null || !this.getFunctionScriptCache().isIterpretable()) {

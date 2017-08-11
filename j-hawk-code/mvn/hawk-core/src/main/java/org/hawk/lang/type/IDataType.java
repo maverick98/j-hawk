@@ -51,4 +51,6 @@ public interface IDataType {
     BooleanDataType or(IDataType dataType) throws Exception;
     
     IDataType copy() throws Exception;
+    
+    String toJson();
 }

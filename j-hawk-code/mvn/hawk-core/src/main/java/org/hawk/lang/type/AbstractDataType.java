@@ -240,4 +240,10 @@ public abstract class AbstractDataType implements IDataType{
 
     @Override
     public abstract IDataType copy() throws Exception;
+    
+    @Override
+    public String toJson(){
+        
+        return this.toString();
+    }
 }

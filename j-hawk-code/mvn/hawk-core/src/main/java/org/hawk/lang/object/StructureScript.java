@@ -1,17 +1,6 @@
 /*
  * This file is part of j-hawk
  * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
- *
- * 
- *
- * 1) If you modify a source file, make a comment in it containing your name and the date.
- * 2) If you distribute a modified version, you must do it under the GPL 2.
- * 3) Developers are encouraged but not required to notify the j-hawk maintainers at abeautifulmind98@gmail.com
- * when they make a useful addition. It would be nice if significant contributions could be merged into the main distribution.
- *
- * 
- * 
- *
  * 
  */
 package org.hawk.lang.object;
@@ -324,6 +313,33 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
 
         return javaMap;
     }
+    
+    @Override
+    public String toJson(){
+
+        StringBuilder json = new StringBuilder();
+        int counter = 0;
+        json.append("{");
+        for (Entry<String, IObjectScript> entry : this.getMembers().entrySet()) {
+            counter = counter+1;
+            String key = entry.getKey();
+            IObjectScript value = entry.getValue();
+            json.append("\"");
+            json.append(key);
+            json.append("\"");
+            json.append(":");
+            json.append(value.toJson());
+            if(counter < this.getMembers().size()){
+                json.append(",");
+            }
+            
+
+           
+
+        }
+        json.append("}");
+        return json.toString();
+    }
 
     @Override
     public Object toJava() throws Exception {
@@ -415,7 +431,7 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
 
     @Override
     public String toUI() {
-        return this.toString();
+        return this.toJson();
     }
 
     @Override

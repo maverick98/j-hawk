@@ -74,5 +74,10 @@ public class BooleanDataType extends AbstractDataType {
         BooleanDataType result = new BooleanDataType(this.isData() || thatData.isData());
         return result;
     }
-
+    @Override
+    public String toJson(){
+        
+        return this.value();
+    }
+    
 }

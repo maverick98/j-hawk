@@ -59,7 +59,15 @@ public class StringDataType extends AbstractDataType{
     }
 
    
-    
+    @Override
+    public String toJson(){
+        
+        StringBuilder json = new StringBuilder();
+        json.append("\"");
+        json.append(this.toString());
+        json.append("\"");
+        return json.toString();
+    }
     
 
 }

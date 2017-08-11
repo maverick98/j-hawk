@@ -292,6 +292,11 @@ public class VariableDeclScript extends SingleLineScript implements IObjectScrip
         IDataType value = this.variableValue.getValue();
         return value == null ?"null":value.toString();
     }
+    @Override
+    public String toJson(){
+
+       return this.getVariableValue().getValue().toJson();
+    }
 
     
     @Override

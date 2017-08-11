@@ -12,9 +12,9 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.commons</groupId>
-            <artifactId>commons-util</artifactId>
-            <version>17.05</version>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-util</artifactId>
+            <version>17.08</version>
         </dependency>
     </dependencies>
     <name>hawk-commons-event</name>

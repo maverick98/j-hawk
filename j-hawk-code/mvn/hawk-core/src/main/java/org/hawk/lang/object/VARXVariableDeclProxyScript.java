@@ -2,7 +2,6 @@
  * This file is part of j-hawk
  * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
  * 
-
  */
 package org.hawk.lang.object;
 
@@ -18,7 +17,6 @@ import org.hawk.lang.singleline.SingleLineScript;
 import org.hawk.lang.singleline.pattern.LinePattern;
 import org.hawk.lang.type.Variable;
 import org.hawk.module.annotation.PostCreateScript;
-import org.hawk.xml.XMLUtil;
 
 /**
  *
@@ -113,7 +111,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
         actualScript.setVariableValue(this.getVariableValue());
         actualScript.execute();
         actualScript.setOuterMultiLineScript(this.getOuterMultiLineScript());
-        actualScript.outerMultiLineScript.setLocalValue(actualScript.getVariable(), this);
+        actualScript.getOuterMultiLineScript().setLocalValue(actualScript.getVariable(), this);
         if(result.getVariableValue() != null && this.getVariable() != null){
             actualScript.getVariable().setValue(result.getVariableValue().getValue());
         }
@@ -256,7 +254,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public String toUI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getActualObjectScript().toUI();
     }
 
     @Override
@@ -264,5 +262,9 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
         return true;
     }
     
+    @Override
+    public String toJson() {
+        return this.getActualObjectScript().toJson();
+    }
     
 }

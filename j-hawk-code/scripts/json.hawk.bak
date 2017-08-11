@@ -22,6 +22,5 @@ struct Team
 	var name="India"
 	var code="INDR"
 	var intCode  = 12
-	var excludeIM=false
 }
 

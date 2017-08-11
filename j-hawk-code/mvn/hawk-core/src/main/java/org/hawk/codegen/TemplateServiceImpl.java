@@ -1,6 +1,6 @@
 /*
  * This file is part of j-hawk
- * CopyLeft (C) 2012-2013 Manoranjan Sahu, All Rights are left.
+ * CopyLeft (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.
  *
  *
  * 1) If you modify a source file, make a comment in it containing your name and the date.

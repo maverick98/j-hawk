@@ -11,7 +11,7 @@ struct BasicAuth
 struct HttpRequest
 {
  
- var targetURL = "https://jsonplaceholder.typicode.com/posts/1"
+ var targetURL = "http://reqres.in/api/users?page=2"
  var method = "GET"
 
  
@@ -21,7 +21,7 @@ struct GetMetrics
   var dump = "1"
   HttpRequest httpRequest
   HttpHeader httpHeader
-  BasicAuth auth
+
 
   var rest = "1"
 }

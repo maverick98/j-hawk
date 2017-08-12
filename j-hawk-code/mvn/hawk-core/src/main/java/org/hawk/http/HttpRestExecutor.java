@@ -10,10 +10,20 @@ import com.jayway.restassured.specification.RequestSpecification;
 import org.hawk.lang.object.StructureScript;
 import org.hawk.logger.HawkLogger;
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.http.ContentType.JSON;
-import com.jayway.restassured.response.ResponseOptions;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.client.urlconnection.HTTPSProperties;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.Map;
-import org.codehaus.jettison.json.JSONObject;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  *
@@ -26,18 +36,68 @@ public class HttpRestExecutor extends HttpExecutor {
 
     }
 
-
     @Override
     public HttpResponse executeGetRequest() throws Exception {
-        HttpResponse response = new HttpResponse();
-        ResponseOptions r = mygiven().contentType(JSON).accept(JSON).get(this.getHttpRequest().getTargetURL());
-       
-        JSONObject json = new JSONObject(r.body().asString());
-    
 
-        response.setContentType(r.contentType());
-        response.setResponse(r.body().asString());
-        response.setResponseCode(r.statusCode());
+        HttpResponse response = new HttpResponse();
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+
+                return null;
+
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+
+        }};
+
+        SSLContext context = SSLContext.getInstance("TLS");
+
+        context.init(null, trustAllCerts, new SecureRandom());
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+
+        // Install the all-trusting host verifier
+       // HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+        final ClientConfig config = new DefaultClientConfig();
+
+        config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(new HostnameVerifier() {
+
+            @Override
+
+            public boolean verify(String s, SSLSession sslSession) {
+
+                return true;
+
+            }
+
+        }, context));
+        final Client client = Client.create(config);
+        client.setFollowRedirects(true);
+        final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
+
+        String get = resource.type("application/json").get(String.class);
+        System.out.println(get);
+        response.setContentType("application/json");
+        response.setResponse(get);
+        response.setResponseCode(200);
         //response.setHeaders(r.getHeaders().asList().toArray(ts));
         return response;
     }

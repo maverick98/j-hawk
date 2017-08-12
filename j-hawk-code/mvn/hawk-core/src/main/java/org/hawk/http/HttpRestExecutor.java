@@ -13,7 +13,6 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
 import com.jayway.restassured.response.ResponseOptions;
 import java.util.Map;
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 /**
@@ -27,16 +26,14 @@ public class HttpRestExecutor extends HttpExecutor {
 
     }
 
-    public HttpResponse executePostRequestWithinSession() throws Exception {
-        return null;
-    }
 
+    @Override
     public HttpResponse executeGetRequest() throws Exception {
         HttpResponse response = new HttpResponse();
         ResponseOptions r = mygiven().contentType(JSON).accept(JSON).get(this.getHttpRequest().getTargetURL());
        
         JSONObject json = new JSONObject(r.body().asString());
-        System.out.println(r.getContentType());
+    
 
         response.setContentType(r.contentType());
         response.setResponse(r.body().asString());

@@ -466,7 +466,7 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
 
         if (httpResponse != null) {
             String response = httpResponse.getResponse();
-            IObjectScript outScript = null;//XMLResponseScript.createScript(response);
+            IObjectScript outScript = null;
             if(httpResponse.getContentType().contains("json")){
                 
                 JSONObjectScript jsonObject = new JSONObjectScript();

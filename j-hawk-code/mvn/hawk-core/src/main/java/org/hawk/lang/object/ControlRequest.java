@@ -35,7 +35,7 @@ public class ControlRequest {
     private String actionName;
     private boolean concurrent;
     private boolean invalidateSession;
-    private boolean rest;
+    private boolean rest=true;
     private Map hawkMap = new HashMap();
     private ControlRequestFinder controlRequestFinder = new ControlRequestFinder();
 

@@ -119,28 +119,7 @@ public class HttpExecutor implements IHttpExecutor {
         return result;
     }
 
-    /**
-     * Implementors should use this method to set their custom data.
-     * @param otherData input data to be stored on http session
-     * @return returns true on success or false
-     */
-    /*
-    private static boolean setOtherData(Object otherData) {
 
-        boolean status;
-        HttpSessionInfo httpSessionInfo = httpSessionLocal.get();
-
-        if (httpSessionInfo != null) {
-            httpSessionInfo.setOtherData(otherData);
-            status = true;
-        } else {
-            status = false;
-        }
-
-
-        return status;
-    }
-    */ 
 
     
     protected HttpResponse executePostRequestWithinSession() throws Exception {
@@ -347,71 +326,7 @@ public class HttpExecutor implements IHttpExecutor {
         this.setHttpSessionInfo(httpResponse);
         return httpResponse;
     }
-    /*
-    private HttpResponse executeGetRequestInternal1() throws Exception{
-        HttpResponse httpResponse;
-        String targetURL = this.getHttpRequest().findTargetURL();
-        boolean invalidateSession = this.getStructureScript().getControlRequest().isInvalidateSession();
-        String getParams = this.getHttpRequest().getGetParams();
-        targetURL = targetURL+getParams;
-        System.out.println("hitting URL "+targetURL);
-        HttpURLConnection connection = null;
-        boolean shouldDump = this.getStructureScript().getControlRequest().isDump();
-        String jsessionIdValue = null;
-        HttpSessionInfo httpSessionInfo = httpSessionLocal.get();
-        if (httpSessionInfo == null) {
-            httpSessionInfo = new HttpSessionInfo(Thread.currentThread().getName());
-            httpSessionLocal.set(httpSessionInfo);
-
-        } else {
-            if (!invalidateSession) {
-                jsessionIdValue = httpSessionInfo.getJsessionId();
-            } else {
-                jsessionIdValue = null;
-                httpSessionInfo.setJsessionId(null);
-                httpSessionLocal.set(httpSessionInfo);
-            }
-        }
-        DataOutputStream dos = null;
-        try {
-            connection = HttpConnectionFactory.createConnection(targetURL);
-            connection.setRequestMethod("GET");
-            //connection.setRequestProperty("Content-Length", "" + Integer.toString(getParams.getBytes(Charset.forName(ENCODING)).length));
-            connection.setRequestProperty("Content-Language", "en-US");
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            if (jsessionIdValue != null && !jsessionIdValue.isEmpty()) {
-                String jsessionId = HttpUtil.getJSesssionID();
-                connection.setRequestProperty("Cookie", jsessionId + "=" + jsessionIdValue);
-            }
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            setHeader(connection);
-            //dos = new DataOutputStream(connection.getOutputStream());
-            //dos.writeBytes(getParams);
-            //dos.flush();
-           
-            httpResponse = HttpUtil.fetchAndSaveResult(connection, httpSessionLocal.get());
-            setHttpSessionInfo(connection, invalidateSession);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("error while hitting {" + targetURL + "} with getData {" + getParams + "}");
-            logger.error("error while hitting {" + targetURL + "} with getData {" + getParams + "}");
-            if (shouldDump) {
-                FileUtil.writeFile("./result-" + httpSessionLocal.get().getActionName() + ".html", e.toString());
-            }
-            return null;
-        } finally {
-            ResourceUtil.close(dos);
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-
-
-        return httpResponse;
-    }
-    */ 
+   
     private HttpResponse executeGetRequestInternal() throws Exception {
 
         HttpResponse httpResponse = new HttpResponse();

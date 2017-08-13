@@ -15,31 +15,58 @@ def plotSmoothCurve(file,title,xlabel,ylabel, T , power ):
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.plot(xnew, power)
+    plt.plot(T, power)
     plt.savefig(file, dpi=100)
     plt.show()
     return
 
+#It is expected all the pages in these lines should be same
+def parseAndPlot(lines):
+    xSeries = np.array([])
+    ySeries = np.array([])
+    imgFile="dummy"
+    for line in lines:
+        page, startTime, duration = line.split(",")
+        imgFile = page
+        yourdate = dateutil.parser.parse(startTime)
+
+        xSeries = np.append(xSeries, yourdate)
+
+        ySeries = np.append(ySeries, duration)
+
+    plotSmoothCurve(imgFile, imgFile, "Time", "Time Taken in seconds", xSeries, ySeries)
+    return
 
 
-T1 = np.array([])
-power1 = np.array([])
 lines = [line.rstrip('\n') for line in open('perf.log')]
+#parseAndPlot(lines)
+map = {}
+
 for line in lines:
-    page,startTime,endTime,duration = line.split(",")
+    page, startTime, duration = line.split(",")
+    subPages= page.split("-")
+    currentPage=""
+    for i  in range(len(subPages)):
+        currentPage += "-"+subPages[i]
+        newLines = map.get(currentPage)
+        if newLines is None:
+            newLines = np.array([])
+            newLines=np.append(newLines,line)
+            map[currentPage] = newLines
+        else:
+            newLines=np.append(newLines,line)
+            map[currentPage]= newLines
 
-    yourdate = dateutil.parser.parse(startTime)
-
-    T1 = np.append(T1,yourdate)
-
-    power1=np.append(power1,duration)
+for page in map:
+    lines = map[page]
+    parseAndPlot(lines)
 
 
 
 
 
 
-plotSmoothCurve("test.png","myTitle","Time","Time Taken in seconds", T1, power1)
+
 
 
 

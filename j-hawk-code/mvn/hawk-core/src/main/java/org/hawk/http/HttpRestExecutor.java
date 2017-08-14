@@ -16,6 +16,8 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
 import java.security.SecureRandom;
+import java.security.Security;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 import javax.net.ssl.HostnameVerifier;
@@ -40,56 +42,8 @@ public class HttpRestExecutor extends HttpExecutor {
     public HttpResponse executeGetRequest() throws Exception {
 
         HttpResponse response = new HttpResponse();
-        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-
-                return null;
-
-            }
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-            }
-
-        }};
-
-        SSLContext context = SSLContext.getInstance("TLS");
-
-        context.init(null, trustAllCerts, new SecureRandom());
-
-        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
-
-        // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        };
-
-        // Install the all-trusting host verifier
-       // HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-
-        final ClientConfig config = new DefaultClientConfig();
-
-        config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(new HostnameVerifier() {
-
-            @Override
-
-            public boolean verify(String s, SSLSession sslSession) {
-
-                return true;
-
-            }
-
-        }, context));
-        final Client client = Client.create(config);
+        final Client client = Client.create(configureClient());
         client.setFollowRedirects(true);
         final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
 
@@ -101,6 +55,65 @@ public class HttpRestExecutor extends HttpExecutor {
         //response.setHeaders(r.getHeaders().asList().toArray(ts));
         return response;
     }
+    
+     public static ClientConfig configureClient()
+    {
+        System.setProperty("jsse.enableSNIExtension", "false");
+         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+
+        TrustManager[] certs = new TrustManager[]
+        {
+            new X509TrustManager()
+            {
+                @Override
+                public X509Certificate[] getAcceptedIssuers()
+                {
+                    return null;
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType)
+                        throws CertificateException
+                {
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType)
+                        throws CertificateException
+                {
+                }
+            }
+        };
+        SSLContext ctx = null;
+        try
+        {
+            ctx = SSLContext.getInstance("TLS");
+            ctx.init(null, certs, new SecureRandom());
+        }
+        catch (java.security.GeneralSecurityException ex)
+        {
+        }
+        HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
+        ClientConfig config = new DefaultClientConfig();
+        try
+        {
+            config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(
+                    new HostnameVerifier()
+            {
+                @Override
+                public boolean verify(String hostname, SSLSession session)
+                {
+                    return true;
+                }
+            },
+                    ctx));
+        }
+        catch (Exception e)
+        {
+        }
+        return config;
+    }
+
 
     public RequestSpecification mygiven() {
 

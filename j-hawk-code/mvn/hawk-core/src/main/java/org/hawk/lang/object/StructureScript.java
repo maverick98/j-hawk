@@ -10,10 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.httpclient.Header;
-import org.codehaus.jettison.json.JSONException;
 import static org.hawk.constant.HawkConstant.ACTION_NAME;
 import static org.hawk.constant.HawkConstant.HTTP_RESPONSE_CODE;
 import static org.hawk.constant.HawkConstant.HTTP_RESPONSE_MESSAGE;
@@ -21,7 +18,6 @@ import static org.hawk.constant.HawkConstant.OUT;
 import org.common.di.AppContainer;
 import org.commons.ds.exp.IObject;
 import org.hawk.ds.exp.IHawkObject;
-import org.codehaus.jettison.json.JSONObject;
 import org.hawk.executor.cache.multiline.structure.IStructureDefinitionScriptCache;
 import org.hawk.executor.cache.multiline.structure.StructureDefinitionScriptCache;
 import org.hawk.http.HttpResponse;
@@ -36,6 +32,7 @@ import org.hawk.lang.type.StringDataType;
 import org.hawk.lang.type.Variable;
 import org.hawk.logger.HawkLogger;
 import org.common.di.ScanMe;
+import org.hawk.lang.type.DataTypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -470,12 +467,12 @@ public class StructureScript extends SingleLineScript implements IObjectScript {
             if(httpResponse.getContentType().contains("json")){
                 
                 JSONObjectScript jsonObject = new JSONObjectScript();
-                try {
-                    jsonObject.setJson(new JSONObject (response));
-                } catch (JSONException ex) {
-                    Logger.getLogger(StructureScript.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              
+                jsonObject.setJson(response.trim());
+                
                 jsonObject.setVariable(new Variable(VarTypeEnum.VAR, null,httpResponse.getActionName() ));
+                jsonObject.setVariableValue(jsonObject.getVariable());
+                jsonObject.getVariableValue().setValue(DataTypeFactory.createDataType(jsonObject.getJson().toString()));
                 outScript =jsonObject;
             }else{
                 outScript = LocalVarDeclScript.createDummyStringScript(response);

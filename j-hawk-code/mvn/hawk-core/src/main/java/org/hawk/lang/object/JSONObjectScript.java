@@ -9,14 +9,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.common.di.ScanMe;
+import org.common.json.JSONUtil;
 import org.commons.ds.exp.IObject;
 import org.commons.file.FileUtil;
 import org.hawk.ds.exp.IHawkObject;
 import org.hawk.lang.IScript;
 import org.hawk.lang.enumeration.VarTypeEnum;
+import org.hawk.lang.type.DataTypeFactory;
+import org.hawk.lang.type.IDataType;
+import org.hawk.lang.type.IntDataType;
 import org.hawk.lang.type.StringDataType;
 import org.hawk.lang.type.Variable;
 
@@ -27,43 +32,51 @@ import org.hawk.lang.type.Variable;
 @ScanMe(true)
 public class JSONObjectScript extends VARXVariableDeclProxyScript {
 
-    private JSONObject json;
+    private Object json;
 
-    public JSONObject getJson() {
+    public Object getJson() {
         return json;
     }
 
-    public void setJson(JSONObject json) {
+    public void setJson(Object json) {
         this.json = json;
     }
 
     @Override
     public IObjectScript execute() throws Exception {
-        this.setJson(new JSONObject(FileUtil.readFile(this.getResult().getVariableValue().getValue().toString())));
+        Object json;
+        if (this.isReadFromFile()) {
+            json = FileUtil.readFile(this.getResult().getVariableValue().getValue().toString());
+        } else {
+            json = this.getResult().getVariableValue().getValue().toString();
+        }
+        this.setJson(json);
         return this;
     }
 
     @Override
     public IHawkObject refer(IHawkObject other) throws Exception {
         IObjectScript otherScript = (IObjectScript) other;
-        IHawkObject result;
-        Object rtn = this.getJson().get(otherScript.getVariable().getName());
-        try {
-            JSONObject rtnJSON = new JSONObject(rtn.toString());
-            JSONObjectScript script = new JSONObjectScript();
-            script.setVariable(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
-            script.setVariableValue(script.getVariable());
-            script.setJson(rtnJSON);
-            result = script;
+        IHawkObject result = null;
+        Object rtn;
+        if (JSONUtil.isJsonObject(this.getJson().toString())) {
+            try {
+                JSONObject thisJson = new JSONObject(this.getJson().toString());
+                rtn = thisJson.get(otherScript.getVariable().getName());
+                JSONObjectScript script = new JSONObjectScript();
+                script.setVariable(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
+                script.setVariableValue(script.getVariable());
+                script.setJson(rtn);
+                script.getVariableValue().setValue(DataTypeFactory.createDataType(script.getJson().toString()));
 
-        } catch (JSONException ex) {
-            LocalVarDeclScript lvds = LocalVarDeclScript.createDummyStringScript();
-            lvds.setLocalVar(new Variable(VarTypeEnum.VAR, null, otherScript.getVariable().getName()));
-            lvds.setLocalVarValue(lvds.getLocalVar());
-            lvds.getVariableValue().setValue(new StringDataType(rtn.toString()));
+                result = script;
 
-            result = lvds;
-
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (result == null) {
+            result = LocalVarDeclScript.createDummyStringScript();
         }
 
         return result;
@@ -71,12 +84,23 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int length = -1;
+        if (JSONUtil.isJsonArray(this.getJson().toString())) {
+            JSONArray array = JSONUtil.createJsonArray(this.getJson().toString());
+
+            length = array.length();
+
+        } else if (JSONUtil.isJsonObject(this.getJson().toString())) {
+            JSONObject object = JSONUtil.createJsonObject(this.getJson().toString());
+
+            length = object.length();
+        }
+        return length;
     }
 
     @Override
     public boolean passByReference() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
@@ -91,17 +115,53 @@ public class JSONObjectScript extends VARXVariableDeclProxyScript {
 
     @Override
     public Object toJava() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this;
     }
 
     @Override
-    public IHawkObject assign(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IHawkObject assign(IHawkObject otherObject) throws Exception {
+        if (otherObject == null || !(otherObject instanceof IObjectScript)) {
+            throw new Exception("Can not assign null...");
+        }
+        IObjectScript otherScript = (IObjectScript) otherObject;
+
+        if (!JSONUtil.isJson(otherScript.getVariableValue().getValue().toString())) {
+            return null;
+        }
+
+        return this;
     }
 
     @Override
-    public IHawkObject arrayBracket(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IHawkObject arrayBracket(IHawkObject other) throws Exception {
+        IObjectScript otherScript = (IObjectScript) other;
+        if (otherScript == null || otherScript.getVariable() == null || otherScript.getVariable().getValue() == null) {
+            throw new Exception("null array index found...");
+        }
+
+        IDataType indexDataType = otherScript.getVariable().getValue();
+
+        if ((indexDataType instanceof IntDataType)) {
+            IntDataType index = (IntDataType) indexDataType;
+            if (!index.isPositiveInteger()) {
+                throw new Exception("Non integer array index access");
+            }
+        }
+        IObjectScript result = null;
+        if (JSONUtil.isJsonArray(this.getJson().toString())) {
+            JSONArray array = new JSONArray(this.getJson().toString());
+            Object out = array.get(Integer.parseInt(indexDataType.value()));
+            JSONObjectScript jsonObject = new JSONObjectScript();
+            result = jsonObject;
+            jsonObject.setJson(out.toString());
+            jsonObject.setVariable(new Variable(VarTypeEnum.VAR, null, null));
+            jsonObject.setVariableValue(jsonObject.getVariable());
+            jsonObject.getVariableValue().setValue(DataTypeFactory.createDataType(jsonObject.getJson().toString()));
+        } else {
+            throw new Exception("-> supported on array elements only.");
+        }
+
+        return result;
     }
 
     @Override

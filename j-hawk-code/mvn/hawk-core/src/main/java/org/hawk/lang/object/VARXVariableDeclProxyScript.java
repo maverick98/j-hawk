@@ -33,6 +33,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
         }
 
     }
+    private boolean readFromFile=true;
     private String localVarx;
     private String localVarxExp;
     private Variable variable;
@@ -47,6 +48,14 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     public void setActualScript(VARXVariableDeclProxyScript actualScript) {
         this.actualScript = actualScript;
+    }
+
+    public boolean isReadFromFile() {
+        return readFromFile;
+    }
+
+    public void setReadFromFile(boolean readFromFile) {
+        this.readFromFile = readFromFile;
     }
 
     
@@ -86,6 +95,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
             return null;
         }
         VARXVariableDeclProxyScript script = new VARXVariableDeclProxyScript();
+        script.setReadFromFile(true);
         script.setLocalVarx(lineVarxVariableMatcherMap.get(1));
         script.setLocalVarxExp(lineVarxVariableMatcherMap.get(2));
         script.setVariable(new Variable(VarTypeEnum.VARX, null, script.getLocalVarx()));
@@ -99,10 +109,17 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
         IObjectScript result;
         result = this.evaluateLocalVariable(this.getLocalVarxExp());
         
-        if(result.getVariableValue().getValue().toString().endsWith("xml")){
+        if(result.getVariableValue().getValue().toString().endsWith(".xml")){
             actualScript = new XMLVariableDeclScript();
-        }else if(result.getVariableValue().getValue().toString().endsWith("json")){
+            actualScript.setReadFromFile(true);
+        }else if(result.getVariableValue().getValue().toString().endsWith(".json")){
             actualScript = new JSONObjectScript();
+              actualScript.setReadFromFile(true);
+        }else{
+            //TODO FIX ME
+            //We will assume this to be json string
+            actualScript = new JSONObjectScript();
+              actualScript.setReadFromFile(false);
         }
         actualScript.setResult(result);
         actualScript.setLocalVarx(this.getLocalVarx());
@@ -159,12 +176,12 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getActualObjectScript().length();
     }
 
     @Override
     public boolean passByReference() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
@@ -174,7 +191,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public Object toJava() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.getActualObjectScript().toJava();
     }
 
     @Override
@@ -184,12 +201,12 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public IHawkObject assign(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getActualObjectScript().assign(otherScript);
     }
 
     @Override
     public IHawkObject arrayBracket(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return this.getActualObjectScript().arrayBracket(otherScript);
     }
 
     @Override
@@ -219,7 +236,7 @@ public class VARXVariableDeclProxyScript extends SingleLineScript implements IOb
 
     @Override
     public IObject equalTo(IObject otherObject) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getActualObjectScript().equalTo(otherObject);
     }
 
     @Override

@@ -11,7 +11,7 @@ struct BasicAuth
 struct HttpRequest
 {
  
- var targetURL = "http://reqres.in/api/users?page=2"
+ var targetURL = "http://my-json-server.typicode.com/typicode/demo/db"
  var method = "GET"
 
  
@@ -21,7 +21,7 @@ struct GetMetrics
   var dump = "1"
   HttpRequest httpRequest
   HttpHeader httpHeader
-
+  BasicAuth auth
 
   var rest = "1"
 }
@@ -56,9 +56,16 @@ function testMetrics()
  
   
 
-   //echo  getMetrics->out
+   
    varx json = getMetrics->out
-   echo json
+  
+   var comments=  json->comments
+   echo comments
+
+  
+  varx json1=comments
+  echo json1
+  	
 	
 
 }

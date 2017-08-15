@@ -95,8 +95,7 @@ public class HttpModule extends HawkCoreModule {
     public boolean setKeyStore(Object... args) throws Exception {
         String keystoreFile = args[0].toString();
         String password= args[1].toString();
-        System.out.println(keystoreFile);
-        System.out.println(password);
+       
         RestAssured.keystore(getCertificateFile(keystoreFile).getPath(), password);
         return true;
     }

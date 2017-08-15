@@ -70,7 +70,7 @@ public class HttpRequest {
     
     public static enum RequestTypeEnum {
 
-        GET, POST;
+        GET, POST,DELETE,PUT,HEAD;
     }
 
     public RequestTypeEnum getRequestTypeEnum() {

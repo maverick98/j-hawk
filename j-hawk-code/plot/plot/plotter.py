@@ -9,37 +9,38 @@ def date_linspace(start, end, steps):
   return start + increments
 
 def plotSmoothCurve(file,title,xlabel,ylabel, T , power ):
-    xnew = date_linspace(T.min(), T.max(),4)
+    xnew = date_linspace(T.min(), T.max(),len(T))
+
 
     #power_smooth = spline(T, power, xnew)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.plot(T, power)
+    plt.plot(xnew, power)
     plt.savefig(file, dpi=100)
     plt.show()
     return
 
-#It is expected all the pages in these lines should be same
-def parseAndPlot(lines):
+
+def parseAndPlot(outPage,lines):
     xSeries = np.array([])
     ySeries = np.array([])
-    imgFile="dummy"
+
     for line in lines:
         page, startTime, duration = line.split(",")
-        imgFile = page
+
         yourdate = dateutil.parser.parse(startTime)
 
         xSeries = np.append(xSeries, yourdate)
 
         ySeries = np.append(ySeries, duration)
 
-    plotSmoothCurve(imgFile, imgFile, "Time", "Time Taken in seconds", xSeries, ySeries)
+    plotSmoothCurve(outPage, outPage, "Time", "Time Taken in seconds", xSeries, ySeries)
     return
 
 
 lines = [line.rstrip('\n') for line in open('perf.log')]
-#parseAndPlot(lines)
+
 map = {}
 
 for line in lines:
@@ -47,7 +48,10 @@ for line in lines:
     subPages= page.split("-")
     currentPage=""
     for i  in range(len(subPages)):
-        currentPage += "-"+subPages[i]
+        if currentPage:
+            currentPage += "-"+subPages[i]
+        else:
+            currentPage +=subPages[i]
         newLines = map.get(currentPage)
         if newLines is None:
             newLines = np.array([])
@@ -59,7 +63,8 @@ for line in lines:
 
 for page in map:
     lines = map[page]
-    parseAndPlot(lines)
+    parseAndPlot(page,lines)
+
 
 
 

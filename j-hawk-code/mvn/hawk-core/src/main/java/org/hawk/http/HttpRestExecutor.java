@@ -11,6 +11,7 @@ import org.hawk.lang.object.StructureScript;
 import org.hawk.logger.HawkLogger;
 import static com.jayway.restassured.RestAssured.given;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -26,6 +27,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import org.hawk.http.HttpRequest.RequestTypeEnum;
 
 /**
  *
@@ -37,24 +39,50 @@ public class HttpRestExecutor extends HttpExecutor {
         super(httpModuleName, structureScript);
 
     }
-
+    
     @Override
     public HttpResponse executeGetRequest() throws Exception {
 
-        HttpResponse response = new HttpResponse();
-
-        final Client client = Client.create(configureClient());
-        client.setFollowRedirects(true);
-        final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
-
-        String get = resource.type("application/json").get(String.class);
-        System.out.println(get);
-        response.setContentType("application/json");
-        response.setResponse(get);
-        response.setResponseCode(200);
-        //response.setHeaders(r.getHeaders().asList().toArray(ts));
-        return response;
+        return this.executeInternal(RequestTypeEnum.GET);
     }
+    @Override
+    public HttpResponse executePostRequest() throws Exception {
+         return this.executeInternal(RequestTypeEnum.POST);
+        
+    }
+    private HttpResponse executeInternal(RequestTypeEnum requestTypeEnum) throws Exception{
+         HttpResponse response = new HttpResponse();
+         final Client client = Client.create(configureClient());
+         client.setFollowRedirects(true);
+         final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
+         String res= null;
+         switch(requestTypeEnum){
+             case POST:
+                 res = resource.type("application/json").post(String.class,this.getHttpRequest().getPostParams());
+                 break;
+             case GET:
+                 res = resource.type("application/json").get(String.class);
+                 break;    
+             case PUT:
+                 res = resource.type("application/json").put(String.class,this.getHttpRequest().getPostParams());
+                 break;
+             case DELETE:
+                 res = resource.type("application/json").delete(String.class,this.getHttpRequest().getPostParams());
+                 break; 
+              case HEAD:
+                 res = resource.type("application/json").head().getEntity(String.class);
+                 break;      
+                 
+         }
+         
+         System.out.println(res);
+         response.setContentType("application/json");
+         response.setResponse(res);
+         response.setResponseCode(200);
+         
+         return response;
+    }
+
     
      public static ClientConfig configureClient()
     {

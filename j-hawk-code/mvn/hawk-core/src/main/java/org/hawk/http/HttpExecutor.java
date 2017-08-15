@@ -122,18 +122,11 @@ public class HttpExecutor implements IHttpExecutor {
 
 
     
-    protected HttpResponse executePostRequestWithinSession() throws Exception {
 
+
+    protected HttpResponse executePostRequest() throws Exception {
         this.addRequestTokenToGET();
         this.addRequestTokenToPOST();
-        HttpResponse httpResponse = this.executePostRequest();
-        this.setHttpSessionInfo(httpResponse);
-        return httpResponse;
-
-    }
-
-    private HttpResponse executePostRequest() throws Exception {
-
         HttpResponse httpResponse;
         String targetURL = this.getHttpRequest().findTargetURL();
         boolean invalidateSession = this.getStructureScript().getControlRequest().isInvalidateSession();
@@ -193,7 +186,7 @@ public class HttpExecutor implements IHttpExecutor {
             }
         }
 
-
+         this.setHttpSessionInfo(httpResponse);    
         return httpResponse;
     }
 
@@ -435,7 +428,7 @@ public class HttpExecutor implements IHttpExecutor {
                 hawkPerfDataCollector.start(this.getHttpModuleName(), actionName);
 
                 if (isPost) {
-                    httpResponse = this.executePostRequestWithinSession();
+                    httpResponse = this.executePostRequest();
                 } else if (isGet) {
                     httpResponse = this.executeGetRequest();
                 }

@@ -32,9 +32,9 @@ import org.hawk.logger.HawkLogger;
 public class ScriptInterpretationCommand extends HawkExecutionCommand {
 
     private static final HawkLogger logger = HawkLogger.getLogger(ScriptInterpretationCommand.class.getName());
-    
+
     private String hawkScriptFile;
-    
+
     private String hawkScriptData;
 
     public String getHawkScriptFile() {
@@ -45,7 +45,6 @@ public class ScriptInterpretationCommand extends HawkExecutionCommand {
         this.hawkScriptFile = hawkScriptFile;
     }
 
-    
     public String getHawkScriptData() {
         return hawkScriptData;
     }
@@ -71,9 +70,9 @@ public class ScriptInterpretationCommand extends HawkExecutionCommand {
     public boolean onCommandFound(Map<Integer, String> map) {
         String scriptFile = map.get(1);
         this.setHawkScriptFile(scriptFile);
-     
-            this.setHawkScriptData(FileUtil.readFile(scriptFile));
-       
+
+        this.setHawkScriptData(FileUtil.readFile(scriptFile));
+
         return true;
     }
 

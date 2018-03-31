@@ -27,19 +27,15 @@ import org.commons.reflection.ClazzUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * @author Manoranjan Sahu
  */
-@API(since = "13.03",deprecatedSince = "14.01")
-   
-   
-
+@API(since = "13.03", deprecatedSince = "14.01")
 public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
 
-     private static final ILogger logger = LoggerFactory.getLogger(HawkEventCallbackRegistry.class.getName());
-    private final Map<Class<? extends IHawkEvent>, IHawkEvent> eventRegistry = new HashMap< >();
+    private static final ILogger logger = LoggerFactory.getLogger(HawkEventCallbackRegistry.class.getName());
+    private final Map<Class<? extends IHawkEvent>, IHawkEvent> eventRegistry = new HashMap<>();
 
     @Override
     public boolean register(Class< ? extends IHawkEvent> pluginEventClazz, IHawkEventCallback hawkPluginCallback) throws HawkEventException {
@@ -58,8 +54,8 @@ public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
 
             }
             if (pluginEvent != null) {
-                isRegistered = pluginEvent.register( hawkPluginCallback);
-               
+                isRegistered = pluginEvent.register(hawkPluginCallback);
+
                 eventRegistry.put(pluginEventClazz, pluginEvent);
             }
 
@@ -73,7 +69,7 @@ public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
         if (pluginEventClazz != null && hawkPluginCallback != null && hawkPluginCallback.getSequence() != null) {
             IHawkEvent pluginEvent = eventRegistry.get(pluginEventClazz);
             isDeRegistered = pluginEvent.deRegister(hawkPluginCallback);
-            
+
         }
         return isDeRegistered;
     }
@@ -81,7 +77,7 @@ public class HawkEventCallbackRegistry implements IHawkEventCallbackRegistry {
     @Override
     public boolean dispatch(Class<? extends IHawkEvent> pluginEventClazz, HawkEventPayload hawkEventPayload) throws HawkEventException {
         boolean allExecuted = false;
-        if (pluginEventClazz != null && hawkEventPayload != null ) {
+        if (pluginEventClazz != null && hawkEventPayload != null) {
             IHawkEvent pluginEvent = eventRegistry.get(pluginEventClazz);
             if (pluginEvent != null) {
                 allExecuted = pluginEvent.dispatch(hawkEventPayload);

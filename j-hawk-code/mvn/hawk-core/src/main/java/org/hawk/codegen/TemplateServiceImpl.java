@@ -26,7 +26,9 @@ import org.commons.reflection.ClazzUtil;
 import org.hawk.executor.command.interpreter.ScriptInterpretationCommand;
 
 import org.hawk.logger.HawkLogger;
+import org.hawk.output.DefaultHawkOutputWriter;
 import org.hawk.output.HawkOutput;
+import org.hawk.output.IHawkOutputWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -56,8 +58,10 @@ public class TemplateServiceImpl implements ITemplateService {
         try {
             hawkScriptingData = this.preProcess(fileJavaBean);
             scriptInterpretationCommand.setHawkScriptData(hawkScriptingData);
-            this.getHawkOutput().setEchoFile(new File(fileJavaBean.getOutputFile()));
-            this.getHawkOutput().setErrorFile(new File(fileJavaBean.getErrorFile()));
+            DefaultHawkOutputWriter defaultHawkOutputWriter = new DefaultHawkOutputWriter();
+            defaultHawkOutputWriter.setEchoFile(new File(fileJavaBean.getOutputFile()));
+            defaultHawkOutputWriter.setErrorFile(new File(fileJavaBean.getErrorFile()));
+            this.getHawkOutput().setHawkOutputWriter(defaultHawkOutputWriter);
             System.out.println(hawkScriptingData);
             scriptInterpretationCommand.execute();
             fileJavaBean.setCurrentData(FileUtil.readFile(fileJavaBean.getOutputFile()));

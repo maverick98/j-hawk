@@ -100,9 +100,7 @@ public class HawkLogger {
         }
         HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
         hawkOutput.writeError(msg);
-        if (hawkOutput.getError() != null) {
-            th.printStackTrace(hawkOutput.getError());
-        }
+
 
     }
 

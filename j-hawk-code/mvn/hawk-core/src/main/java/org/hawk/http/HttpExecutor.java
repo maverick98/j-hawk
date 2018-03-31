@@ -26,6 +26,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Semaphore;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -44,6 +45,7 @@ import org.hawk.util.HawkUtil;
 import org.hawk.util.HttpUtil;
 import org.commons.resource.ResourceUtil;
 import org.commons.string.StringUtil;
+import org.hawk.module.core.HttpModule;
 /**
  * An utility to communicate with the targetURL.
  * Apart from sending post requests , this can also also upload file too.
@@ -323,7 +325,7 @@ public class HttpExecutor implements IHttpExecutor {
     private HttpResponse executeGetRequestInternal() throws Exception {
 
         HttpResponse httpResponse = new HttpResponse();
-
+        Semaphore s;
         String response;
 
         HttpSessionInfo httpSessionInfo = httpSessionLocal.get();

@@ -34,6 +34,7 @@ import org.hawk.tst.HawkTestProperties;
 import org.hawk.tst.perf.InternalPerfTest;
 import org.commons.resource.ResourceUtil;
 import org.hawk.executor.command.interpreter.ScriptExecutor;
+import org.hawk.output.DefaultHawkOutputWriter;
 import org.hawk.tst.perf.InternalPerfTestHTMLJavaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,19 +42,17 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-   
-   
 public class InternalPerfTestExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalPerfTestExecutor.class.getName());
     @Autowired(required = true)
-       
+
     private HawkOutput hawkOutput;
     @Autowired(required = true)
-       
+
     private HawkTestProperties hawkTestProperties;
     @Autowired(required = true)
-       
+
     private InternalPerfTestHTMLJavaServiceImpl internalPerfTestHTMLJavaServiceImpl;
 
     public InternalPerfTestHTMLJavaServiceImpl getHtmlJavaService() {
@@ -101,7 +100,6 @@ public class InternalPerfTestExecutor implements IHawkCommandExecutor {
         this.getHtmlJavaService().createHTMLFile(hawkTests);
         return status;
 
-
     }
 
     private boolean runTestCase(InternalPerfTest hawkTest) {
@@ -120,7 +118,9 @@ public class InternalPerfTestExecutor implements IHawkCommandExecutor {
             }
             System.out.println("passed");
 
-            this.getHawkOutput().setOutput(hawkTest.getOutput());
+            DefaultHawkOutputWriter defaultHawkOutputWriter = new DefaultHawkOutputWriter();
+            defaultHawkOutputWriter.setOutput(hawkTest.getOutput());
+            this.getHawkOutput().setHawkOutputWriter(defaultHawkOutputWriter);
             System.out.println("executing " + hawkTest.getTestCasePath());
             scriptInterpreter.interpret();
             hawkTest.setEndDate(new Date());
@@ -129,7 +129,7 @@ public class InternalPerfTestExecutor implements IHawkCommandExecutor {
 
         } catch (Exception ex) {
             logger.error(ex);
-        }  finally {
+        } finally {
             ResourceUtil.close(hawkTest.getOutput(), hawkTest.getOutput());
         }
         return true;

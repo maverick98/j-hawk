@@ -9,10 +9,10 @@ package org.commons.event;
  *
  * @author manosahu
  */
-public class HawkEventPayload {
+public class HawkEventPayload<T> {
 
     private IHawkEvent event;
-    private Object payload;
+    private T payload;
 
     public IHawkEvent getEvent() {
         return event;
@@ -22,11 +22,11 @@ public class HawkEventPayload {
         this.event = event;
     }
 
-    public Object getPayload() {
+    public T getPayload() {
         return payload;
     }
 
-    public void setPayload(Object payload) {
+    public void setPayload(T payload) {
         this.payload = payload;
     }
 

@@ -96,6 +96,8 @@ public abstract class BinaryHeap {
             if (i == least) {
                 this.swap(i, parent);
                 i = parent;
+            }else{
+                break;
             }
         }
 

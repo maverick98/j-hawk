@@ -183,6 +183,11 @@
            
                 
         </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <version>0.8.2</version>
+        </dependency>
     </dependencies>
     <version>17.08</version>
     <properties>

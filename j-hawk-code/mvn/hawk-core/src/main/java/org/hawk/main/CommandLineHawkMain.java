@@ -16,10 +16,14 @@
  */
 package org.hawk.main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hawk.config.HawkConfigHelper;
 import org.common.di.AppContainer;
 
 import org.hawk.executor.command.HawkCommandParser;
+import org.hawk.executor.command.interpreter.ScriptInterpretationPerfCommand;
+import org.hawk.ide.GUIHawkMain;
 import org.hawk.logger.HawkLogger;
 import org.hawk.plugin.IPluginDeployer;
 import org.hawk.plugin.PluginDeployerImpl;
@@ -27,9 +31,9 @@ import org.hawk.plugin.PluginDeployerImpl;
  *
  * @author Manoranjan Sahu
  */
-public class Main {
+public class CommandLineHawkMain {
 
-    private static final HawkLogger logger = HawkLogger.getLogger(Main.class.getName());
+    private static final HawkLogger logger = HawkLogger.getLogger(CommandLineHawkMain.class.getName());
 
     /**
      * Entry point of hawk
@@ -64,7 +68,9 @@ public class Main {
             throw new Exception(ex);
         }
        
-
+        
+        
+        
         long diff1 = System.currentTimeMillis() - start;
         System.out.println("Configuration took {" + diff1 + "}ms");
         long start1 = System.currentTimeMillis();

@@ -11,20 +11,24 @@ import org.hawk.lang.object.StructureScript;
 import org.hawk.logger.HawkLogger;
 import static com.jayway.restassured.RestAssured.given;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
+import java.net.Socket;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
+import javax.net.SocketFactory;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.hawk.http.HttpRequest.RequestTypeEnum;
@@ -42,7 +46,7 @@ public class HttpRestExecutor extends HttpExecutor {
     
     @Override
     public HttpResponse executeGetRequest() throws Exception {
-
+           Socket s = SSLSocketFactory.getDefault().createSocket();
         return this.executeInternal(RequestTypeEnum.GET);
     }
     @Override
@@ -175,7 +179,7 @@ public class HttpRestExecutor extends HttpExecutor {
     static class RSHolder {
 
         RequestSpecification rs;
-
+        ReentrantLock rl;
         public RequestSpecification getRs() {
             return rs;
         }

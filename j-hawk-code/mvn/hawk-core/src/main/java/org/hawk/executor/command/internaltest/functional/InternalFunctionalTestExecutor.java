@@ -34,6 +34,7 @@ import org.hawk.tst.HawkTestProperties;
 import org.hawk.tst.functional.InternalFunctionalTest;
 import org.commons.resource.ResourceUtil;
 import org.hawk.executor.command.interpreter.ScriptExecutor;
+import org.hawk.output.DefaultHawkOutputWriter;
 import org.hawk.tst.functional.html.InternalFuncTestHTMLJavaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,19 +42,17 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Manoranjan Sahu
  */
-   
-   
 public class InternalFunctionalTestExecutor implements IHawkCommandExecutor {
 
     private static final HawkLogger logger = HawkLogger.getLogger(InternalFunctionalTestExecutor.class.getName());
     @Autowired(required = true)
-       
+
     private HawkOutput hawkOutput;
     @Autowired(required = true)
-       
+
     private HawkTestProperties hawkTestProperties;
     @Autowired(required = true)
-       
+
     private InternalFuncTestHTMLJavaServiceImpl internalFuncTestHTMLJavaServiceImpl;
 
     public InternalFuncTestHTMLJavaServiceImpl getHtmlJavaService() {
@@ -90,9 +89,9 @@ public class InternalFunctionalTestExecutor implements IHawkCommandExecutor {
             this.getHawkTestProperties().load();
         }
         for (Entry<String, String> entry : this.getHawkTestProperties().getTestSuites().entrySet()) {
-            
-            if(entry.getKey().equals("8queen")){
-                System.out.println("running "+entry.getKey());
+
+            if (entry.getKey().equals("8queen")) {
+                System.out.println("running " + entry.getKey());
             }
             InternalFunctionalTest hawkTest = InternalFunctionalTest.prepareHawkTest(entry.getKey(), entry.getValue());
             hawkTests.add(hawkTest);
@@ -118,10 +117,11 @@ public class InternalFunctionalTestExecutor implements IHawkCommandExecutor {
                 return false;
             }
             System.out.println("passed");
-            
-            this.getHawkOutput().setOutput(hawkTest.getOutput());
-            this.getHawkOutput().setEchoOutput(hawkTest.getOutput());
-            this.getHawkOutput().setEchoFile(hawkTest.getEchoFile());
+            DefaultHawkOutputWriter defaultHawkOutputWriter = new DefaultHawkOutputWriter();
+            defaultHawkOutputWriter.setOutput(hawkTest.getOutput());
+            defaultHawkOutputWriter.setEchoOutput(hawkTest.getOutput());
+            defaultHawkOutputWriter.setEchoFile(hawkTest.getEchoFile());
+            this.getHawkOutput().setHawkOutputWriter(defaultHawkOutputWriter);
             System.out.println("executing " + hawkTest.getTestCasePath());
             scriptExecutor.interpret();
             hawkTest.setEndDate(new Date());

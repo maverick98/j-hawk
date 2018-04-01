@@ -22,26 +22,21 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.common.di.AppContainer;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.hawk.config.HawkConfigHelper;
-import org.hawk.executor.command.interpreter.ScriptInterpretationPerfCommand;
-import org.hawk.output.HawkOutput;
 
 public class GUIHawkMain extends Application {
 
@@ -80,6 +75,7 @@ public class GUIHawkMain extends Application {
         "    function main()",
         " {",
         "        // single-line comment",
+        "        echo \"Hello World\"",
         "",
         "}"
     });
@@ -88,51 +84,49 @@ public class GUIHawkMain extends Application {
         launch(args);
     }
 
-    private CodeArea codeArea;
+    private BorderPane root;
     private ExecutorService executor;
-    private TextArea outputArea;
+    protected static Stage primaryStage;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
+        primaryStage =stage;
         try {
             HawkConfigHelper.configure();
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
-
         }
+        try {
 
+            root = FXMLLoader.load(Thread.currentThread().getContextClassLoader().getResource("fxml/gui.fxml"));
+            this.configureCodeArea();
+            Scene scene = new Scene(root,java.awt.Toolkit.getDefaultToolkit().getScreenSize().width,
+            java.awt.Toolkit.getDefaultToolkit().getScreenSize().height);
+            scene.getStylesheets().add(Thread.currentThread().getContextClassLoader().getResource("hawk-keywords.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("j-hawk");
+            primaryStage.getIcons().add(new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("images/logo.png")));
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         executor = Executors.newSingleThreadExecutor();
-        codeArea = this.createCodeArea();
-        outputArea = new TextArea();
 
-        VBox vbox = new VBox();
-        Scene scene = new Scene(vbox, 1200, 600);
-
-        scene.getStylesheets().add(Thread.currentThread().getContextClassLoader().getResource("hawk-keywords.css").toExternalForm());
-        MenuBar menuBar = this.createMenuBar();
-        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-        vbox.getChildren().addAll(menuBar);
-        vbox.getChildren().addAll(codeArea);
-        vbox.getChildren().addAll(outputArea);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("j-hawk");
-        primaryStage.getIcons().add(new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("images/logo.png")));
-        primaryStage.show();
     }
 
-    private CodeArea createCodeArea() {
-        CodeArea codeArea1 = new CodeArea();
+    private void configureCodeArea() {
+        ScrollPane scrollPane = (ScrollPane) root.getChildren().get(1);
 
-        codeArea1.setMinHeight(600);
-        codeArea1.setMinWidth(1200);
-        codeArea1.setParagraphGraphicFactory(LineNumberFactory.get(codeArea1));
-        codeArea1.richChanges()
+        CodeArea codeArea = (CodeArea) scrollPane.getContent();
+        codeArea.setMinHeight(600);
+        codeArea.setMinWidth(1200);
+        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+        codeArea.richChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved()))
                 .successionEnds(Duration.ofMillis(500))
                 .supplyTask(this::computeHighlightingAsync)
-                .awaitLatest(codeArea1.richChanges())
+                .awaitLatest(codeArea.richChanges())
                 .filterMap(t -> {
                     if (t.isSuccess()) {
                         return Optional.of(t.get());
@@ -142,57 +136,8 @@ public class GUIHawkMain extends Application {
                     }
                 })
                 .subscribe(this::applyHighlighting);
-        codeArea1.replaceText(0, 0, sampleCode);
-        return codeArea1;
-    }
+        codeArea.replaceText(0, 0, sampleCode);
 
-    private MenuBar createMenuBar() {
-        MenuBar menuBar = new MenuBar();
-
-        Menu menuFile = new Menu("File");
-
-        MenuItem newFileMenuItem = new MenuItem("New");
-        menuFile.getItems().add(newFileMenuItem);
-
-        MenuItem openFileMenuItem = new MenuItem("Open");
-        menuFile.getItems().add(openFileMenuItem);
-
-        MenuItem saveFileMenuItem = new MenuItem("Save");
-        menuFile.getItems().add(saveFileMenuItem);
-
-        MenuItem exitMenuItem = new MenuItem("Exit");
-        exitMenuItem.setOnAction((ActionEvent t) -> {
-            System.exit(0);
-        });
-        menuFile.getItems().add(exitMenuItem);
-
-        Menu menuEdit = new Menu("Edit");
-
-        Menu runMenu = new Menu("Run");
-        MenuItem runHawkMenuItem = new MenuItem("Run Hawk");
-        runHawkMenuItem.setOnAction((ActionEvent actionEvent) -> {
-            try {
-                GUIHawkOutputWriter gUIHawkOutputWriter = new GUIHawkOutputWriter(outputArea);
-                ScriptInterpretationPerfCommand scriptInterpretationCommand = AppContainer.getInstance().getBean(ScriptInterpretationPerfCommand.class);
-                scriptInterpretationCommand.setHawkScriptData(codeArea.getText());
-                HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
-                hawkOutput.setHawkOutputWriter(gUIHawkOutputWriter);
-                scriptInterpretationCommand.execute();
-            } catch (Exception ex) {
-                Logger.getLogger(GUIHawkMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-        runMenu.getItems().add(runHawkMenuItem);
-
-        Menu toolMenu = new Menu("Tools");
-
-        Menu helpMenu = new Menu("Help");
-        MenuItem aboutMenuItem = new MenuItem("About");
-        helpMenu.getItems().add(aboutMenuItem);
-
-        menuBar.getMenus().addAll(menuFile, menuEdit, runMenu, toolMenu, helpMenu);
-        return menuBar;
     }
 
     @Override
@@ -201,6 +146,9 @@ public class GUIHawkMain extends Application {
     }
 
     private Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
+        ScrollPane scrollPane = (ScrollPane) root.getChildren().get(1);
+
+        CodeArea codeArea = (CodeArea) scrollPane.getContent();
         String text = codeArea.getText();
         Task<StyleSpans<Collection<String>>> task = new Task<StyleSpans<Collection<String>>>() {
             @Override
@@ -213,6 +161,9 @@ public class GUIHawkMain extends Application {
     }
 
     private void applyHighlighting(StyleSpans<Collection<String>> highlighting) {
+        ScrollPane scrollPane = (ScrollPane) root.getChildren().get(1);
+
+        CodeArea codeArea = (CodeArea) scrollPane.getContent();
         codeArea.setStyleSpans(0, highlighting);
     }
 

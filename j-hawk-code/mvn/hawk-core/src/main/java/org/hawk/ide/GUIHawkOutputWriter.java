@@ -25,6 +25,12 @@ public class GUIHawkOutputWriter implements IHawkOutputWriter {
     public boolean writeOutput(String data) {
         return this.writeOutput(data, true);
     }
+    
+    public void clear(){
+         Platform.runLater(() -> {
+            outputArea.deleteText(0, outputArea.getLength());
+        });
+    }
 
     @Override
     public boolean writeOutput(String data, boolean newLine) {

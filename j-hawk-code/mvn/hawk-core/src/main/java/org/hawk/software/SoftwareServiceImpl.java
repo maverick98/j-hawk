@@ -30,7 +30,8 @@ public class SoftwareServiceImpl implements ISoftwareService {
 
     @Override
     public Software getSoftware() throws Exception {
-        return XMLUtil.unmarshal("release/software.xml", Software.class);
+
+        return XMLUtil.unmarshal(Thread.currentThread().getContextClassLoader().getResource("release/software.xml").openStream(), Software.class);
     }
 
     @Override

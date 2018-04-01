@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import org.fxmisc.richtext.CodeArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+
+
+<BorderPane
+    maxHeight="-Infinity"
+    maxWidth="-Infinity"
+    minHeight="-Infinity"
+    minWidth="-Infinity"
+    prefHeight="700.0"
+    prefWidth="1200.0"
+    xmlns="http://javafx.com/javafx/8.0.65"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.hawk.ide.GuiController">
+    <top>
+        <MenuBar BorderPane.alignment="TOP_LEFT">
+            <menus>
+                <Menu
+                    mnemonicParsing="false"
+                    text="File">
+                    <items>
+                        <MenuItem
+                            fx:id="openMI"
+                            mnemonicParsing="false"
+                            onAction="#openAction"
+                            text="Open" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem
+                            fx:id="saveMI"
+                            disable="true"
+                            mnemonicParsing="false"
+                            onAction="#saveAction"
+                            text="Save" />
+                        <MenuItem
+                            fx:id="saveAsMI"
+                            mnemonicParsing="false"
+                            onAction="#saveAsAction"
+                            text="Save As..." />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem
+                            fx:id="quitMI"
+                            mnemonicParsing="false"
+                            onAction="#quitAction"
+                            text="Quit" />
+                    </items>
+                </Menu>
+                
+                <Menu  mnemonicParsing="false"
+                       text="Run">
+                    <items>
+                        <MenuItem
+                            fx:id="runHawkMI"
+                            mnemonicParsing="false"
+                            onAction="#runHawkAction"
+                            text="Run Hawk" />
+                        <MenuItem
+                            fx:id="debugHawkMI"
+                            mnemonicParsing="false"
+                            onAction="#debugHawkAction"
+                            text="Debug Hawk" />
+                    </items>
+                </Menu>
+                
+                
+                
+                <Menu  mnemonicParsing="false"
+                       text="Help">
+                    <items>
+                        <MenuItem
+                            fx:id="about"
+                            mnemonicParsing="false"
+                            onAction="#aboutHawkAction"
+                            text="About" />
+                    </items>
+                </Menu>
+               
+            </menus>
+        </MenuBar>
+    </top>  
+    <center>
+       
+
+        <ScrollPane>
+            <BorderPane.margin>
+                <Insets bottom="0" left="115.0" right="0.0" top="0.0" />
+            </BorderPane.margin>
+            <content>
+                <CodeArea
+                    fx:id="codeArea"
+                    prefHeight="500.0"
+                    prefWidth="1200.0"
+                    BorderPane.alignment="CENTER"
+                />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+
+        <TextArea
+            fx:id="outputArea"
+            prefHeight="200.0"
+            prefWidth="1200.0"
+            BorderPane.alignment="BOTTOM_LEFT" />
+    </bottom>
+</BorderPane>

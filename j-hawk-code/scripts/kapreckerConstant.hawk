@@ -1,5 +1,7 @@
 function main ()
 {
+
+ //Hell what are you upto
   var number = 6174
   var count = 0
   exec findKapreckerConstant(number , count)

@@ -17,10 +17,11 @@
 
 package org.hawk.executor.command.gui;
 
-
+import javafx.application.Application;
 import org.hawk.executor.IHawkCommandExecutor;
 import org.hawk.executor.command.IHawkExecutionCommand;
 import org.hawk.executor.command.IHawkExecutionCommandFactory;
+import org.hawk.ide.GUIHawkMain;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -47,7 +48,7 @@ public class GUIExecutor implements IHawkCommandExecutor{
     @Override
     public boolean execute(IHawkExecutionCommand hawkCommand) throws Exception {
         
-         
+         Application.launch(GUIHawkMain.class,new String[]{});
          return true;
     }
     

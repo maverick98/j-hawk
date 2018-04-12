@@ -4,7 +4,7 @@ function main()
 
 	echo "finding 6 perfect numbers"
 	//This gets resolved in compilation time
-	exec findPerfectNumber(6)
+	exec findPerfectNumber(8)
 
 }
 function findPerfectNumber(var count)
@@ -77,4 +77,3 @@ function calculateSquareRoot(var x)
 	
 	return y
 }
-

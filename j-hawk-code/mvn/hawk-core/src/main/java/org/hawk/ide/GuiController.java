@@ -119,6 +119,13 @@ public class GuiController implements Initializable {
             Logger.getLogger(GUIHawkMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    @FXML
+    void toolsAction(ActionEvent event) {
+
+        System.exit(0);
+    }
 
     @FXML
     void quitAction(ActionEvent event) {

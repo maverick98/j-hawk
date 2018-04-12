@@ -70,7 +70,7 @@ public class CommandLineHawkMain {
        
         
         
-        
+        /*
         long diff1 = System.currentTimeMillis() - start;
         System.out.println("Configuration took {" + diff1 + "}ms");
         long start1 = System.currentTimeMillis();
@@ -80,6 +80,7 @@ public class CommandLineHawkMain {
         System.out.println("deployment took {" + diff2 + "}ms");
         long diff = System.currentTimeMillis() - start;
         System.out.println("Initialization took {" + diff + "}ms");
+                */
         boolean status;
         HawkCommandParser hawhCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         try {

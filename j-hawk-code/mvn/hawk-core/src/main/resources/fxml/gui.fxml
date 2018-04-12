@@ -69,7 +69,17 @@
                             text="Debug Hawk" />
                     </items>
                 </Menu>
-                
+                                
+                <Menu  mnemonicParsing="false"
+                       text="Tools">
+                    <items>
+                        <MenuItem
+                            fx:id="tools"
+                            mnemonicParsing="false"
+                            onAction="#toolsAction"
+                            text="PowerTools" />
+                    </items>
+                </Menu>
                 
                 
                 <Menu  mnemonicParsing="false"

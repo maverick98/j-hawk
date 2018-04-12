@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,6 +49,8 @@ public class AboutJHawk extends Stage {
         borderPaneOptionPane.setPadding(new Insets(5));
 
         Scene s = new Scene(borderPaneOptionPane);
+        this.getIcons().add(new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("images/logo.png")));
+    
         this.setScene(s);
     }
 
@@ -78,7 +81,6 @@ public class AboutJHawk extends Stage {
         sb.append("Version");
         sb.append(" : ");
         sb.append(software.getVersion().getVersion());
-        sb.append(" : ");
         sb.append("\n");
         sb.append("Home Page");
         sb.append(" : ");

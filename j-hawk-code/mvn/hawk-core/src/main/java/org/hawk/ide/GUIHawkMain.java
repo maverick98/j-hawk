@@ -91,12 +91,7 @@ public class GUIHawkMain extends Application {
     @Override
     public void start(Stage stage) {
         primaryStage =stage;
-        try {
-            HawkConfigHelper.configure();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
+       
         try {
 
             root = FXMLLoader.load(Thread.currentThread().getContextClassLoader().getResource("fxml/gui.fxml"));

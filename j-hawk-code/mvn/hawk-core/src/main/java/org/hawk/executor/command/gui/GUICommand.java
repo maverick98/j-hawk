@@ -16,7 +16,6 @@
  */
 package org.hawk.executor.command.gui;
 
-import org.hawk.executor.command.help.*;
 import org.common.di.AppContainer;
 
 import org.hawk.executor.command.HawkExecutionCommand;

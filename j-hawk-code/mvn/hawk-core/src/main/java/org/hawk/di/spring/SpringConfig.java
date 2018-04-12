@@ -574,6 +574,11 @@ public class SpringConfig {
     public ModuleCacheSequenceProvider moduleCacheSequenceProvider() {
         return new ModuleCacheSequenceProvider();
     }
+    
+    @Bean
+    public org.hawk.executor.command.gui.GUIExecutor gUIExecutor() {
+        return new org.hawk.executor.command.gui.GUIExecutor();
+    }
 
     /*
      @Bean

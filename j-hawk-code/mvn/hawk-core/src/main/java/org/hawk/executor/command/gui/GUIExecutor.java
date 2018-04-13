@@ -21,7 +21,6 @@ import javafx.application.Application;
 import org.hawk.executor.IHawkCommandExecutor;
 import org.hawk.executor.command.IHawkExecutionCommand;
 import org.hawk.executor.command.IHawkExecutionCommandFactory;
-import org.hawk.ide.GUIHawkMain;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

@@ -14,7 +14,7 @@
  *
  * 
  */
-package org.hawk.ide;
+package org.hawk.executor.command.gui;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -80,9 +80,7 @@ public class GUIHawkMain extends Application {
         "}"
     });
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 
     private BorderPane root;
     private ExecutorService executor;

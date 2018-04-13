@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.hawk.ide;
+package org.hawk.executor.command.gui;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;

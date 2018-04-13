@@ -1,4 +1,4 @@
-package org.hawk.ide;
+package org.hawk.executor.command.gui;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

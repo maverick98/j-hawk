@@ -23,7 +23,7 @@ import org.common.di.AppContainer;
 
 import org.hawk.executor.command.HawkCommandParser;
 import org.hawk.executor.command.interpreter.ScriptInterpretationPerfCommand;
-import org.hawk.ide.GUIHawkMain;
+import org.hawk.executor.command.gui.GUIHawkMain;
 import org.hawk.logger.HawkLogger;
 import org.hawk.plugin.IPluginDeployer;
 import org.hawk.plugin.PluginDeployerImpl;

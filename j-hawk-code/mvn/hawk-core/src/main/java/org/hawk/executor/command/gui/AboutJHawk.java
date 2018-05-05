@@ -24,7 +24,7 @@ import org.hawk.software.SoftwareServiceImpl;
  *
  * @author reemeeka
  */
-public class AboutJHawk extends Stage {
+    public class AboutJHawk extends Stage {
 
     public AboutJHawk() {
         super();

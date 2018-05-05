@@ -66,6 +66,8 @@ public class GuiController implements Initializable {
     private TextArea outputArea;
     
     private AboutJHawk helpJHawk = new AboutJHawk();
+    
+     private PowerTool powerTool = new PowerTool();
 
     @FXML
     public void openAction(ActionEvent event) {
@@ -122,9 +124,9 @@ public class GuiController implements Initializable {
     
     
     @FXML
-    void toolsAction(ActionEvent event) {
+    public void toolsAction(ActionEvent event) {
 
-        System.exit(0);
+        powerTool.show();
     }
 
     @FXML

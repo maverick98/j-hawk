@@ -16,6 +16,7 @@
  */
 package org.hawk.executor.command.gui;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +37,6 @@ import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
-import org.hawk.config.HawkConfigHelper;
 
 public class GUIHawkMain extends Application {
 
@@ -91,8 +91,8 @@ public class GUIHawkMain extends Application {
         primaryStage =stage;
        
         try {
-
-            root = FXMLLoader.load(Thread.currentThread().getContextClassLoader().getResource("fxml/gui.fxml"));
+            URL url = Thread.currentThread().getContextClassLoader().getResource("fxml/gui.fxml");
+            root = FXMLLoader.load(url);
             this.configureCodeArea();
             Scene scene = new Scene(root,java.awt.Toolkit.getDefaultToolkit().getScreenSize().width,
             java.awt.Toolkit.getDefaultToolkit().getScreenSize().height);

@@ -67,7 +67,7 @@ public class GuiController implements Initializable {
     
     private AboutJHawk helpJHawk = new AboutJHawk();
     
-     private PowerTool powerTool = new PowerTool();
+     private PowerToolStage powerTool = new PowerToolStage();
 
     @FXML
     public void openAction(ActionEvent event) {

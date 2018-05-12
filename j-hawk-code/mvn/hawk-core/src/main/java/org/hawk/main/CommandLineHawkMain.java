@@ -16,15 +16,13 @@
  */
 package org.hawk.main;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hawk.config.HawkConfigHelper;
 import org.common.di.AppContainer;
 
 import org.hawk.executor.command.HawkCommandParser;
-import org.hawk.executor.command.interpreter.ScriptInterpretationPerfCommand;
-import org.hawk.executor.command.gui.GUIHawkMain;
 import org.hawk.logger.HawkLogger;
+import org.hawk.output.DefaultHawkOutputWriter;
+import org.hawk.output.HawkOutput;
 import org.hawk.plugin.IPluginDeployer;
 import org.hawk.plugin.PluginDeployerImpl;
 /**
@@ -69,8 +67,9 @@ public class CommandLineHawkMain {
         }
        
         
+          HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
+            hawkOutput.setHawkOutputWriter(new DefaultHawkOutputWriter());
         
-        /*
         long diff1 = System.currentTimeMillis() - start;
         System.out.println("Configuration took {" + diff1 + "}ms");
         long start1 = System.currentTimeMillis();
@@ -80,7 +79,7 @@ public class CommandLineHawkMain {
         System.out.println("deployment took {" + diff2 + "}ms");
         long diff = System.currentTimeMillis() - start;
         System.out.println("Initialization took {" + diff + "}ms");
-                */
+               
         boolean status;
         HawkCommandParser hawhCommandParser = AppContainer.getInstance().getBean(HawkCommandParser.class);
         try {

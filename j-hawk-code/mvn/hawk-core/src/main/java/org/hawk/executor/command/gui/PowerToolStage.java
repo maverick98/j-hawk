@@ -5,6 +5,9 @@
  */
 package org.hawk.executor.command.gui;
 
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -24,6 +27,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.common.di.AppContainer;
+import org.commons.event.exception.HawkEventException;
+import org.hawk.plugin.HawkPlugin;
+import org.hawk.plugin.IHawkPluginService;
+import org.hawk.plugin.exception.HawkPluginException;
+import org.hawk.software.SoftwareServiceImpl;
 
 /**
  *
@@ -31,18 +40,12 @@ import javafx.stage.Stage;
  */
 public class PowerToolStage extends Stage {
 
-    private final ObservableList<PowerToolVO> availablePlugins
-            = FXCollections.observableArrayList(
-                    new PowerToolVO("HawkEye", "18.05", "Manoranjan Sahu"),
-                    new PowerToolVO("Reetika", "18.05", "Reetika Sahoo"),
-                    new PowerToolVO("Meehika", "18.05", "Meehika Sahoo")
-            );
-    private final ObservableList<PowerToolVO> downloadedPlugins
-            = FXCollections.observableArrayList(
-                    new PowerToolVO("HawkEye", "18.05", "Manoranjan Sahu"),
-                    new PowerToolVO("Reetika", "18.05", "Reetika Sahoo"),
-                    new PowerToolVO("Meehika", "18.05", "Meehika Sahoo")
-            );
+    private final ObservableList<PowerToolVO> availablePowerTools
+            = FXCollections.observableArrayList();
+    private final ObservableList<PowerToolVO> downloadedPowerTools
+            = FXCollections.observableArrayList();
+    private final ObservableList<PowerToolVO> installedPowerTools
+            = FXCollections.observableArrayList();
 
     public PowerToolStage() {
         this.setTitle("PowerTool");
@@ -58,7 +61,7 @@ public class PowerToolStage extends Stage {
             if (i == 0) {
                 tab.setText("Available");
                 TableView availTableView = this.getTabView();
-                availTableView.setItems(availablePlugins);
+                availTableView.setItems(availablePowerTools);
                 hbox.getChildren().add(availTableView);
 
                 VBox vbox = new VBox();
@@ -67,13 +70,14 @@ public class PowerToolStage extends Stage {
                 description.setText("Available");
                 vbox.getChildren().add(description);
                 description.setPrefHeight(400);
-                Button installButton = new Button("Download");
-                vbox.getChildren().add(installButton);
-                installButton.setAlignment(Pos.BASELINE_RIGHT);
+                Button downloadButton = new Button("Download");
+                vbox.getChildren().add(downloadButton);
+                downloadButton.setAlignment(Pos.BASELINE_RIGHT);
             } else if (i == 1) {
                 tab.setText("Downloaded");
                 TableView downloadedTabView = this.getTabView();
-                downloadedTabView.setItems(downloadedPlugins);
+                downloadedTabView.setItems(downloadedPowerTools);
+                populateDownloadedPowerTools();
                 hbox.getChildren().add(downloadedTabView);
                 VBox vbox = new VBox();
                 hbox.getChildren().add(vbox);
@@ -87,7 +91,19 @@ public class PowerToolStage extends Stage {
 
             } else if (i == 2) {
                 tab.setText("Installed");
-                hbox.getChildren().add(new Label("Installed"));
+                TableView installedTabView = this.getTabView();
+                installedTabView.setItems(installedPowerTools);
+                populateInstalledPowerTools();
+                hbox.getChildren().add(installedTabView);
+                VBox vbox = new VBox();
+                hbox.getChildren().add(vbox);
+                Label description = new Label();
+                description.setText("Installed");
+                vbox.getChildren().add(description);
+                description.setPrefHeight(400);
+                Button installButton = new Button("Uninstall");
+                vbox.getChildren().add(installButton);
+                installButton.setAlignment(Pos.BASELINE_RIGHT);
             }
             hbox.setAlignment(Pos.CENTER_LEFT);
             tab.setContent(hbox);
@@ -114,6 +130,45 @@ public class PowerToolStage extends Stage {
         creatorColumn.setCellValueFactory(new PropertyValueFactory<PowerToolVO, String>("creator"));
         availTableView.getColumns().addAll(nameColumn, versionColumn, creatorColumn);
         return availTableView;
+    }
+
+    private void populateInstalledPowerTools() {
+        IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
+        try {
+            Set<HawkPlugin> hawkPlugins = hawkPluginService.findInstalledPlugins();
+            if(hawkPlugins!= null){
+                hawkPlugins.forEach(hawkPlugin->{
+                    PowerToolVO powerToolVO= new PowerToolVO();
+                    powerToolVO.setName(hawkPlugin.getName());
+                    powerToolVO.setVersion(hawkPlugin.getPluginMetaData().getSoftware().getVersion().getVersion());
+                    powerToolVO.setCreator(hawkPlugin.getPluginMetaData().getSoftware().getContributor().getName());
+                    installedPowerTools.add(powerToolVO);
+                });
+            }
+        } catch (HawkPluginException ex) {
+            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HawkEventException ex) {
+            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void populateDownloadedPowerTools() {
+        IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
+        try {
+            Set<HawkPlugin> hawkPlugins = hawkPluginService.findDownloadedPlugins();
+            if(hawkPlugins!= null){
+                hawkPlugins.forEach(hawkPlugin->{
+                    PowerToolVO powerToolVO= new PowerToolVO();
+                    powerToolVO.setName(hawkPlugin.getName());
+                    powerToolVO.setVersion(hawkPlugin.getPluginMetaData().getSoftware().getVersion().getVersion());
+                    powerToolVO.setCreator(hawkPlugin.getPluginMetaData().getSoftware().getContributor().getName());
+                    downloadedPowerTools.add(powerToolVO);
+                });
+            }
+        } catch (HawkPluginException ex) {
+            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HawkEventException ex) {
+            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

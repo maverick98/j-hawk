@@ -322,6 +322,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         if (downloadedPluginArchiveFiles != null) {
             for (File downloadedPluginArchivFile : downloadedPluginArchiveFiles) {
                 HawkPlugin downloadedPlugin = new HawkPlugin(downloadedPluginArchivFile.getName(), this.getPluginRootDir());
+                this.loadPluginMetaData(downloadedPlugin);
                 //downloadedPlugin.setPluginArchive(downloadedPluginArchivFile.getName());
                 //downloadedPlugin.setPluginRootDir(this.getPluginRootDir());
                 downloadedPlugins.add(downloadedPlugin);
@@ -349,6 +350,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             if (!hawkPlugin.isExtracted()) {
                 itr.remove();
             }
+            this.loadPluginMetaData(hawkPlugin);
         }
         return installedPlugins;
     }

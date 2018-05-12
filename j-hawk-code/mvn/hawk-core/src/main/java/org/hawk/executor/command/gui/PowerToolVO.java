@@ -23,6 +23,12 @@ public class PowerToolVO {
         this.creator = new SimpleStringProperty(creator);
     }
 
+    public PowerToolVO() {
+        this.name = new SimpleStringProperty();
+        this.version = new SimpleStringProperty();
+        this.creator = new SimpleStringProperty();
+    }
+
     public String getName() {
         return name.get();
     }

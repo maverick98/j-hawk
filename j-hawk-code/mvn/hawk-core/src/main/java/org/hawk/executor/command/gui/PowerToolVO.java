@@ -43,6 +43,16 @@ public class PowerToolVO {
         this.availablePluginHtmlJavaBean = availablePluginHtmlJavaBean;
     }
 
+    public AvailablePluginHtmlJavaBean getAvailablePluginHtmlJavaBean() {
+        return availablePluginHtmlJavaBean;
+    }
+
+    public void setAvailablePluginHtmlJavaBean(AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean) {
+        this.availablePluginHtmlJavaBean = availablePluginHtmlJavaBean;
+    }
+    
+    
+
     public HawkPlugin getHawkPlugin() {
         return hawkPlugin;
     }

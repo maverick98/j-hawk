@@ -88,6 +88,18 @@ public class PowerToolStage extends Stage {
                 vbox.getChildren().add(description);
                 description.setPrefHeight(400);
                 Button installButton = new Button("Install");
+                installButton.setOnAction(event -> {
+                    IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
+                    try {
+                        PowerToolVO selectedPowerToolVO = (PowerToolVO) downloadedTabView.getSelectionModel().getSelectedItem();
+                        AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
+                        hawkPluginService.downloadPlugin(null)
+                    } catch (HawkPluginException ex) {
+                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (HawkEventException ex) {
+                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
                 vbox.getChildren().add(installButton);
                 installButton.setAlignment(Pos.BASELINE_RIGHT);
 
@@ -104,13 +116,13 @@ public class PowerToolStage extends Stage {
                 vbox.getChildren().add(description);
                 description.setPrefHeight(400);
                 Button uninstallButton = new Button("Uninstall");
-              
+
                 uninstallButton.setOnAction(event -> {
                     IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
                     try {
-                        PowerToolVO selectedPowerToolVO = (PowerToolVO)installedTabView.getSelectionModel().getSelectedItem();
+                        PowerToolVO selectedPowerToolVO = (PowerToolVO) installedTabView.getSelectionModel().getSelectedItem();
                         HawkPlugin selectedPlugin = selectedPowerToolVO.getHawkPlugin();
-                        hawkPluginService.unDeploy(selectedPlugin );
+                        hawkPluginService.unDeploy(selectedPlugin);
                     } catch (HawkPluginException ex) {
                         Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (HawkEventException ex) {
@@ -180,8 +192,8 @@ public class PowerToolStage extends Stage {
             Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     private void populateAvailablePowerTools() {
+
+    private void populateAvailablePowerTools() {
         IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
         try {
             Set<AvailablePluginHtmlJavaBean> availablePluginHtmlJavaBeans = hawkPluginService.showAvailablePlugins();

@@ -63,11 +63,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * TODO refactor me... I am putting on weight
+ *
  * @author Manoranjan Sahu
  */
-   
-   
-
 public class HawkPluginServiceImpl implements IHawkPluginService {
 
     private static final HawkLogger logger = HawkLogger.getLogger(HawkPluginServiceImpl.class.getName());
@@ -80,11 +78,11 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         //return hawkPluginCallbackRegistry;
     }
 
-   // public void setHawkPluginCallbackRegistry(IHawkPluginCallbackRegistry hawkPluginCallbackRegistry) {
+    // public void setHawkPluginCallbackRegistry(IHawkPluginCallbackRegistry hawkPluginCallbackRegistry) {
     //     this.hawkPluginCallbackRegistry = hawkPluginCallbackRegistry;
     // }
     @Override
-    public boolean load(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean load(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null) {
             throw new HawkPluginException("illegal plugin");
         }
@@ -101,7 +99,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         return pluginLoaded;
     }
 
-    public boolean loadPluginMetaData(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean loadPluginMetaData(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         HawkPluginMetaData hawkPluginMetaData = new HawkPluginMetaData();
         try {
             String xml = hawkPlugin.getMetaDataXMLPath();
@@ -116,7 +114,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         return true;
     }
 
-    private boolean addPluginJars(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    private boolean addPluginJars(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         Classpath classpath = hawkPlugin.getPluginMetaData().getClasspath();
 
         List<String> jars = new ArrayList<>();
@@ -127,7 +125,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
     }
 
-    private boolean addPluginJars(List<String> jars) throws HawkPluginException,HawkEventException {
+    private boolean addPluginJars(List<String> jars) throws HawkPluginException, HawkEventException {
 
         try {
             //ClazzLoaderUtil.getInstance().addJars(jars);
@@ -139,7 +137,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean deploy(String hawkPluginArchive) throws HawkPluginException,HawkEventException {
+    public boolean deploy(String hawkPluginArchive) throws HawkPluginException, HawkEventException {
         boolean isDeployed = false;
         boolean isCopied = this.copy(hawkPluginArchive);
         if (isCopied) {
@@ -154,14 +152,14 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean deploy(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException  {
+    public boolean deploy(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null) {
             throw new HawkPluginException("illegal plugin");
         }
 
         boolean isExtracted = false;
         logger.info("------------------------------START------------------------------------------");
-        
+
         logger.info("validating the plugin " + hawkPlugin);
         boolean isValidated = hawkPlugin.validate();
         boolean isDeployed = false;
@@ -185,15 +183,12 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
                     logger.info("extracted successfully!!!");
                     logger.info("loading plugin information");
-                  
 
                     boolean isLoaded = this.load(hawkPlugin);
 
                     hawkPlugin.setLoaded(isLoaded);
 
                     this.getHawkPluginCallbackRegistry().dispatch(HawkPluginLoadingEvent.class, hawkEventPayload);
-                 
-               
 
                     if (isLoaded) {
                         logger.info("plugin info loaded successfully!!!");
@@ -224,7 +219,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean deploy(Set<HawkPlugin> hawkPlugins) throws HawkPluginException,HawkEventException {
+    public boolean deploy(Set<HawkPlugin> hawkPlugins) throws HawkPluginException, HawkEventException {
         if (hawkPlugins == null) {
             throw new HawkPluginException("Illegal args");
         }
@@ -235,7 +230,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean unDeploy(String hawkPluginArchive) throws HawkPluginException,HawkEventException {
+    public boolean unDeploy(String hawkPluginArchive) throws HawkPluginException, HawkEventException {
         if (StringUtil.isNullOrEmpty(hawkPluginArchive)) {
             throw new HawkPluginException("illegal args");
         }
@@ -246,7 +241,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean unDeploy(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean unDeploy(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null) {
             throw new HawkPluginException("illegal plugin");
         }
@@ -274,7 +269,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean unDeploy(Set<HawkPlugin> hawkPlugins) throws HawkPluginException,HawkEventException {
+    public boolean unDeploy(Set<HawkPlugin> hawkPlugins) throws HawkPluginException, HawkEventException {
         if (hawkPlugins == null) {
             throw new HawkPluginException("Illegal args");
         }
@@ -283,8 +278,8 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         }
         return true;
     }
-     @Autowired(required = true)
-       
+    @Autowired(required = true)
+
     private InternalFuncTestHTMLJavaServiceImpl internalFuncTestHTMLJavaServiceImpl;
 
     public InternalFuncTestHTMLJavaServiceImpl getInternalFuncTestHTMLJavaServiceImpl() {
@@ -295,28 +290,44 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         this.internalFuncTestHTMLJavaServiceImpl = internalFuncTestHTMLJavaServiceImpl;
     }
 
-   
     @Override
-    public Set<HawkPlugin> findAvailablePlugins() throws HawkPluginException,HawkEventException {
-        Set<HawkPlugin> availablePlugins = new HashSet<>();
+    public Set<AvailablePluginHtmlJavaBean> showAvailablePlugins() throws HawkPluginException, HawkEventException {
+        Set<AvailablePluginHtmlJavaBean> availablePlugins = new HashSet<>();
         List<HtmlJavaBean> list = null;
         try {
-             list = this.getInternalFuncTestHTMLJavaServiceImpl().toJavaList(new URL("http://j-hawk.sourceforge.net/plugin.html"), AvailablePluginHtmlJavaBean.class);
+            list = this.getInternalFuncTestHTMLJavaServiceImpl().toJavaList(new URL("http://j-hawk.sourceforge.net/plugin.html"), AvailablePluginHtmlJavaBean.class);
         } catch (Exception ex) {
             Logger.getLogger(HawkPluginServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new HawkPluginException("Error while finding available plugins", ex);
         }
-        for(HtmlJavaBean htmlJavaBean : list){
-            AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = (AvailablePluginHtmlJavaBean)htmlJavaBean;
-            HawkPlugin hawkPlugin = new HawkPlugin(availablePluginHtmlJavaBean.getPath());
-            hawkPlugin.setName(availablePluginHtmlJavaBean.getPlugin());
-            availablePlugins.add(hawkPlugin);
-        }
+        list.forEach(htmlJavaBean -> {
+            AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = (AvailablePluginHtmlJavaBean) htmlJavaBean;
+            availablePlugins.add(availablePluginHtmlJavaBean);
+        });
+
         return availablePlugins;
     }
 
     @Override
-    public Set<HawkPlugin> findDownloadedPlugins() throws HawkPluginException,HawkEventException {
+    public Set<HawkPlugin> findAvailablePlugins() throws HawkPluginException, HawkEventException {
+        Set<HawkPlugin> availablePlugins = new HashSet<>();
+        Set<AvailablePluginHtmlJavaBean> availablePluginHtmlJavaBeans = this.showAvailablePlugins();
+        availablePluginHtmlJavaBeans.forEach(availablePluginHtmlJavaBean -> {
+            HawkPlugin hawkPlugin = null;
+            try {
+                hawkPlugin = new HawkPlugin(availablePluginHtmlJavaBean.getPath());
+            } catch (HawkPluginException ex) {
+                Logger.getLogger(HawkPluginServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            hawkPlugin.setName(availablePluginHtmlJavaBean.getPlugin());
+            availablePlugins.add(hawkPlugin);
+        });
+
+        return availablePlugins;
+    }
+
+    @Override
+    public Set<HawkPlugin> findDownloadedPlugins() throws HawkPluginException, HawkEventException {
         Collection<File> downloadedPluginArchiveFiles = this.listAllPluginArchives();
         Set<HawkPlugin> downloadedPlugins = new TreeSet<>();
         if (downloadedPluginArchiveFiles != null) {
@@ -331,7 +342,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         return downloadedPlugins;
     }
 
-    private Collection<File> listAllPluginArchives() throws HawkPluginException,HawkEventException {
+    private Collection<File> listAllPluginArchives() throws HawkPluginException, HawkEventException {
 
         File pluginRootDir = new File(this.getPluginRootDir());
         Collection<File> result = null;
@@ -343,7 +354,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public Set<HawkPlugin> findInstalledPlugins() throws HawkPluginException,HawkEventException {
+    public Set<HawkPlugin> findInstalledPlugins() throws HawkPluginException, HawkEventException {
         Set<HawkPlugin> installedPlugins = this.findDownloadedPlugins();
         for (Iterator<HawkPlugin> itr = installedPlugins.iterator(); itr.hasNext();) {
             HawkPlugin hawkPlugin = itr.next();
@@ -356,14 +367,14 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public Set<HawkPlugin> findNYIPlugins() throws HawkPluginException,HawkEventException {
+    public Set<HawkPlugin> findNYIPlugins() throws HawkPluginException, HawkEventException {
         Set<HawkPlugin> downloadedPlugins = this.findDownloadedPlugins();
         Set<HawkPlugin> installedPlugins = this.findInstalledPlugins();
         return this.diff(downloadedPlugins, installedPlugins);
     }
 
     @Override
-    public Set<HawkPlugin> findNYDPlugins() throws HawkPluginException,HawkEventException {
+    public Set<HawkPlugin> findNYDPlugins() throws HawkPluginException, HawkEventException {
         Set<HawkPlugin> availablePlugins = this.findAvailablePlugins();
         Set<HawkPlugin> downloadedPlugins = this.findDownloadedPlugins();
         return this.diff(availablePlugins, downloadedPlugins);
@@ -383,7 +394,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean unDeployAll() throws HawkPluginException,HawkEventException {
+    public boolean unDeployAll() throws HawkPluginException, HawkEventException {
         boolean unDeployed = false;
         Set<HawkPlugin> allPlugins = this.findInstalledPlugins();
         if (allPlugins != null && !allPlugins.isEmpty()) {
@@ -393,7 +404,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean extract(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean extract(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null || !hawkPlugin.validate()) {
             throw new HawkPluginException("Illegal args");
         }
@@ -420,15 +431,15 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean remove(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean remove(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null || !hawkPlugin.validate()) {
             throw new HawkPluginException("Illegal args");
         }
         boolean result;
         String pluginHome = hawkPlugin.getPluginHome();
-     
-            result = FileUtil.remove(pluginHome);
-       
+
+        result = FileUtil.remove(pluginHome);
+
         return result;
     }
 
@@ -452,21 +463,21 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean copy(String pluginArchive) throws HawkPluginException,HawkEventException {
+    public boolean copy(String pluginArchive) throws HawkPluginException, HawkEventException {
         boolean isCopied = false;
-        
+
         isCopied = FileUtil.copy(pluginArchive, this.getPluginRootDir());
-       
+
         return isCopied;
     }
 
     @Override
-    public boolean download(URL pluginArchiveURL) throws HawkPluginException,HawkEventException {
+    public boolean download(URL pluginArchiveURL) throws HawkPluginException, HawkEventException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public HawkPlugin findPlugin(String hawkPluginArchive) throws HawkPluginException,HawkEventException {
+    public HawkPlugin findPlugin(String hawkPluginArchive) throws HawkPluginException, HawkEventException {
         if (StringUtil.isNullOrEmpty(hawkPluginArchive)) {
             throw new HawkPluginException("illegal args");
         }
@@ -484,7 +495,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public boolean downloadPlugin(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException {
+    public boolean downloadPlugin(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null || hawkPlugin.getPluginMetaData() == null) {
             throw new IllegalArgumentException("illegal args");
         }

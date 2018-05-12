@@ -19,6 +19,7 @@ package org.hawk.plugin;
 import java.net.URL;
 import java.util.Set;
 import org.commons.event.exception.HawkEventException;
+import org.hawk.executor.command.plugin.available.AvailablePluginHtmlJavaBean;
 import org.hawk.plugin.exception.HawkPluginException;
 
 /**
@@ -58,7 +59,9 @@ public interface IHawkPluginService {
     public boolean unDeploy(Set<HawkPlugin> hawkPlugins) throws HawkPluginException,HawkEventException;
 
     public boolean unDeployAll() throws HawkPluginException,HawkEventException;
-
+    
+    public Set<AvailablePluginHtmlJavaBean> showAvailablePlugins() throws HawkPluginException,HawkEventException;
+    
     public Set<HawkPlugin> findAvailablePlugins() throws HawkPluginException,HawkEventException;
     
     public boolean downloadPlugin(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException;

@@ -6,6 +6,8 @@
 package org.hawk.executor.command.gui;
 
 import javafx.beans.property.SimpleStringProperty;
+import org.hawk.executor.command.plugin.available.AvailablePluginHtmlJavaBean;
+import org.hawk.plugin.HawkPlugin;
 
 /**
  *
@@ -13,6 +15,8 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class PowerToolVO {
 
+    private AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean;
+    private HawkPlugin hawkPlugin;
     private SimpleStringProperty name;
     private SimpleStringProperty version;
     private SimpleStringProperty creator;
@@ -29,6 +33,24 @@ public class PowerToolVO {
         this.creator = new SimpleStringProperty();
     }
 
+    public PowerToolVO(HawkPlugin hawkPlugin) {
+        this(hawkPlugin.getName(), hawkPlugin.getPluginMetaData().getSoftware().getVersion().getVersion(), hawkPlugin.getPluginMetaData().getSoftware().getContributor().getName());
+        this.hawkPlugin = hawkPlugin;
+    }
+    
+    public PowerToolVO(AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean){
+        this(availablePluginHtmlJavaBean.getPlugin(),availablePluginHtmlJavaBean.getVersion(),availablePluginHtmlJavaBean.getAuthor());
+        this.availablePluginHtmlJavaBean = availablePluginHtmlJavaBean;
+    }
+
+    public HawkPlugin getHawkPlugin() {
+        return hawkPlugin;
+    }
+
+    public void setHawkPlugin(HawkPlugin hawkPlugin) {
+        this.hawkPlugin = hawkPlugin;
+    }
+    
     public String getName() {
         return name.get();
     }

@@ -449,8 +449,8 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
-    public String getPluginHome(String pluginArchive) {
-        File file = new File(pluginArchive);
+    public String getPluginHome(String pluginURL) {
+        File file = new File(pluginURL);
 
         HawkPlugin hawkPlugin = null;
         try {
@@ -511,6 +511,24 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             return false;
         }
         File downloadLocalPath = new File(hawkPlugin.getPluginHome());
+        HttpUtil.download(downloadURL, downloadLocalPath);
+
+        return true;
+    }
+    @Override
+    public boolean downloadPlugin(String pluginURL) throws HawkPluginException, HawkEventException {
+        if (StringUtil.isNullOrEmpty(pluginURL)) {
+            throw new IllegalArgumentException("illegal args");
+        }
+       
+        URL downloadURL;
+        try {
+            downloadURL = new URL(pluginURL);
+        } catch (MalformedURLException ex) {
+            logger.error(ex);
+            return false;
+        }
+        File downloadLocalPath = new File(this.getPluginHome(pluginURL));
         HttpUtil.download(downloadURL, downloadLocalPath);
 
         return true;

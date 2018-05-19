@@ -5,6 +5,7 @@
  */
 package org.hawk.executor.command.gui;
 
+import java.net.URL;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,63 +76,19 @@ public class PowerToolStage extends Stage {
                 Button downloadButton = new Button("Download");
                 vbox.getChildren().add(downloadButton);
                 downloadButton.setAlignment(Pos.BASELINE_RIGHT);
-            } else if (i == 1) {
-                tab.setText("Downloaded");
-                TableView downloadedTabView = this.getTabView();
-                downloadedTabView.setItems(downloadedPowerTools);
-                populateDownloadedPowerTools();
-                hbox.getChildren().add(downloadedTabView);
-                VBox vbox = new VBox();
-                hbox.getChildren().add(vbox);
-                Label description = new Label();
-                description.setText("Downloaded");
-                vbox.getChildren().add(description);
-                description.setPrefHeight(400);
-                Button installButton = new Button("Install");
-                installButton.setOnAction(event -> {
+                downloadButton.setOnAction(event->{
                     IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
                     try {
-                        PowerToolVO selectedPowerToolVO = (PowerToolVO) downloadedTabView.getSelectionModel().getSelectedItem();
+                        PowerToolVO selectedPowerToolVO = (PowerToolVO) availTableView.getSelectionModel().getSelectedItem();
                         AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
-                        hawkPluginService.downloadPlugin(null)
-                    } catch (HawkPluginException ex) {
-                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                        hawkPluginService.downloadPlugin(availablePluginHtmlJavaBean.getPath());
                     } catch (HawkEventException ex) {
+                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (HawkPluginException ex) {
                         Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
-                vbox.getChildren().add(installButton);
-                installButton.setAlignment(Pos.BASELINE_RIGHT);
-
-            } else if (i == 2) {
-                tab.setText("Installed");
-                TableView installedTabView = this.getTabView();
-                installedTabView.setItems(installedPowerTools);
-                populateInstalledPowerTools();
-                hbox.getChildren().add(installedTabView);
-                VBox vbox = new VBox();
-                hbox.getChildren().add(vbox);
-                Label description = new Label();
-                description.setText("Installed");
-                vbox.getChildren().add(description);
-                description.setPrefHeight(400);
-                Button uninstallButton = new Button("Uninstall");
-
-                uninstallButton.setOnAction(event -> {
-                    IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
-                    try {
-                        PowerToolVO selectedPowerToolVO = (PowerToolVO) installedTabView.getSelectionModel().getSelectedItem();
-                        HawkPlugin selectedPlugin = selectedPowerToolVO.getHawkPlugin();
-                        hawkPluginService.unDeploy(selectedPlugin);
-                    } catch (HawkPluginException ex) {
-                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (HawkEventException ex) {
-                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-                vbox.getChildren().add(uninstallButton);
-                uninstallButton.setAlignment(Pos.BASELINE_RIGHT);
-            }
+            } 
             hbox.setAlignment(Pos.CENTER_LEFT);
             tab.setContent(hbox);
             tabPane.getTabs().add(tab);

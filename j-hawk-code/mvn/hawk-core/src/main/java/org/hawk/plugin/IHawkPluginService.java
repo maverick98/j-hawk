@@ -65,6 +65,8 @@ public interface IHawkPluginService {
     public Set<HawkPlugin> findAvailablePlugins() throws HawkPluginException,HawkEventException;
     
     public boolean downloadPlugin(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException;
+    
+    public boolean downloadPlugin(String url) throws HawkPluginException,HawkEventException;
 
     public Set<HawkPlugin> findDownloadedPlugins() throws HawkPluginException,HawkEventException;
 

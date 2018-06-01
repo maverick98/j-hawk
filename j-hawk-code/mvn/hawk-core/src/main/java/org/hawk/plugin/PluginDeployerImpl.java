@@ -52,7 +52,7 @@ public class PluginDeployerImpl implements IPluginDeployer {
     public boolean deploy() throws Exception {
         System.out.println("in plugin deployment config");
         try {
-            Set<HawkPlugin> plugins = this.getHawkPluginService().findInstalledPlugins();
+            Set<HawkPlugin> plugins = this.getHawkPluginService().findNYIPlugins();
             this.getHawkPluginService().deploy(plugins);
         } catch (HawkPluginException ex) {
             logger.error(ex);

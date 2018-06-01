@@ -22,7 +22,7 @@ border:1px solid black;
        
 		<table>
 <tbody><tr><th>Plugin</th><th>Version</th><th>Release Date</th><th>Path</th><th>Author</th></tr>
-<tr><td>hawk-eye</td><td>17.8</td><td>8/17/17 11:21:06</td><td>http://j-hawk.sourceforge.net/hawk-eye.zip</td><td>Manoranjan Sahu</td></tr>
+<tr><td>hawk-eye</td><td>17.8</td><td>8/17/17 11:21:06</td><td>http://j-hawk.sourceforge.net/plugins/hawk-eye.zip</td><td>Manoranjan Sahu</td></tr>
 
 </tbody></table>
 

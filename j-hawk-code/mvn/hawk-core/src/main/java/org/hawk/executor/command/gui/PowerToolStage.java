@@ -56,43 +56,41 @@ public class PowerToolStage extends Stage {
         Scene scene = new Scene(root, 700, 500, Color.WHITE);
         TabPane tabPane = new TabPane();
         BorderPane borderPane = new BorderPane();
-        for (int i = 0; i < 3; i++) {
-            Tab tab = new Tab();
-            tab.setClosable(false);
-            HBox hbox = new HBox();
-            if (i == 0) {
-                tab.setText("Available");
-                TableView availTableView = this.getTabView();
-                availTableView.setItems(availablePowerTools);
-                populateAvailablePowerTools();
-                hbox.getChildren().add(availTableView);
 
-                VBox vbox = new VBox();
-                hbox.getChildren().add(vbox);
-                Label description = new Label();
-                description.setText("Available");
-                vbox.getChildren().add(description);
-                description.setPrefHeight(400);
-                Button downloadButton = new Button("Download");
-                vbox.getChildren().add(downloadButton);
-                downloadButton.setAlignment(Pos.BASELINE_RIGHT);
-                downloadButton.setOnAction(event->{
-                    IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
-                    try {
-                        PowerToolVO selectedPowerToolVO = (PowerToolVO) availTableView.getSelectionModel().getSelectedItem();
-                        AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
-                        hawkPluginService.downloadPlugin(availablePluginHtmlJavaBean.getPath());
-                    } catch (HawkEventException ex) {
-                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (HawkPluginException ex) {
-                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-            } 
-            hbox.setAlignment(Pos.CENTER_LEFT);
-            tab.setContent(hbox);
-            tabPane.getTabs().add(tab);
-        }
+        Tab tab = new Tab();
+        tab.setClosable(false);
+        HBox hbox = new HBox();
+
+        tab.setText("Available");
+        TableView availTableView = this.getTabView();
+        availTableView.setItems(availablePowerTools);
+        populateAvailablePowerTools();
+        hbox.getChildren().add(availTableView);
+
+        VBox vbox = new VBox();
+        hbox.getChildren().add(vbox);
+        Label description = new Label();
+        description.setText("Available");
+        vbox.getChildren().add(description);
+        description.setPrefHeight(400);
+        Button downloadButton = new Button("Download");
+        vbox.getChildren().add(downloadButton);
+        downloadButton.setAlignment(Pos.BASELINE_RIGHT);
+        downloadButton.setOnAction(event -> {
+            IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
+            try {
+                PowerToolVO selectedPowerToolVO = (PowerToolVO) availTableView.getSelectionModel().getSelectedItem();
+                AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
+                hawkPluginService.downloadPlugin("http://j-hawk.sourceforge.net/hawk-eye.zip");
+            } catch (HawkEventException | HawkPluginException ex) {
+                Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        tab.setContent(hbox);
+        tabPane.getTabs().add(tab);
+
         // bind to take available space
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());

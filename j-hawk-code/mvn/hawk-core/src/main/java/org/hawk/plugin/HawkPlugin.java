@@ -167,6 +167,11 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
         sb.append(this.getName());
         return sb.toString();
     }
+    
+    public boolean createDir(){
+        File parentDir = new File(this.getPluginHome());
+        return parentDir.mkdirs();
+    }
 
     public boolean isExtractedJustNow() {
         return extractedJustNow;

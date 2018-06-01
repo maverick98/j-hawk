@@ -67,14 +67,18 @@ public class CommandLineHawkMain {
         }
        
         
-          HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
+        HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
             hawkOutput.setHawkOutputWriter(new DefaultHawkOutputWriter());
         
         long diff1 = System.currentTimeMillis() - start;
         System.out.println("Configuration took {" + diff1 + "}ms");
         long start1 = System.currentTimeMillis();
         IPluginDeployer pluginDeployer = AppContainer.getInstance().getBean(PluginDeployerImpl.class);
-        pluginDeployer.deploy();
+        try{
+            pluginDeployer.deploy();
+        }catch(Throwable th){
+            logger.warn("failed to deploy plugins");
+        }
         long diff2 = System.currentTimeMillis() - start1;
         System.out.println("deployment took {" + diff2 + "}ms");
         long diff = System.currentTimeMillis() - start;

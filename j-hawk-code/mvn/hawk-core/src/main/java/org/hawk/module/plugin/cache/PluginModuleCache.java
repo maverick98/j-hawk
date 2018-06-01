@@ -15,6 +15,7 @@ import org.common.di.AppContainer;
 import org.commons.event.HawkEvent;
 import org.commons.event.HawkEventPayload;
 import org.commons.event.callback.IHawkEventCallback;
+import org.commons.event.exception.HawkEventException;
 import org.commons.reflection.ClazzUtil;
 import org.commons.string.StringUtil;
 import org.hawk.config.HawkConfigHelper;
@@ -73,7 +74,15 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
 
     private boolean cachePluginModulesInternal() throws Exception {
         boolean cached = false;
-        Set<HawkPlugin> installedPlugins = this.getHawkPluginService().findInstalledPlugins();
+        Set<HawkPlugin> installedPlugins = null;
+        try{
+            installedPlugins  = this.getHawkPluginService().findInstalledPlugins();
+        }catch (Throwable ex){
+            ex.printStackTrace();
+            //logger.warn("could not find installed plugins",new Object[]{ex.getMessage()});
+            return false;
+        }
+       
         if (installedPlugins != null && !installedPlugins.isEmpty()) {
             this.resetModules();
             cached = this.refreshPluginModules();

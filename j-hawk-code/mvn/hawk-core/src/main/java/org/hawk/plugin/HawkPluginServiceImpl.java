@@ -105,10 +105,10 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             String xml = hawkPlugin.getMetaDataXMLPath();
             hawkPluginMetaData = (HawkPluginMetaData) XMLUtil.unmarshal(xml, HawkPluginMetaData.class);
 
-        } catch (Exception ex) {
+        } catch (Throwable th) {
 
-            logger.error(ex);
-            throw new HawkPluginException(ex);
+            th.printStackTrace();
+            throw new HawkPluginException(th);
         }
         hawkPlugin.setPluginMetaData(hawkPluginMetaData);
         return true;
@@ -333,7 +333,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         if (downloadedPluginArchiveFiles != null) {
             for (File downloadedPluginArchivFile : downloadedPluginArchiveFiles) {
                 HawkPlugin downloadedPlugin = new HawkPlugin(downloadedPluginArchivFile.getName(), this.getPluginRootDir());
-                this.loadPluginMetaData(downloadedPlugin);
+                //this.loadPluginMetaData(downloadedPlugin);
                 //downloadedPlugin.setPluginArchive(downloadedPluginArchivFile.getName());
                 //downloadedPlugin.setPluginRootDir(this.getPluginRootDir());
                 downloadedPlugins.add(downloadedPlugin);
@@ -360,8 +360,9 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             HawkPlugin hawkPlugin = itr.next();
             if (!hawkPlugin.isExtracted()) {
                 itr.remove();
+            }else{
+                this.loadPluginMetaData(hawkPlugin);
             }
-            this.loadPluginMetaData(hawkPlugin);
         }
         return installedPlugins;
     }
@@ -447,6 +448,19 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     public String getPluginRootDir() {
         return PLUGINDIR;
     }
+    @Override
+    public HawkPlugin getPlugin(String pluginURL) {
+        File file = new File(pluginURL);
+
+        HawkPlugin hawkPlugin = null;
+        try {
+            hawkPlugin = new HawkPlugin(file.getName());
+        } catch (HawkPluginException ex) {
+            hawkPlugin = null;
+        }
+
+        return hawkPlugin;
+    }
 
     @Override
     public String getPluginHome(String pluginURL) {
@@ -528,8 +542,10 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             logger.error(ex);
             return false;
         }
-        File downloadLocalPath = new File(this.getPluginHome(pluginURL));
-        HttpUtil.download(downloadURL, downloadLocalPath);
+        HawkPlugin hawkPlugin = this.getPlugin(pluginURL);
+        hawkPlugin.createDir();
+        String downloadLocalPath = hawkPlugin.getPluginHome()+"."+hawkPlugin.getExtension();
+        HttpUtil.download(downloadURL, new File(downloadLocalPath));
 
         return true;
     }

@@ -30,7 +30,7 @@ public interface IHawkPluginService {
 
     public String getPluginArchivePath(HawkPlugin hawkPlugin) throws HawkPluginException;
     public String getPluginRootDir();
-
+    public HawkPlugin getPlugin(String pluginArchive);
     public String getPluginHome(String pluginArchive);
 
     /**
@@ -39,6 +39,7 @@ public interface IHawkPluginService {
      * @param hawkPlugin
      * @return
      * @throws HawkPluginException
+     * @throws org.commons.event.exception.HawkEventException
      */
     public boolean extract(HawkPlugin hawkPlugin) throws HawkPluginException,HawkEventException;
 

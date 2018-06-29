@@ -75,7 +75,9 @@ public class CommandLineHawkMain {
         long start1 = System.currentTimeMillis();
         IPluginDeployer pluginDeployer = AppContainer.getInstance().getBean(PluginDeployerImpl.class);
         try{
-            pluginDeployer.deploy();
+           // pluginDeployer.deploy();
+            pluginDeployer.unDeploy();
+             
         }catch(Throwable th){
             logger.warn("failed to deploy plugins");
         }

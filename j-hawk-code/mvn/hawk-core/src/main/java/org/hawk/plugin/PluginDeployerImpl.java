@@ -31,13 +31,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author manosahu
  */
 @ScanMe(true)
-   
-   
 public class PluginDeployerImpl implements IPluginDeployer {
 
     private static final HawkLogger logger = HawkLogger.getLogger(PluginDeployerImpl.class.getName());
     @Autowired(required = true)
-       
+
     private HawkPluginServiceImpl hawkPluginServiceImpl;
 
     public HawkPluginServiceImpl getHawkPluginService() {
@@ -50,14 +48,24 @@ public class PluginDeployerImpl implements IPluginDeployer {
 
     @Override
     public boolean deploy() throws Exception {
-        System.out.println("in plugin deployment config");
+        System.out.println("in plugin deployment ");
         try {
             Set<HawkPlugin> plugins = this.getHawkPluginService().findNYIPlugins();
             this.getHawkPluginService().deploy(plugins);
-        } catch (HawkPluginException ex) {
+        } catch (HawkPluginException | HawkEventException ex) {
             logger.error(ex);
             throw new Exception(ex);
-        } catch (HawkEventException ex) {
+        }
+        return true;
+    }
+
+    @Override
+    public boolean unDeploy() throws Exception {
+        System.out.println("in plugin unDeployment ");
+        try {
+
+            this.getHawkPluginService().unDeployAll();
+        } catch (HawkPluginException | HawkEventException ex) {
             logger.error(ex);
             throw new Exception(ex);
         }

@@ -31,4 +31,5 @@ package org.hawk.plugin;
 public interface IPluginDeployer {
 
     public boolean deploy() throws Exception;
+    public boolean unDeploy() throws Exception;
 }

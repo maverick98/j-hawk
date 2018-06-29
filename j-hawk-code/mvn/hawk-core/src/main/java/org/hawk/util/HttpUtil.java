@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -159,7 +161,7 @@ public class HttpUtil {
             if (conn != null) {
 
 
-
+               
 
                 inStream = new DataInputStream(conn.getInputStream());
                 StringBuilder sb = new StringBuilder();

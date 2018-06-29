@@ -88,17 +88,17 @@
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>17.08</version>
+            <version>18.07</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-event</artifactId>
-            <version>17.08</version>
+            <version>18.07</version>
         </dependency>
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-ds</artifactId>
-            <version>17.08</version>
+            <version>18.07</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -189,7 +189,7 @@
             <version>0.8.2</version>
         </dependency>
     </dependencies>
-    <version>17.08</version>
+    <version>18.07</version>
     <properties>
         <project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
     </properties>

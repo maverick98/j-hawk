@@ -5,7 +5,6 @@
  */
 package org.hawk.executor.command.gui;
 
-import java.net.URL;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,6 @@ import org.hawk.executor.command.plugin.available.AvailablePluginHtmlJavaBean;
 import org.hawk.plugin.HawkPlugin;
 import org.hawk.plugin.IHawkPluginService;
 import org.hawk.plugin.exception.HawkPluginException;
-import org.hawk.software.SoftwareServiceImpl;
 
 /**
  *
@@ -124,9 +122,7 @@ public class PowerToolStage extends Stage {
                     installedPowerTools.add(powerToolVO);
                 });
             }
-        } catch (HawkPluginException ex) {
-            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HawkEventException ex) {
+        } catch (HawkPluginException | HawkEventException ex) {
             Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -141,9 +137,7 @@ public class PowerToolStage extends Stage {
                     downloadedPowerTools.add(powerToolVO);
                 });
             }
-        } catch (HawkPluginException ex) {
-            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HawkEventException ex) {
+        } catch (HawkPluginException | HawkEventException ex) {
             Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -158,9 +152,7 @@ public class PowerToolStage extends Stage {
                     availablePowerTools.add(powerToolVO);
                 });
             }
-        } catch (HawkPluginException ex) {
-            Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HawkEventException ex) {
+        } catch (HawkPluginException | HawkEventException ex) {
             Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

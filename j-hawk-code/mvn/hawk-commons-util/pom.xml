@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.hawkframework</groupId>
     <artifactId>hawk-commons-util</artifactId>
-    <version>17.08</version>
+    <version>18.07</version>
     <packaging>jar</packaging>
 
     <parent>

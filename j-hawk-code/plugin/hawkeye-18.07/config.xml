@@ -4,7 +4,7 @@
         <classpath>
             <jar>
                 <desc>espnhawkeye</desc>
-                <path>espnhawkeye-17.8.jar</path>
+                <path>espnhawkeye-18.07.jar</path>
             </jar>
         </classpath>
         <cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
@@ -19,10 +19,10 @@
                 <name>Manoranjan Sahu</name>
                 <website>http://www.j-hawk.in</website>
             </contributor>
-            <name>espn hawk-eye</name>
+            <name>espnhawkeye</name>
             <releaseDate>2017-08-06T11:55:45.425+05:30</releaseDate>
             <version>
-                <version>17.8</version>
+                <version>18.07</version>
             </version>
             <website>http://www.espncricinfo.com</website>
         </software>

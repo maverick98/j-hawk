@@ -4,7 +4,7 @@
     <classpath>
         <jar>
             <desc>hawkeye plugin</desc>
-            <path>hawkeye-17.8.jar</path>
+            <path>hawkeye-18.07.jar</path>
         </jar>
     </classpath>
     <configuration>
@@ -25,10 +25,10 @@
             <name>Manoranjan Sahu</name>
             <website>http://www.j-hawk.in</website>
         </contributor>
-        <name>hawk-eye</name>
+        <name>hawkeye</name>
         <releaseDate>2016-08-06T11:55:45.230+05:30</releaseDate>
         <version>
-            <version>17.8</version>
+            <version>18.07</version>
         </version>
         <website>http://www.j-hawk.in</website>
     </software>

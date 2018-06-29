@@ -53,7 +53,6 @@ import org.hawk.plugin.event.PreHawkPluginUndeploymentEvent;
 import org.hawk.plugin.exception.HawkPluginException;
 import org.hawk.plugin.metadata.Classpath;
 import org.hawk.plugin.metadata.HawkPluginMetaData;
-import org.hawk.plugin.metadata.Jar;
 import org.hawk.util.HttpUtil;
 import org.commons.string.StringUtil;
 import org.commons.event.callback.HawkEventCallbackRegistry;
@@ -90,11 +89,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
         if (pluginLoaded) {
             pluginLoaded = this.addPluginJars(hawkPlugin);
-            /*
-             if (pluginLoaded) {
-             this.loadPluginConfig(hawkPlugin);
-             }
-             */
+         
         }
         return pluginLoaded;
     }
@@ -333,7 +328,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         if (downloadedPluginArchiveFiles != null) {
             for (File downloadedPluginArchivFile : downloadedPluginArchiveFiles) {
                 HawkPlugin downloadedPlugin = new HawkPlugin(downloadedPluginArchivFile.getName(), this.getPluginRootDir());
-                    downloadedPlugins.add(downloadedPlugin);
+                downloadedPlugins.add(downloadedPlugin);
             }
         }
         return downloadedPlugins;

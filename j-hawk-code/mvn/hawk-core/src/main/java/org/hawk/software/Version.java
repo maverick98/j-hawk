@@ -18,6 +18,7 @@ package org.hawk.software;
 
 import java.util.Map;
 import java.util.regex.Pattern;
+import org.commons.string.StringUtil;
 import org.hawk.pattern.PatternMatcher;
 
 /**
@@ -27,7 +28,7 @@ import org.hawk.pattern.PatternMatcher;
 public class Version implements Comparable<Version> {
 
     private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d\\d\\.\\d\\d)\\.?(\\d?\\d?)");
-    
+
     private static final Pattern MAJOR_VERSION_PATTERN = Pattern.compile("(\\d\\d)\\.(\\d\\d)");
     private String version;
 
@@ -40,17 +41,34 @@ public class Version implements Comparable<Version> {
 
     }
 
-    public Version(String version) {
-        this.version = version;
-        this.splitVersions();
+    public static class Builder {
+
     }
 
-    private boolean splitVersions() {
-        Map<Integer, String> map = PatternMatcher.match(VERSION_PATTERN, this.getVersion());
+    public Version(String version) {
+        this.version = version;
+        /**
+         * Dont give me lecture. I know what I am doing.
+         */
+        this.splitVersions(version);
+    }
+
+    /**
+     *
+     * @param version
+     * @return
+     */
+    protected boolean splitVersions(String version) {
+        if (StringUtil.isNullOrEmpty(version)) {
+            return false;
+        }
+        Map<Integer, String> map = PatternMatcher.match(VERSION_PATTERN, version);
+
         String majorStr = map.get(1);
         String minorStr = map.get(2);
-        System.out.println(majorStr);
-        System.out.println(minorStr);
+        this.setMajorVersion(new MajorVersion(majorStr));
+        this.setMinorVersion(new MinorVersion(minorStr));
+
         return true;
     }
     private MajorVersion majorVersion;
@@ -93,26 +111,30 @@ public class Version implements Comparable<Version> {
         public void setMonth(Integer month) {
             this.month = month;
         }
-        
+
         public MajorVersion(String version) {
             super(version);
-            Map<Integer, String> map = PatternMatcher.match(MAJOR_VERSION_PATTERN, this.getVersion());
+
+        }
+
+        @Override
+        protected boolean splitVersions(String version) {
+            if (StringUtil.isNullOrEmpty(version)) {
+                return false;
+            }
+            Map<Integer, String> map = PatternMatcher.match(MAJOR_VERSION_PATTERN, version);
             this.setYear(Integer.parseInt(map.get(1)));
             this.setMonth(Integer.parseInt(map.get(2)));
-       
+            return true;
         }
 
         public int compareTo(MajorVersion otherVersion) {
-            
+
             return this.getYear().compareTo(otherVersion.getYear()) == 0
-                    ?
-                        this.getMonth().compareTo(otherVersion.getMonth()) == 0
-                            ?
-                                0
-                            :
-                                this.getMonth().compareTo(otherVersion.getMonth())
-                    :
-                        this.getYear().compareTo(otherVersion.getYear());
+                    ? this.getMonth().compareTo(otherVersion.getMonth()) == 0
+                    ? 0
+                    : this.getMonth().compareTo(otherVersion.getMonth())
+                    : this.getYear().compareTo(otherVersion.getYear());
         }
 
         @Override
@@ -132,11 +154,19 @@ public class Version implements Comparable<Version> {
         public void setDate(Integer date) {
             this.date = date;
         }
-        
+
         public MinorVersion(String version) {
             super(version);
-            this.setDate(Integer.parseInt(this.getVersion()));
-            
+
+        }
+
+        @Override
+        protected boolean splitVersions(String version) {
+            if (StringUtil.isNullOrEmpty(version)) {
+                return false;
+            }
+            this.setDate(Integer.parseInt(version));
+            return true;
         }
 
         public int compareTo(MinorVersion otherVersion) {
@@ -190,8 +220,8 @@ public class Version implements Comparable<Version> {
     public int compareTo(Version otherVersion) {
         return this.getMajorVersion().compareTo(otherVersion.getMajorVersion()) == 0
                 ? this.getMinorVersion().compareTo(otherVersion.getMinorVersion()) == 0
-                        ? 0
-                        : this.getMinorVersion().compareTo(otherVersion.getMinorVersion())
+                ? 0
+                : this.getMinorVersion().compareTo(otherVersion.getMinorVersion())
                 : this.getMajorVersion().compareTo(otherVersion.getMajorVersion());
 
     }

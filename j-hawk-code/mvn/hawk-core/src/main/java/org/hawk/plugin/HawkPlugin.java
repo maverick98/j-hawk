@@ -31,6 +31,9 @@ import static org.hawk.plugin.constant.HawkPluginConstant.PLUGINEXTENSIONS;
 import org.hawk.plugin.exception.HawkPluginException;
 import org.hawk.plugin.metadata.HawkPluginMetaData;
 import org.commons.string.StringUtil;
+import static org.hawk.plugin.constant.HawkPluginConstant.SEPARATOR;
+
+import org.hawk.software.Version;
 
 /**
  *
@@ -47,9 +50,20 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
     private Object config;
     private String name;
 
+    private Version version;
+
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setVersion(Version version) {
+        this.version = version;
+    }
+
+    public Version getVersion() {
+        return version;
+    }
+
     private String extension;
     private Boolean validated = false;
     private Boolean extracted = false;
@@ -58,8 +72,8 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
 
     private static final Pattern PLG_REVERSE_PATTERN = Pattern.compile("(glp)\\.(.*)");
     private static final Pattern ZIP_REVERSE_PATTERN = Pattern.compile("(piz)\\.(.*)");
-   
-    
+
+    private static final Pattern NAME_VERSION_PATTERN = Pattern.compile("(.*)\\-(.*)");
 
     public Boolean getConfigLoaded() {
         return configLoaded;
@@ -92,12 +106,20 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
     public void setValidated(Boolean validated) {
         this.validated = validated;
     }
-   
+
     public String getAbsolutePath(String path) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getPluginHome());
         sb.append(File.separator);
         sb.append(path);
+        return sb.toString();
+    }
+
+    public String getPluginHome() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getPluginRootDir());
+        sb.append(File.separator);
+        sb.append(this.getNameWithVersion());
         return sb.toString();
     }
 
@@ -108,7 +130,7 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
     public void setConfig(Object config) {
         this.config = config;
     }
-   
+
     public HawkPlugin(String pluginArchive) throws HawkPluginException {
         this(pluginArchive, PLUGINDIR);
     }
@@ -160,15 +182,7 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
         this.pluginRootDir = pluginRootDir;
     }
 
-    public String getPluginHome() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getPluginRootDir());
-        sb.append(File.separator);
-        sb.append(this.getName());
-        return sb.toString();
-    }
-    
-    public boolean createDir(){
+    public boolean createDir() {
         File parentDir = new File(this.getPluginHome());
         return parentDir.mkdirs();
     }
@@ -184,44 +198,58 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
     public boolean isExtracted() {
         return this.isExtractedJustNow() ? true : this.metaDataXMLExists();
     }
-    private String reverse(String str){
-        
-        char [] strArr = str.toCharArray();
-        for(int i = 0; i < strArr.length/2; i++){
-            char c = strArr[i] ;
-            strArr[i] = strArr[strArr.length-1 -i];
-            strArr[strArr.length-1 -i] = c;
-            
+
+    private String reverse(String str) {
+
+        char[] strArr = str.toCharArray();
+        for (int i = 0; i < strArr.length / 2; i++) {
+            char c = strArr[i];
+            strArr[i] = strArr[strArr.length - 1 - i];
+            strArr[strArr.length - 1 - i] = c;
+
         }
         return new String(strArr);
     }
-    public boolean extractInfo(){
+
+    public boolean extractInfo() {
         LinePattern plgLinePattern = new LinePattern();
         plgLinePattern.setSequence(1);
         plgLinePattern.setPattern(PLG_REVERSE_PATTERN);
-        
+
         LinePattern zipLinePattern = new LinePattern();
         zipLinePattern.setSequence(2);
         zipLinePattern.setPattern(ZIP_REVERSE_PATTERN);
-        
+
         Set<LinePattern> all = new TreeSet<>();
         all.add(plgLinePattern);
         all.add(zipLinePattern);
-        
-        Map<Integer,String> map = PatternMatcher.match(all, this.reverse(this.getPluginArchive()));
-        
+
+        Map<Integer, String> map = PatternMatcher.match(all, this.reverse(this.getPluginArchive()));
+
         String ext = this.reverse(map.get(1));
         this.setExtension(ext);
-        String name = this.reverse(map.get(2));
-        this.setName(name);
+        String nameWithVersion = this.reverse(map.get(2));
+
+        Map<Integer, String> nameVersionMap = PatternMatcher.match(NAME_VERSION_PATTERN, nameWithVersion);
+        String pluginName = nameVersionMap.get(1);
+        this.setName(pluginName);
+        String versionStr = nameVersionMap.get(2);
+        this.setVersion(new Version(versionStr));
+
         return true;
     }
-   
-    
+
+    public String getNameWithVersion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getName());
+        sb.append(SEPARATOR);
+        sb.append(this.getVersion().getVersion());
+        return sb.toString();
+    }
+
     public String getName() {
         return name;
     }
-    
 
     public Integer getExtLength() {
         return this.getExtension().length();

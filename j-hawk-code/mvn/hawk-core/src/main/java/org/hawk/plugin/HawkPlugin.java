@@ -49,7 +49,7 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
     private boolean extractedJustNow = false;
     private Object config;
     private String name;
-
+    private PluginState state = PluginState.NONE;
     private Version version;
 
     public void setName(String name) {
@@ -75,6 +75,14 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
 
     private static final Pattern NAME_VERSION_PATTERN = Pattern.compile("(.*)\\-(.*)");
 
+    public PluginState getState() {
+        return state;
+    }
+
+    public void setState(PluginState state) {
+        this.state = state;
+    }
+    
     public Boolean getConfigLoaded() {
         return configLoaded;
     }
@@ -278,6 +286,7 @@ public class HawkPlugin extends HtmlJavaBean implements Comparable<HawkPlugin> {
             throw new HawkPluginException("invalid hawk plugin");
         }
         isValid = this.isValidExtension();
+        this.setState(PluginState.VALIDATED);
         return isValid;
     }
 

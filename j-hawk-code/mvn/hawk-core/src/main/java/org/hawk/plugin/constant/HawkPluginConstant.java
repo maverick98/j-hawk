@@ -22,7 +22,7 @@ package org.hawk.plugin.constant;
  */
 public interface HawkPluginConstant {
 
-    String[] PLUGINEXTENSIONS = new String []{"plg","zip"};
+    String[] PLUGINEXTENSIONS = new String []{"zip"};
     String PLUGINDIR = System.getProperty("user.home")+System.getProperty("file.separator")+"j-hawk"+System.getProperty("file.separator")+"plugin";
     String METADATAXML = "metadata.xml";
     String SEPARATOR="-";

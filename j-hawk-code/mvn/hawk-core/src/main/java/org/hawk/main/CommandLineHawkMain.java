@@ -61,7 +61,6 @@ public class CommandLineHawkMain {
         try {
             HawkConfigHelper.configure();
         } catch (Exception ex) {
-            ex.printStackTrace();
             logger.error("error while configuring hawk", ex);
             throw new Exception(ex);
         }
@@ -75,9 +74,7 @@ public class CommandLineHawkMain {
         long start1 = System.currentTimeMillis();
         IPluginDeployer pluginDeployer = AppContainer.getInstance().getBean(PluginDeployerImpl.class);
         try{
-           // pluginDeployer.deploy();
-            pluginDeployer.unDeploy();
-             
+            pluginDeployer.deploy();
         }catch(Throwable th){
             logger.warn("failed to deploy plugins");
         }

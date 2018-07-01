@@ -32,6 +32,7 @@ import org.commons.event.exception.HawkEventException;
 import org.hawk.executor.command.plugin.available.AvailablePluginHtmlJavaBean;
 import org.hawk.plugin.HawkPlugin;
 import org.hawk.plugin.IHawkPluginService;
+import org.hawk.plugin.PluginState;
 import org.hawk.plugin.exception.HawkPluginException;
 
 /**
@@ -58,9 +59,34 @@ public class PowerToolStage extends Stage {
         Tab tab = new Tab();
         tab.setClosable(false);
         HBox hbox = new HBox();
-
+        Button downloadButton = new Button();
         tab.setText("Available");
         TableView availTableView = this.getTabView();
+        availTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                System.out.println(newSelection);
+                PowerToolVO ptVO = (PowerToolVO) newSelection;
+                if (ptVO.getHawkPlugin() == null) {
+                    downloadButton.setText("Download");
+                } else {
+                    switch (ptVO.getHawkPlugin().getState()) {
+                        case METADATALOADED:
+                            downloadButton.setText("Install");
+                            break;
+                        case AVAILABLE:
+                            downloadButton.setText("Download");
+                            break;
+                        case INSTALLED:
+                            downloadButton.setText("Uninstall");
+                            break;
+                        case UNINSTALLED:
+                            downloadButton.setText("Download");
+                            break;
+                    }
+                }
+                //  availTableView.getSelectionModel().clearSelection();
+            }
+        });
         availTableView.setItems(availablePowerTools);
         populateAvailablePowerTools();
         hbox.getChildren().add(availTableView);
@@ -71,15 +97,26 @@ public class PowerToolStage extends Stage {
         description.setText("Available");
         vbox.getChildren().add(description);
         description.setPrefHeight(400);
-        Button downloadButton = new Button("Download");
+
         vbox.getChildren().add(downloadButton);
         downloadButton.setAlignment(Pos.BASELINE_RIGHT);
         downloadButton.setOnAction(event -> {
             IHawkPluginService hawkPluginService = AppContainer.getInstance().getBean(IHawkPluginService.class);
             try {
                 PowerToolVO selectedPowerToolVO = (PowerToolVO) availTableView.getSelectionModel().getSelectedItem();
-                AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
-                hawkPluginService.downloadPlugin("http://j-hawk.sourceforge.net/hawk-eye.zip");
+                if (selectedPowerToolVO.getHawkPlugin() == null) {
+                    AvailablePluginHtmlJavaBean availablePluginHtmlJavaBean = selectedPowerToolVO.getAvailablePluginHtmlJavaBean();
+                    hawkPluginService.downloadPlugin("http://j-hawk.sourceforge.net/hawk-eye.zip");
+                    downloadButton.setText("Install");
+                } else {
+                    if (selectedPowerToolVO.getHawkPlugin().getState() == PluginState.DOWNLOADED) {
+                        hawkPluginService.deploy(selectedPowerToolVO.getHawkPlugin());
+                    } else if (selectedPowerToolVO.getHawkPlugin().getState() == PluginState.INSTALLED) {
+                        hawkPluginService.unDeploy(selectedPowerToolVO.getHawkPlugin());
+                    }else if (selectedPowerToolVO.getHawkPlugin().getState() == PluginState.METADATALOADED) {
+                        hawkPluginService.deploy(selectedPowerToolVO.getHawkPlugin());
+                    }
+                }
             } catch (HawkEventException | HawkPluginException ex) {
                 Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -148,6 +185,20 @@ public class PowerToolStage extends Stage {
             Set<AvailablePluginHtmlJavaBean> availablePluginHtmlJavaBeans = hawkPluginService.showAvailablePlugins();
             if (availablePluginHtmlJavaBeans != null) {
                 availablePluginHtmlJavaBeans.forEach(hawkPlugin -> {
+                    PowerToolVO powerToolVO = new PowerToolVO(hawkPlugin);
+                    availablePowerTools.add(powerToolVO);
+                });
+            }
+            Set<HawkPlugin> downloadedPlugins = hawkPluginService.findDownloadedPlugins();
+            if (downloadedPlugins != null) {
+                downloadedPlugins.forEach(hawkPlugin -> {
+                    try {
+                        hawkPluginService.loadPluginMetaData(hawkPlugin);
+                    } catch (HawkPluginException ex) {
+                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (HawkEventException ex) {
+                        Logger.getLogger(PowerToolStage.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     PowerToolVO powerToolVO = new PowerToolVO(hawkPlugin);
                     availablePowerTools.add(powerToolVO);
                 });

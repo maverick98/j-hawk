@@ -89,8 +89,9 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
         if (pluginLoaded) {
             pluginLoaded = this.addPluginJars(hawkPlugin);
-         
+
         }
+        hawkPlugin.setState(PluginState.LOADED);
         return pluginLoaded;
     }
 
@@ -99,7 +100,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         try {
             String xml = hawkPlugin.getMetaDataXMLPath();
             hawkPluginMetaData = (HawkPluginMetaData) XMLUtil.unmarshal(xml, HawkPluginMetaData.class);
-
+            hawkPlugin.setState(PluginState.METADATALOADED);
         } catch (Throwable th) {
 
             th.printStackTrace();
@@ -173,6 +174,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
                 logger.info("extracting the plugin " + hawkPlugin);
                 isExtracted = this.extract(hawkPlugin);
                 hawkPlugin.setExtracted(isExtracted);
+                hawkPlugin.setState(PluginState.EXTRACTED);
                 this.getHawkPluginCallbackRegistry().dispatch(HawkPluginExtractionEvent.class, hawkEventPayload);
                 if (isExtracted) {
 
@@ -186,6 +188,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
                     this.getHawkPluginCallbackRegistry().dispatch(HawkPluginLoadingEvent.class, hawkEventPayload);
 
                     if (isLoaded) {
+                        hawkPlugin.setState(PluginState.INSTALLED);
                         logger.info("plugin info loaded successfully!!!");
                     } else {
                         logger.info("unable to load plugin info");
@@ -249,6 +252,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             this.getHawkPluginCallbackRegistry().dispatch(PreHawkPluginUndeploymentEvent.class, hawkEventPayload);
             boolean isDeleted = this.remove(hawkPlugin);
             if (isDeleted) {
+                hawkPlugin.setState(PluginState.UNINSTALLED);
                 logger.info("plugin " + hawkPlugin + " is unDeployed successfully!!!");
                 //do the actual work    
                 isUnDeployed = true;
@@ -315,6 +319,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
                 Logger.getLogger(HawkPluginServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             hawkPlugin.setName(availablePluginHtmlJavaBean.getPlugin());
+            hawkPlugin.setState(PluginState.AVAILABLE);
             availablePlugins.add(hawkPlugin);
         });
 
@@ -352,7 +357,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
             HawkPlugin hawkPlugin = itr.next();
             if (!hawkPlugin.isExtracted()) {
                 itr.remove();
-            }else{
+            } else {
                 this.loadPluginMetaData(hawkPlugin);
             }
         }
@@ -424,6 +429,25 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     }
 
     @Override
+    public boolean remove(Set<HawkPlugin> hawkPlugins) throws HawkPluginException, HawkEventException {
+        if (hawkPlugins == null || hawkPlugins.isEmpty()) {
+            return false;
+        }
+        hawkPlugins.forEach(hawkPlugin -> {
+
+            try {
+                this.remove(hawkPlugin);
+            } catch (HawkPluginException ex) {
+                logger.error("unable to remove plugin " + hawkPlugin);
+            } catch (HawkEventException ex) {
+                logger.error("unable to remove plugin " + hawkPlugin);
+            }
+
+        });
+        return true;
+    }
+
+    @Override
     public boolean remove(HawkPlugin hawkPlugin) throws HawkPluginException, HawkEventException {
         if (hawkPlugin == null || !hawkPlugin.validate()) {
             throw new HawkPluginException("Illegal args");
@@ -432,7 +456,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         String pluginHome = hawkPlugin.getPluginHome();
 
         result = FileUtil.remove(pluginHome);
-
+        hawkPlugin.setState(PluginState.REMOVED);
         return result;
     }
 
@@ -440,6 +464,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
     public String getPluginRootDir() {
         return PLUGINDIR;
     }
+
     @Override
     public HawkPlugin getPlugin(String pluginURL) {
         File file = new File(pluginURL);
@@ -521,12 +546,13 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
         return true;
     }
+
     @Override
     public boolean downloadPlugin(String pluginURL) throws HawkPluginException, HawkEventException {
         if (StringUtil.isNullOrEmpty(pluginURL)) {
             throw new IllegalArgumentException("illegal args");
         }
-       
+
         URL downloadURL;
         try {
             downloadURL = new URL(pluginURL);
@@ -536,7 +562,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         }
         HawkPlugin hawkPlugin = this.getPlugin(pluginURL);
         hawkPlugin.createDir();
-        String downloadLocalPath = hawkPlugin.getPluginHome()+"."+hawkPlugin.getExtension();
+        String downloadLocalPath = hawkPlugin.getPluginHome() + "." + hawkPlugin.getExtension();
         HttpUtil.download(downloadURL, new File(downloadLocalPath));
 
         return true;

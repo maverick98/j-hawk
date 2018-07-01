@@ -48,9 +48,11 @@ public class PluginDeployerImpl implements IPluginDeployer {
 
     @Override
     public boolean deploy() throws Exception {
-        System.out.println("in plugin deployment ");
+       
         try {
-            Set<HawkPlugin> plugins = this.getHawkPluginService().findNYIPlugins();
+            
+            Set<HawkPlugin> plugins = this.getHawkPluginService().findDownloadedPlugins();
+            this.getHawkPluginService().remove(plugins);
             this.getHawkPluginService().deploy(plugins);
         } catch (HawkPluginException | HawkEventException ex) {
             logger.error(ex);

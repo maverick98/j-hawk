@@ -169,7 +169,7 @@ public class FunctionScriptCache extends MultiLineScriptCache implements IFuncti
         if (functionScript != null) {
             if (!HawkUtil.isMainThread()) {
 
-                logger.info("Executing in thread {" + Thread.currentThread().getName() + "}");
+                //logger.info("Executing in thread {" + Thread.currentThread().getName() + "}");
 
                 functionScript = this.cloneFunctionScript(functionScript);
 

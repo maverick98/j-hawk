@@ -1,0 +1,17 @@
+    /*
+     * multi-line comment
+     */
+    function main()
+ {
+       
+	exec analyze()
+
+}
+
+
+function analyze()
+{
+    var oppAustrlia[] = `exec InningFetcher->equalOppositionName("Australia")`
+    echo oppAustralia
+  
+}

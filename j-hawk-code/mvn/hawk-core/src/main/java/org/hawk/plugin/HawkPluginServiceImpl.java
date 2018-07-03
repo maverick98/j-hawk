@@ -188,7 +188,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
                     this.getHawkPluginCallbackRegistry().dispatch(HawkPluginLoadingEvent.class, hawkEventPayload);
 
                     if (isLoaded) {
-                        hawkPlugin.setState(PluginState.INSTALLED);
+                        
                         logger.info("plugin info loaded successfully!!!");
                     } else {
                         logger.info("unable to load plugin info");
@@ -208,6 +208,7 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
         System.out.println("in core:::" + this.getHawkPluginCallbackRegistry());
         if (isExtracted) {
             isDeployed = this.getHawkPluginCallbackRegistry().dispatch(PostHawkPluginDeploymentEvent.class, hawkEventPayload);
+            hawkPlugin.setState(PluginState.INSTALLED);
             if (isDeployed) {
                 System.out.println(hawkPlugin.getPluginMetaData().getSoftware().getAbout());
             }

@@ -33,6 +33,9 @@ public class HawkPluginModuleFactory {
      private static final HawkLogger logger = HawkLogger.getLogger(HawkPluginModuleFactory.class.getName());
     private static final Map<Integer, IPluginModule> cachedHawkPluginModuleMap =  new TreeMap<>();
    
+     public static void refreshHawkPluginModules(HawkPluginModule hawkPluginModule) throws HawkPluginException{
+         cachedHawkPluginModuleMap.put(cachedHawkPluginModuleMap.size(),hawkPluginModule);
+     }
     public static Map<Integer, IPluginModule> getCachedHawkPluginModules() throws HawkPluginException{
         if(cachedHawkPluginModuleMap != null && !cachedHawkPluginModuleMap.isEmpty()){
             return cachedHawkPluginModuleMap;

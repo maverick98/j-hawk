@@ -9,21 +9,21 @@
 package org.hawk.module.plugin.cache;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.common.di.AppContainer;
 import org.commons.event.HawkEvent;
 import org.commons.event.HawkEventPayload;
 import org.commons.event.callback.IHawkEventCallback;
-import org.commons.event.exception.HawkEventException;
 import org.commons.reflection.ClazzUtil;
 import org.commons.string.StringUtil;
-import org.hawk.config.HawkConfigHelper;
 import org.hawk.logger.HawkLogger;
 import org.hawk.module.IModule;
 import org.hawk.module.cache.AbstractModuleCache;
-import org.hawk.module.core.HawkCoreModuleFactory;
-import org.hawk.module.core.ICoreModule;
+import org.hawk.module.plugin.HawkPluginModule;
 import org.hawk.module.plugin.HawkPluginModuleFactory;
 import org.hawk.module.plugin.IPluginModule;
 import org.hawk.plugin.HawkPlugin;
@@ -39,6 +39,7 @@ import org.hawk.plugin.event.PreHawkPluginUndeploymentEvent;
 import org.hawk.plugin.event.callback.IHawkPluginCallbackCore;
 import org.hawk.plugin.exception.HawkPluginException;
 import org.hawk.plugin.metadata.HawkPluginMetaData;
+import org.hawk.plugin.metadata.PluginModuleClazz;
 import org.hawk.xml.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,7 +53,7 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
     private PluginDeploymentCallback pluginDeployementCallback = new PluginDeploymentCallback();
 
     @Autowired(required = true)
-       
+
     private HawkPluginServiceImpl hawkPluginServiceImpl;
 
     @Override
@@ -75,14 +76,14 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
     private boolean cachePluginModulesInternal() throws Exception {
         boolean cached = false;
         Set<HawkPlugin> installedPlugins = null;
-        try{
-            installedPlugins  = this.getHawkPluginService().findInstalledPlugins();
-        }catch (Throwable ex){
+        try {
+            installedPlugins = this.getHawkPluginService().findInstalledPlugins();
+        } catch (Throwable ex) {
             ex.printStackTrace();
             //logger.warn("could not find installed plugins",new Object[]{ex.getMessage()});
             return false;
         }
-       
+
         if (installedPlugins != null && !installedPlugins.isEmpty()) {
             this.resetModules();
             cached = this.refreshPluginModules();
@@ -247,12 +248,12 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
             if (hawkPlugin.getLoaded()) {
                 try {
                     IHawkPluginConfig hawkPluginConfig = this.loadPluginConfig(hawkPlugin);
-                   
-                  
+
                     hawkPluginConfig.configure(hawkPlugin);
-             } catch (Throwable ex) {
+
+                } catch (Throwable ex) {
                     throw new HawkPluginException(ex);
-             }
+                }
 
             } else {
                 System.out.println("hawk is not loaded .... bad");
@@ -278,6 +279,18 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
                 //  hawkPluginConfig = ClazzUtil.instantiateFromSpring(hawkPluginMetaData.getConfiguration().getHawkConfigClazz(), IHawkPluginConfig.class);
                 hawkPluginConfig = (IHawkPluginConfig) AppContainer.getInstance().getBean(hawkPluginConfigClazz);
                 hawkPluginConfig.onLoad(hawkPlugin);
+
+                List<PluginModuleClazz> pluginModuleClazz = hawkPluginMetaData.getPluginModuleClazz();
+
+                pluginModuleClazz.forEach(pmc -> {
+                    try {
+                        HawkPluginModule moduleInstance = ClazzUtil.instantiate(pmc.getClazz(), HawkPluginModule.class);
+                        HawkPluginModuleFactory.refreshHawkPluginModules(moduleInstance);
+                    } catch (Exception ex) {
+                        Logger.getLogger(PluginModuleCache.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                });
 
             } catch (Exception ex) {
                 ex.printStackTrace();

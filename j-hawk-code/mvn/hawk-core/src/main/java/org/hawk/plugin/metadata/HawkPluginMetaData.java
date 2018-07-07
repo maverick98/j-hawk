@@ -16,7 +16,9 @@
  */
 package org.hawk.plugin.metadata;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.commons.file.FileUtil;
 
@@ -39,6 +41,19 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     private boolean bgRun;
     private String downloadURL;
     private Configuration configuration;
+    
+    private List<PluginModuleClazz> pluginModuleClazz = new ArrayList<>();
+
+    public List<PluginModuleClazz> getPluginModuleClazz() {
+        return pluginModuleClazz;
+    }
+
+    public void setPluginModuleClazz(List<PluginModuleClazz> pluginModuleClazz) {
+        this.pluginModuleClazz = pluginModuleClazz;
+    }
+    
+    
+    
 
     public Configuration getConfiguration() {
         return configuration;

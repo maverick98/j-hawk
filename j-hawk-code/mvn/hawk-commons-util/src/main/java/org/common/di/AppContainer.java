@@ -226,7 +226,7 @@ public class AppContainer {
 
     public List<Class> getSubTypesOf(Class parentClazz) {
         List<Class> result = this.subTypesMap.get(parentClazz);
-        if (result != null) {
+        if (result != null && !result.isEmpty()) {
             return result;
         }
         result = new ArrayList<>();

@@ -31,6 +31,7 @@ import org.hawk.plugin.event.PreHawkPluginUndeploymentEvent;
 import org.common.di.ScanMe;
 import org.commons.reflection.Create;
 import org.commons.event.callback.HawkEventCallbackRegistry;
+import org.hawk.module.cache.AllModuleCache;
 import org.hawk.module.plugin.cache.IPluginModuleCache;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -101,13 +102,13 @@ public class HawkModuleConfig extends DefaultHawkConfig {
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      PreHawkPluginDeploymentEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      PreHawkPluginUndeploymentEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             
@@ -115,31 +116,31 @@ public class HawkModuleConfig extends DefaultHawkConfig {
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      PostHawkPluginDeploymentEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      PostHawkPluginUndeploymentEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      HawkPluginValidationEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
              this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      HawkPluginExtractionEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             this.getHawkPluginCallbackRegistry().register
                                                  (
                                                      HawkPluginLoadingEvent.class, 
-                                                     this.getPluginModuleCache()
+                                                     AppContainer.getInstance().getBean(AllModuleCache.class).getPluginModuleCache()
                                                          .getPluginDeployementCallback()
                                                  );
             

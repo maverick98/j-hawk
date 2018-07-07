@@ -1,7 +1,5 @@
-    /*
-     * multi-line comment
-     */
-    function main()
+
+ function main()
  {
        
 	exec analyze()

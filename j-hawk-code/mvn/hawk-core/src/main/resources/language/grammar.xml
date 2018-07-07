@@ -67,7 +67,7 @@
             <parsingSequence>4000</parsingSequence>
             <linePattern>
                 <sequence>1</sequence>
-                <regEx><![CDATA[   \s*exec\s*(([a-z|A-Z]{1,}[a-z|A-Z|\d]*)-?>?([a-z|A-Z]{1,}[a-z|A-Z|\d]*))\s*\(\s*(.*)\s*\)\s*  ]]></regEx>
+                <regEx><![CDATA[   \s*exec\s*(([a-z|A-Z]{1,}[a-z|A-Z|\d]*)\s*-?>?\s*([a-z|A-Z]{1,}[a-z|A-Z|\d]*))\s*\(\s*(.*)\s*\)\s*  ]]></regEx>
             </linePattern>
         </execModule>
         

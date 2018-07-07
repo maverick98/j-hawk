@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import org.commons.ds.exp.AbstractExpressionServiceImpl;
+import org.commons.ds.exp.InfixExpression;
 import org.commons.string.StringUtil;
 import static org.hawk.ds.exp.HawkDSConstant.ARRAY_EXISTENCE_PATTERN;
 import static org.hawk.ds.exp.HawkDSConstant.ASSIGNMENT_PATTERN;
@@ -118,6 +119,14 @@ public class HawkExpressionServiceImpl extends AbstractExpressionServiceImpl {
         }
 
         return sb.toString();
+    }
+    
+     public static void main(String args[]) throws Exception {
+       
+        String equation = "`exec InningFetcher->equalOppositionName(\"Australia\")`";
+        HawkExpressionServiceImpl hawk  = new HawkExpressionServiceImpl();
+        InfixExpression infix =  hawk.toInfix(equation);
+        
     }
 
 }

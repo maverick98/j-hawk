@@ -142,7 +142,8 @@ public class ElementFactory {
 
     public static void main(String args[]) throws Exception {
         ElementFactory.getInstance().cacheParsingSequence();
-
+        String equation = "var oppAustrlia[] = `exec InningFetcher->equalOppositionName(\"Australia\")`";
+        List<IElement> elements =  ElementFactory.getInstance().parseElements(equation);
         //System.out.println(ElementFactory.getInstance().parserMap);
         ElementFactory.getInstance().show();
     }

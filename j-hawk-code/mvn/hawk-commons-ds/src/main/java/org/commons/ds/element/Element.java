@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.lang.model.element.VariableElement;
 import org.apache.log4j.Logger;
 import org.commons.ds.exp.IObject;
 import org.commons.ds.operator.OperatorEnum;
@@ -41,7 +40,7 @@ public abstract class Element implements Comparable, IElement {
      */
     private static final Pattern ASSIGNMENT_PATTERN = Pattern.compile("(?<!=)=(?!=)(.*)");
 
-    private static Map<String, String> equationCache = new HashMap<String, String>();
+    private static Map<String, String> equationCache = new HashMap<>();
     /**
      * Raw element data.
      */
@@ -99,10 +98,10 @@ public abstract class Element implements Comparable, IElement {
     }
 
     public static void reset() {
-        equationCache = new HashMap<String, String>();
+        equationCache = new HashMap<>();
     }
 
-    private static final Map<String, Boolean> operandCache = new HashMap<String, Boolean>();
+    private static final Map<String, Boolean> operandCache = new HashMap<>();
 
     @Override
     public final int hashCode() {
@@ -111,7 +110,7 @@ public abstract class Element implements Comparable, IElement {
 
     @Override
     public String toString() {
-        return "" + element;
+        return this.getClass()+":" + element;
     }
 
     @Override

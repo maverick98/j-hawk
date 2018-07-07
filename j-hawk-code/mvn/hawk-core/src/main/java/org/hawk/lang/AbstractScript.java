@@ -280,7 +280,7 @@ public abstract class AbstractScript implements IScript {
             }
             
                 if ( prevOprNotReference &&element.shouldEvaluate()) {
-                    String operand = element.toString();
+                    String operand = element.getElement();
 
                     Variable operandValue = null;
 

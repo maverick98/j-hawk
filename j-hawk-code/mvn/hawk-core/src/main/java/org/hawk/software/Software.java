@@ -29,11 +29,30 @@ public class Software implements Comparable<Software> {
     private String name;
     private String category;
     private Version version;
+    private String pluginName;
+    private Version pluginVersion;
     private Date releaseDate = new Date();
     private Contributor contributor;
     private String about;
     private String website;
 
+    public String getPluginName() {
+        return pluginName;
+    }
+
+    public void setPluginName(String pluginName) {
+        this.pluginName = pluginName;
+    }
+    
+    public Version getPluginVersion() {
+        return pluginVersion;
+    }
+
+    public void setPluginVersion(Version pluginVersion) {
+        this.pluginVersion = pluginVersion;
+    }
+
+    
     public String getCategory() {
         return category;
     }

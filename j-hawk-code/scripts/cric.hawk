@@ -9,7 +9,14 @@
 
 function analyze()
 {
-    var oppAustrlia[] = `exec InningFetcher->equalOppositionName("Australia")`
-    echo oppAustralia
+    var oppAustralia[] = `exec InningFetcher->equalOppositionName("Australia")`
+
+
+    for ( var i=1;i<= `exec SystemModule->length(oppAustralia)` ; i=i+1)
+    {
+
+           echon oppAustralia[i]->runs
+   }
+
   
 }

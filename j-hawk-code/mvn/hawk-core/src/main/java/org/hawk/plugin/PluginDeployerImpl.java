@@ -49,9 +49,13 @@ public class PluginDeployerImpl implements IPluginDeployer {
 
     @Override
     public boolean deploy() throws Exception {
-       
+
         try {
-            FileUtil.copy("hawkeye-18.07.zip", this.getHawkPluginService().getPluginRootDir());
+            try {
+                FileUtil.copy("hawkeye-18.07.zip", this.getHawkPluginService().getPluginRootDir());
+            } catch (Exception ex) {
+
+            }
             Set<HawkPlugin> plugins = this.getHawkPluginService().findDownloadedPlugins();
             this.getHawkPluginService().remove(plugins);
             this.getHawkPluginService().deploy(plugins);

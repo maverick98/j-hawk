@@ -31,6 +31,7 @@ import org.hawk.lang.singleline.pattern.LinePattern;
 import org.hawk.logger.HawkLogger;
 import org.hawk.output.HawkOutput;
 import org.common.di.ScanMe;
+import org.hawk.lang.object.IObjectScript;
 /**
  * <p>This echoes message in the console 
  * e.g.<br>
@@ -97,9 +98,12 @@ public class EchoNScript extends EchoScript{
     */
     @Override
     public IScript execute() throws Exception {
-        String echoOutput;
+        String echoOutput="";
         if(this.isCandidateForEvaluation()){
-            echoOutput = this.evaluateLocalVariable(this.getMessage()).toUI();
+            IObjectScript result = this.evaluateLocalVariable(this.getMessage());
+            if(result != null){
+                echoOutput = result.toUI();
+            }
         }else{
             echoOutput = this.getMessage();
         }

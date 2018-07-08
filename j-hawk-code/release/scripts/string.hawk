@@ -1,7 +1,0 @@
-function main()
-{
-  var x = "Nikola Tesla"
-  var d =  `exec charAt(x,5)`
-  echo d
-
-}

@@ -622,7 +622,7 @@ public class ArrayDeclScript  extends SingleLineScript implements IObjectScript{
 
     @Override
     public Object toJava() throws Exception {
-        return this;
+        return this.isInitialized() ? this : this.getRhsArrayDeclScript().toJava();
     }
 
     @Override

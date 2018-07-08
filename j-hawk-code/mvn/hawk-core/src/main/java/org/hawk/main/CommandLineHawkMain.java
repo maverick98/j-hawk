@@ -67,7 +67,7 @@ public class CommandLineHawkMain {
        
         
         HawkOutput hawkOutput = AppContainer.getInstance().getBean(HawkOutput.class);
-            hawkOutput.setHawkOutputWriter(new DefaultHawkOutputWriter());
+        hawkOutput.setHawkOutputWriter(new DefaultHawkOutputWriter());
         
         long diff1 = System.currentTimeMillis() - start;
         System.out.println("Configuration took {" + diff1 + "}ms");

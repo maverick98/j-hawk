@@ -45,7 +45,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>org.hawk.main.Main</mainClass>
+                            <mainClass>org.hawk.main.CommandLineHawkMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

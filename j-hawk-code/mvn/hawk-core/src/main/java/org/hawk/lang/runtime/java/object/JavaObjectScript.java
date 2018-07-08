@@ -333,8 +333,11 @@ public class JavaObjectScript extends SingleLineScript implements IObjectScript{
     }
 
     @Override
-    public IHawkObject refer(IHawkObject otherScript) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IHawkObject refer(IHawkObject other) throws Exception {
+       IObjectScript otherScript = (IObjectScript)other;
+       String refree = otherScript.getVariable().getName();
+       IObjectScript objectScript = this.getMember(refree);
+       return objectScript;
     }
 
     @Override

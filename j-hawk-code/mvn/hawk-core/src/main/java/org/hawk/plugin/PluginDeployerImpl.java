@@ -24,6 +24,7 @@ import org.hawk.logger.HawkLogger;
 import org.hawk.plugin.exception.HawkPluginException;
 import org.commons.reflection.Create;
 import org.common.di.ScanMe;
+import org.commons.file.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -50,7 +51,7 @@ public class PluginDeployerImpl implements IPluginDeployer {
     public boolean deploy() throws Exception {
        
         try {
-            
+            FileUtil.copy("hawkeye-18.07.zip", this.getHawkPluginService().getPluginRootDir());
             Set<HawkPlugin> plugins = this.getHawkPluginService().findDownloadedPlugins();
             this.getHawkPluginService().remove(plugins);
             this.getHawkPluginService().deploy(plugins);

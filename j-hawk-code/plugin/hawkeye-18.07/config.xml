@@ -7,7 +7,7 @@
                 <path>espnhawkeye-18.07.jar</path>
             </jar>
         </classpath>
-        <cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
+         <cricDataDAO>org.espn.hawkeye.dao.ESPNCricInfoDAOImpl</cricDataDAO>
         <software>
             <about>hawkeye data provided by espncricinfo</about>
             <category>Sports Analytics</category>
@@ -19,8 +19,12 @@
                 <name>Manoranjan Sahu</name>
                 <website>http://www.j-hawk.in</website>
             </contributor>
-            <name>espnhawkeye</name>
-            <releaseDate>2017-08-06T11:55:45.425+05:30</releaseDate>
+            <name>espn hawk-eye</name>
+            <pluginName>hawkeye</pluginName>
+            <pluginVersion>
+                <version>18.07</version>
+            </pluginVersion>
+            <releaseDate>2018-07-08T08:43:07.355+05:30</releaseDate>
             <version>
                 <version>18.07</version>
             </version>

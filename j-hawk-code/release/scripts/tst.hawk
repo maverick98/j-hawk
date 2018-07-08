@@ -1,0 +1,15 @@
+function test()
+{
+    
+
+   return 4454
+	
+}
+
+function main()
+{
+	
+	var xxx  =123
+        xxx = `exec test()`
+        echo "hello"+xxx
+}

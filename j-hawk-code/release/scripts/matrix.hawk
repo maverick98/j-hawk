@@ -1,0 +1,42 @@
+function readFile()
+{
+    /*
+    var country =122
+    echo country
+    matrix mat = [country]
+    echo mat[0]
+    //var abc =  mat[0] +12
+    //echo abc
+var d = 6709
+    matrix mat1 = [ [`exec createMatrix()`,a,d] , [12,23,55] ]
+    echo mat1[0][2] 
+
+//matrix mat1 = [ [12,23,[789,333,69]] , [0,0,[`exec createMatrix()`,3331,691]] ]
+
+  //  echo mat1[1][2][0]
+
+
+    //exec showMatrix(mat)
+*/
+  matrix m = [2,3]
+  matrix m1 = m+[11,45]
+  echo m1
+  //echo m1[1][0]
+	
+}
+function showMatrix(matrix mat1)
+{
+    echo "printing it"
+    echo "helloo "+mat1 
+    echo  mat1 + "checking"
+}
+function createMatrix()
+{
+ return 456
+}
+
+function main()
+{
+	
+	exec readFile()
+}

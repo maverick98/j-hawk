@@ -1,0 +1,10 @@
+
+
+function main()
+{
+	
+  var a =2
+  var b = 3
+  a = b = 5988
+  echo a
+}

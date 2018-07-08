@@ -10,20 +10,18 @@
 function analyze()
 {
     var oppAustralia[] = `exec InningFetcher->equalOppositionName("Australia")`
+    var srtInningsAgainstAustralia[] =  `exec InningFetcher->equalPlayerName(oppAustralia,"SR Tendulkar")` 
+    //exec show(srtInningsAgainstAustralia)
+    var srtInningsAgainstAustraliaAtSydney [] = `exec InningFetcher->equalGroundName(srtInningsAgainstAustralia,"Sydney")`  
+    exec show(srtInningsAgainstAustraliaAtSydney)
+   
+}
 
+function show(var innings[])
+{
+	for ( var i=1;i<= `exec SystemModule->length(innings)` ; i=i+1)
+    	{
 
-     /*
-    for ( var i=1;i<= `exec SystemModule->length(oppAustralia)` ; i=i+1)
-    {
-
-           echon oppAustralia[i]->runs
-   }
-    */
-    var srtInningsAgainstAustralia[] =  `exec InningFetcher->equalPlayerName(oppAustralia,"Sachin Tendulkar")`
-
-    for ( var i=1;i<= `exec SystemModule->length(srtInningsAgainstAustralia)` ; i=i+1)
-    {
-
-           echon srtInningsAgainstAustralia[i]->runs
-   }
+           echon innings[i]
+   	}
 }

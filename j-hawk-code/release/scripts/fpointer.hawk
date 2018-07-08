@@ -1,0 +1,45 @@
+//Entry point of hawk
+function main ()
+{
+
+  /*
+    Here the function area is bound to a variable closure.
+    hawk just validates there exists some function with the name area during compilation phase.
+    However it does not know (or do not want to know) which overloaded method of area is intended to be used further.
+   */
+
+  var closure = `exec  test()`
+
+  // Prints the value of closure o/p
+  echo closure
+
+  var x  = 5
+  var y = 4
+
+  //Let's run closure... here passing only one variable
+  // hawk evaluates  the appropriate overloaded method of function denoted by closure variable depending upon the args passed to the function
+
+  // It shoud print 25 in console
+  echo `exec  closure (x)`
+
+  // It should print 20 in console
+  echo   `exec  closure (x , y)`
+    
+
+}
+
+function test()
+{
+  return "area"
+}
+function area(var x)
+{
+  echo "Inside square area function"
+  return x * x 
+}
+
+function area(var x , var y )
+{
+  echo "Inside rectangular area function"
+  return x * y
+}

@@ -119,6 +119,9 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
             String moduleName = pluginModule.getName();
             this.getModules().put(moduleName, pluginModule);
         }
+       
+        this.getSubTaskCache().cacheSubTasks(this.getModules());
+       
         int after = this.countPluginModules();
         boolean refreshed = (after - before) > 0;
         return refreshed;

@@ -54,6 +54,11 @@ public abstract class AbstractModuleCache implements IModuleCache {
     public abstract boolean cacheModules(boolean shouldCacheSubTasks) throws Exception;
 
     @Override
+    public boolean refreshModules(boolean shouldCacheSubTasks) throws Exception {
+        return false;
+    }
+
+    @Override
     public IModule lookUpModule(String moduleName) throws Exception {
         Map<String, IModule> moduleMap = this.getModules();
 

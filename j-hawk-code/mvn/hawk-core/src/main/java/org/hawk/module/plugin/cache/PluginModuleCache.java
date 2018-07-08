@@ -23,6 +23,7 @@ import org.commons.string.StringUtil;
 import org.hawk.logger.HawkLogger;
 import org.hawk.module.IModule;
 import org.hawk.module.cache.AbstractModuleCache;
+import org.hawk.module.cache.AllModuleCache;
 import org.hawk.module.plugin.HawkPluginModule;
 import org.hawk.module.plugin.HawkPluginModuleFactory;
 import org.hawk.module.plugin.IPluginModule;
@@ -86,7 +87,7 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
 
         if (installedPlugins != null && !installedPlugins.isEmpty()) {
             this.resetModules();
-            cached = this.refreshPluginModules();
+            cached = this.refreshModules(true);
         }
         return cached;
 
@@ -109,7 +110,7 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
     }
 
     @Override
-    public boolean refreshPluginModules() throws HawkPluginException {
+     public boolean refreshModules(boolean shouldCacheSubTasks) throws Exception{
         int before = this.countPluginModules();
         Map<Integer, IPluginModule> map = HawkPluginModuleFactory.getCachedHawkPluginModules();
 
@@ -166,7 +167,11 @@ public class PluginModuleCache extends AbstractModuleCache implements IPluginMod
             HawkPlugin hawkPlugin = (HawkPlugin) hawkPluginPayload.getPayload();
             logger.info("in PostHawkPluginDeployementCallback of moduleCache");
             if (hawkPlugin != null && hawkPlugin.validate() && hawkPlugin.isExtracted()) {
-                refreshPluginModules();
+                try {
+                    AppContainer.getInstance().getBean(AllModuleCache.class).refreshModules(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(PluginModuleCache.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             return true;
         }

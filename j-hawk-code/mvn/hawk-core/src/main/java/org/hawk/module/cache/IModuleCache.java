@@ -19,6 +19,9 @@ import org.hawk.module.task.SubTaskContainer;
 public interface IModuleCache {
 
     public boolean cacheModules(boolean shouldCacheSubTasks) throws Exception;
+    
+     
+    public boolean refreshModules(boolean shouldCacheSubTasks) throws Exception;
 
     public Map<String, ? extends  IModule> getModules();
 

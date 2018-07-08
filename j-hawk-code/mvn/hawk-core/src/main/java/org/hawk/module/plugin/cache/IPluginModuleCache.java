@@ -26,7 +26,7 @@ public interface IPluginModuleCache extends IModuleCache {
 
     public IHawkEventCallback getPluginDeployementCallback();
 
-    public boolean refreshPluginModules() throws HawkPluginException;
+   
 
     public boolean removePlugin(HawkPlugin hawkPlugin) throws HawkPluginException;
 

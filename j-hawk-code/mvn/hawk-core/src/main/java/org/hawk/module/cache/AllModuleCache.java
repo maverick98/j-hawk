@@ -85,6 +85,22 @@ public class AllModuleCache extends AbstractModuleCache implements IAllModuleCac
     }
 
     @Override
+    public boolean refreshModules(boolean shouldCacheSubTasks) throws Exception {
+        this.resetModules();
+        this.populatePriorityModuleCache(this.getContainerModuleCache());
+        this.populatePriorityModuleCache(this.getCoreModuleCache());
+        this.populatePriorityModuleCache(this.getPluginModuleCache());
+
+        for (Entry<Integer, IModuleCache> entry : this.getPriorityModuleCache().entrySet()) {
+            IModuleCache moduleCache = entry.getValue();
+            moduleCache.refreshModules(shouldCacheSubTasks);
+            this.getModules().putAll(moduleCache.getModules());
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean cacheModules(boolean shouldCacheSubTasks) throws Exception {
 
         this.populatePriorityModuleCache(this.getContainerModuleCache());

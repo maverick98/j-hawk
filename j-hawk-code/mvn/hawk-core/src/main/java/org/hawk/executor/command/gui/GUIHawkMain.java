@@ -33,6 +33,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.commons.file.FileUtil;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -129,8 +130,22 @@ public class GUIHawkMain extends Application {
                     }
                 })
                 .subscribe(this::applyHighlighting);
+        String sampleCode = getSampleCode();
         codeArea.replaceText(0, 0, sampleCode);
 
+    }
+    
+    private String getSampleCode(){
+        String data=null;
+        try{
+            data = FileUtil.readFile("scripts/cric.hawk");
+        }catch(Exception ex){
+           
+        }
+        if(data == null){
+            data=sampleCode;
+        }
+        return data;
     }
 
     @Override

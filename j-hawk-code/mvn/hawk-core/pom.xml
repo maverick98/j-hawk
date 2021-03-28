@@ -6,7 +6,8 @@
     <artifactId>hawk-core</artifactId>
     <packaging>jar</packaging>
     <name>hawk-core</name>
-    <url>http://maven.apache.org</url>
+     <url>https://repo.maven.apache.org/maven2</url>
+  
   
     <build>
         <plugins>

@@ -6,7 +6,7 @@
     <artifactId>j-hawk-parent</artifactId>
     <packaging>pom</packaging>
     <name>j-hawk-parent</name>
-    <url>http://maven.apache.org</url>
+    <url>https://repo.maven.apache.org/maven2</url>
     <version>1.0</version>
   
     <modules>
@@ -14,5 +14,6 @@
         <module>hawk-commons-util</module>
         <module>hawk-commons-event</module>
         <module>hawk-commons-ds</module>
+        <module>hawk-rest</module>
     </modules>
 </project>

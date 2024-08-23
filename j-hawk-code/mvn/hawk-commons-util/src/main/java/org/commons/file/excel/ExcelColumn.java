@@ -1,5 +1,5 @@
 /*
- *  Copyleft(BigBang<-->BigCrunch)  Manoranjan Sahu
+ *     Manoranjan Sahu
  *  
  */
 package org.commons.file.excel;

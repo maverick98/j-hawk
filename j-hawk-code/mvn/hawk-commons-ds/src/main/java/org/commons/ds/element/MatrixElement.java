@@ -1,6 +1,6 @@
 /*
  * This file is part of j-hawk
- * Copyright (C) BigBang<->BigCrunch Manoranjan Sahu, All Rights are left.
+ *  
  *
 
  *

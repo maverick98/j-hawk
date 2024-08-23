@@ -1,8 +1,5 @@
 /**
- * This file is part of impensa. CopyLeft (C) BigBang<->BigCrunch.
- * All Rights are left.
- *
- *   
+ 
  *    
  *
  */

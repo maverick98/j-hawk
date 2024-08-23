@@ -1,6 +1,6 @@
 /*
  * This file is part of hawkeye
- * CopyLeft (C) BigBang<-->BigCrunch Manoranjan Sahu, All Rights are left.
+ *  
  *
  *
  *

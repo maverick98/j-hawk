@@ -113,8 +113,8 @@ public class GUIHawkMain extends Application {
         ScrollPane scrollPane = (ScrollPane) root.getChildren().get(1);
 
         CodeArea codeArea = (CodeArea) scrollPane.getContent();
-        codeArea.setMinHeight(600);
-        codeArea.setMinWidth(1200);
+        codeArea.setMinHeight(500);
+        codeArea.setMinWidth(900);
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
         codeArea.richChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved()))

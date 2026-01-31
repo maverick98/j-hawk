@@ -17,7 +17,8 @@
 package org.hawk.software;
 
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.*;
+import jakarta.xml.bind.annotation.*;
 
 /**
  *

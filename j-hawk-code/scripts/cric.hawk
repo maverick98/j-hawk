@@ -1,27 +1,29 @@
-
- function main()
- {
-       
-	exec analyze()
-
+function main()
+{
+    exec analyze()
 }
-
-
 function analyze()
 {
-    var oppAustralia[] = `exec InningFetcher->equalOppositionName("Australia")`
-    var srtInningsAgainstAustralia[] =  `exec InningFetcher->equalPlayerName(oppAustralia,"SR Tendulkar")` 
-    //exec show(srtInningsAgainstAustralia)
-    var srtInningsAgainstAustraliaAtSydney [] = `exec InningFetcher->equalGroundName(srtInningsAgainstAustralia,"Sydney")`  
-    exec show(srtInningsAgainstAustraliaAtSydney)
-   
+   var playerName = "SR Tendulkar"
+   exec analyzePlayer(playerName)
+   playerName = "BC Lara"
+   exec analyzePlayer(playerName)
 }
-
+function analyzePlayer(var playerName)
+{
+    var respectableStrikeRate = 100.0
+    var respectableStrikeRateInnings[] = `exec InnngFetcher->moreThanStrikeRate(respectableStrikeRate)`
+    var playerWithRespectableStrikeRate[] =  `exec InningFetcher->equalPlayerName(respectableStrikeRateInnings,playerName)` 
+    exec show(playerWithRespectableStrikeRate)
+}
 function show(var innings[])
 {
-	for ( var i=1;i<= `exec SystemModule->length(innings)` ; i=i+1)
-    	{
-
-           echon innings[i]
-   	}
+    for(var i=1;i<=`exec SystemModule->length(innings)`;i=i+1)
+    {
+		echon innings[i] 
+		/**
+		* This will print details as you see in cricinfo
+		* 
+		*/
+    }
 }

@@ -3,6 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 🔥 Parent aggregator -->
+    <parent>
+        <groupId>j-hawk-parent</groupId>
+        <artifactId>j-hawk-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
     <groupId>org.hawkframework</groupId>
     <artifactId>hawk-core</artifactId>
     <version>26.03</version>
@@ -19,17 +27,15 @@
     <build>
         <plugins>
 
-            <!-- Java 21 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
 
-            <!-- JavaFX Runner -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -39,7 +45,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -59,27 +64,9 @@
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals><goal>single</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Modern resource plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-            </plugin>
-
-            <!-- Attach sources -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals><goal>jar</goal></goals>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -90,26 +77,31 @@
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
-        <!-- Jersey 3 (modern REST client) -->
+        <!-- 🔥 INTERNAL MODULES (CRITICAL) -->
+        <dependency>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-util</artifactId>
+            <version>26.03</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-event</artifactId>
+            <version>26.03</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hawkframework</groupId>
+            <artifactId>hawk-commons-ds</artifactId>
+            <version>26.03</version>
+        </dependency>
+
+        <!-- REST -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>3.1.6</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>3.1.6</version>
-        </dependency>
 
-        <!-- Apache HTTP Client 5 -->
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-            <version>5.3.1</version>
-        </dependency>
-
-        <!-- Logging -->
+        <!-- Logging (Log4j 2 + bridge) -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -118,6 +110,11 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <version>2.23.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
             <version>2.23.1</version>
         </dependency>
 
@@ -135,7 +132,7 @@
             <version>2.15.1</version>
         </dependency>
 
-        <!-- Reflection utils -->
+        <!-- Reflection -->
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
@@ -149,7 +146,7 @@
             <version>3.30.2-GA</version>
         </dependency>
 
-        <!-- Apache POI -->
+        <!-- POI -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -188,6 +185,38 @@
             <artifactId>richtextfx</artifactId>
             <version>0.11.2</version>
         </dependency>
+        <!-- Apache HttpClient 3.x (your code uses this) -->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <!-- Jersey 1.x (your code imports com.sun.jersey.*) -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>1.19.4</version>
+        </dependency>
+
+        <!-- OLD RestAssured (your imports use com.jayway) -->
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
 
     </dependencies>
 

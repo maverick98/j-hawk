@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>21.04</version>
+            <version>26.03</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

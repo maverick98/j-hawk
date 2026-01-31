@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.hawkframework</groupId>
     <artifactId>hawk-commons-event</artifactId>
-    <version>21.04</version>
+    <version>26.03</version>
     <packaging>jar</packaging>
 
     <name>hawk-commons-event</name>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>org.hawkframework</groupId>
             <artifactId>hawk-commons-util</artifactId>
-            <version>26.03</version>
+            <version>26.03</version>   <!-- ✔ MUST match module version -->
         </dependency>
     </dependencies>
 

@@ -17,7 +17,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
 import java.net.Socket;
 import java.security.SecureRandom;
-import java.security.Security;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
@@ -43,109 +43,90 @@ public class HttpRestExecutor extends HttpExecutor {
         super(httpModuleName, structureScript);
 
     }
-    
+
     @Override
     public HttpResponse executeGetRequest() throws Exception {
-           Socket s = SSLSocketFactory.getDefault().createSocket();
+        Socket s = SSLSocketFactory.getDefault().createSocket();
         return this.executeInternal(RequestTypeEnum.GET);
     }
+
     @Override
     public HttpResponse executePostRequest() throws Exception {
-         return this.executeInternal(RequestTypeEnum.POST);
-        
-    }
-    private HttpResponse executeInternal(RequestTypeEnum requestTypeEnum) throws Exception{
-         HttpResponse response = new HttpResponse();
-         final Client client = Client.create(configureClient());
-         client.setFollowRedirects(true);
-         final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
-         String res= null;
-         switch(requestTypeEnum){
-             case POST:
-                 res = resource.type("application/json").post(String.class,this.getHttpRequest().getPostParams());
-                 break;
-             case GET:
-                 res = resource.type("application/json").get(String.class);
-                 break;    
-             case PUT:
-                 res = resource.type("application/json").put(String.class,this.getHttpRequest().getPostParams());
-                 break;
-             case DELETE:
-                 res = resource.type("application/json").delete(String.class,this.getHttpRequest().getPostParams());
-                 break; 
-              case HEAD:
-                 res = resource.type("application/json").head().getEntity(String.class);
-                 break;      
-                 
-         }
-         
-         System.out.println(res);
-         response.setContentType("application/json");
-         response.setResponse(res);
-         response.setResponseCode(200);
-         
-         return response;
+        return this.executeInternal(RequestTypeEnum.POST);
+
     }
 
-    
-     public static ClientConfig configureClient()
-    {
+    private HttpResponse executeInternal(RequestTypeEnum requestTypeEnum) throws Exception {
+        HttpResponse response = new HttpResponse();
+        final Client client = Client.create(configureClient());
+        client.setFollowRedirects(true);
+        final WebResource resource = client.resource(this.getHttpRequest().getTargetURL());
+        String res = null;
+        switch (requestTypeEnum) {
+            case POST:
+                res = resource.type("application/json").post(String.class, this.getHttpRequest().getPostParams());
+                break;
+            case GET:
+                res = resource.type("application/json").get(String.class);
+                break;
+            case PUT:
+                res = resource.type("application/json").put(String.class, this.getHttpRequest().getPostParams());
+                break;
+            case DELETE:
+                res = resource.type("application/json").delete(String.class, this.getHttpRequest().getPostParams());
+                break;
+            case HEAD:
+                res = resource.type("application/json").head().getEntity(String.class);
+                break;
+
+        }
+
+        System.out.println(res);
+        response.setContentType("application/json");
+        response.setResponse(res);
+        response.setResponseCode(200);
+
+        return response;
+    }
+
+    public static ClientConfig configureClient() {
+
         System.setProperty("jsse.enableSNIExtension", "false");
-         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
-        TrustManager[] certs = new TrustManager[]
-        {
-            new X509TrustManager()
-            {
-                @Override
-                public X509Certificate[] getAcceptedIssuers()
-                {
+        TrustManager[] certs = new TrustManager[]{
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
 
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain, String authType)
-                        throws CertificateException
-                {
+                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                 }
 
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain, String authType)
-                        throws CertificateException
-                {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                 }
             }
         };
+
         SSLContext ctx = null;
-        try
-        {
+        try {
             ctx = SSLContext.getInstance("TLS");
             ctx.init(null, certs, new SecureRandom());
+        } catch (Exception ignored) {
         }
-        catch (java.security.GeneralSecurityException ex)
-        {
-        }
+
         HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
+
         ClientConfig config = new DefaultClientConfig();
-        try
-        {
-            config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(
-                    new HostnameVerifier()
-            {
-                @Override
-                public boolean verify(String hostname, SSLSession session)
-                {
-                    return true;
-                }
-            },
-                    ctx));
-        }
-        catch (Exception e)
-        {
-        }
+        config.getProperties().put(
+                HTTPSProperties.PROPERTY_HTTPS_PROPERTIES,
+                new HTTPSProperties(
+                        (hostname, session) -> true,
+                        ctx
+                )
+        );
+
         return config;
     }
-
 
     public RequestSpecification mygiven() {
 
@@ -180,6 +161,7 @@ public class HttpRestExecutor extends HttpExecutor {
 
         RequestSpecification rs;
         ReentrantLock rl;
+
         public RequestSpecification getRs() {
             return rs;
         }

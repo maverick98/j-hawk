@@ -32,17 +32,26 @@ import org.hawk.xml.XMLUtil;
  *
  * @author Manoranjan Sahu
  */
-
 @XmlRootElement
-public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
-    
+public class HawkPluginMetaData implements Comparable<HawkPluginMetaData> {
+
     private Classpath classpath;
     private Software software;
     private String logPath;
     private boolean bgRun;
     private String downloadURL;
     private Configuration configuration;
-    
+
+    private Ai ai;
+
+    public Ai getAi() {
+        return ai;
+    }
+
+    public void setAi(Ai ai) {
+        this.ai = ai;
+    }
+
     private List<PluginModuleClazz> pluginModuleClazz = new ArrayList<>();
 
     public List<PluginModuleClazz> getPluginModuleClazz() {
@@ -52,9 +61,6 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     public void setPluginModuleClazz(List<PluginModuleClazz> pluginModuleClazz) {
         this.pluginModuleClazz = pluginModuleClazz;
     }
-    
-    
-    
 
     public Configuration getConfiguration() {
         return configuration;
@@ -71,12 +77,7 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     public void setDownloadURL(String downloadURL) {
         this.downloadURL = downloadURL;
     }
-    
-    
 
-   
-
-    
     public boolean isBgRun() {
         return bgRun;
     }
@@ -84,8 +85,7 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     public void setBgRun(boolean bgRun) {
         this.bgRun = bgRun;
     }
-    
-    
+
     public String getLogPath() {
         return logPath;
     }
@@ -93,8 +93,6 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     public void setLogPath(String logPath) {
         this.logPath = logPath;
     }
-    
-    
 
     public Classpath getClasspath() {
         return classpath;
@@ -103,19 +101,15 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
     public void setClasspath(Classpath classpath) {
         this.classpath = classpath;
     }
-    
+
     public Software getSoftware() {
         return software;
     }
-    
+
     public void setSoftware(Software software) {
         this.software = software;
     }
 
-   
-
-   
-    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -137,8 +131,7 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
         }
         return true;
     }
-    
-    
+
     public static void main(String args[]) throws Exception {
         TestPlugin hawkPluginMetaData = new TestPlugin();
         hawkPluginMetaData.setTabPath("adadfafds");
@@ -162,10 +155,10 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
         software.setWebsite("http://www.j-hawk.in");
         software.setAbout("This is a software about analyzing cricket data collected from cricinfo.com");
         hawkPluginMetaData.setSoftware(software);
-        Jar jar1  = new Jar();
+        Jar jar1 = new Jar();
         jar1.setDesc("aaaa");
         jar1.setPath("aaaaaa");
-        Jar jar2  = new Jar();
+        Jar jar2 = new Jar();
         jar2.setDesc("adsfafd");
         jar2.setPath("dfdfdf");
         Classpath classpath = new Classpath();
@@ -179,9 +172,6 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
 
         System.out.println(XMLUtil.unmarshal("plugin.xml", TestPlugin.class).getSoftware().getAbout());
 
-
-
-
     }
 
     @Override
@@ -189,5 +179,4 @@ public class HawkPluginMetaData implements Comparable<HawkPluginMetaData>{
         return this.getSoftware().compareTo(o.getSoftware());
     }
 
-    
 }

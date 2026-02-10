@@ -1,0 +1,119 @@
+(* ============================= *)
+(* HAWK LANGUAGE - CORE SUBSET  *)
+(* ============================= *)
+
+program         ::= { globalDecl | functionDecl | structDecl | aliasDecl | useDecl } ;
+
+useDecl         ::= "use" "hawk-lib" stringLiteral ;
+aliasDecl       ::= "alias" identifier "=" identifier ;
+
+(* ---------- STRUCTS ---------- *)
+
+structDecl      ::= "struct" identifier "{" { structField } "}" ;
+structField     ::= "var" identifier [ arraySuffix ] [ "=" expression ] 
+                  | identifier identifier ;
+
+arraySuffix     ::= "[" "]" ;
+
+(* ---------- FUNCTIONS ---------- *)
+
+functionDecl    ::= "function" identifier "(" [ paramList ] ")" block ;
+
+paramList       ::= param { "," param } ;
+param           ::= "var" identifier [ arraySuffix ]
+                  | identifier identifier ;
+
+block           ::= "{" { statement } "}" ;
+
+(* ---------- STATEMENTS ---------- *)
+
+statement       ::= varDecl
+                  | assignment
+                  | ifStmt
+                  | forStmt
+                  | whileStmt
+                  | doWhileStmt
+                  | returnStmt
+                  | execStmt
+                  | echoStmt
+                  | parallelStmt
+                  | block
+                  | ";" ;
+
+varDecl         ::= "var" identifier [ arraySuffix ] [ "=" expression ] ;
+
+assignment      ::= lvalue "=" expression ;
+
+lvalue          ::= identifier
+                  | identifier "[" expression "]"
+                  | identifier "->" identifier
+                  | identifier "->" identifier "[" expression "]" ;
+
+ifStmt          ::= "if" "(" expression ")" block 
+                    [ "else" block ] ;
+
+forStmt         ::= "for" "(" assignment ";" expression ";" assignment ")" block ;
+
+whileStmt       ::= "while" "(" expression ")" block ;
+
+doWhileStmt     ::= "do" block "while" "(" expression ")" ;
+
+returnStmt      ::= "return" expression ;
+
+execStmt        ::= "exec" callExpr ;
+
+parallelStmt    ::= "exec-parallel" callExpr
+                  | "exec-parallel" "wait" "(" ")"
+                  | "exec-parallel" "reset" "(" ")" ;
+
+echoStmt        ::= "echo" expression
+                  | "echon" expression ;
+
+(* ---------- EXPRESSIONS ---------- *)
+
+expression      ::= logicalOr ;
+
+logicalOr       ::= logicalAnd { "||" logicalAnd } ;
+logicalAnd      ::= equality { "&&" equality } ;
+equality        ::= comparison { ("==" | "!=") comparison } ;
+comparison      ::= additive { (">" | "<" | ">=" | "<=") additive } ;
+additive        ::= multiplicative { ("+" | "-") multiplicative } ;
+multiplicative  ::= unary { ("*" | "/" | "%") unary } ;
+
+unary           ::= primary
+                  | "-" primary ;
+
+primary         ::= literal
+                  | identifier
+                  | lvalue
+                  | "(" expression ")"
+                  | callExpr
+                  | backtickExec ;
+
+callExpr        ::= identifier "(" [ argList ] ")"
+                  | identifier "->" identifier "(" [ argList ] ")" ;
+
+argList         ::= expression { "," expression } ;
+
+backtickExec    ::= "`" "exec" callExpr "`" ;
+
+(* ---------- LITERALS ---------- *)
+
+literal         ::= number
+                  | stringLiteral
+                  | arrayLiteral ;
+
+arrayLiteral    ::= "new" "var" "[" "]"
+                  | "[" expressionList "]" ;
+
+expressionList  ::= expression { "," expression } ;
+
+number          ::= digit { digit } [ "." digit { digit } ] ;
+stringLiteral   ::= "\"" { character } "\"" ;
+
+identifier      ::= letter { letter | digit | "_" } ;
+
+digit           ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+letter          ::= "A"…"Z" | "a"…"z" ;
+
+character       ::= ? any character except " ? ;

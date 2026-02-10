@@ -120,6 +120,10 @@ public class HawkTargetSetting {
             try {
                 ClassPathHacker.addFiles(this.getTargetAppSettingProps().getProperty(HAWKJAVACLASSPATH));
                // hawkConfigManager.cacheConfig();
+               // Make plugin classes visible for reflection-based instantiation
+                Thread.currentThread().setContextClassLoader(
+                        ClassPathHacker.getPluginClassLoader()
+                );
                 this.configureTargetApp();
             } catch (Throwable th) {
                 logger.error("error while integrating target jar with j-hawk framework", th);

@@ -121,16 +121,20 @@ public class HawkPluginServiceImpl implements IHawkPluginService {
 
     }
 
-    private boolean addPluginJars(List<String> jars) throws HawkPluginException, HawkEventException {
-
+    private boolean addPluginJars(List<String> jars)
+        throws HawkPluginException, HawkEventException {
         try {
-            //ClazzLoaderUtil.getInstance().addJars(jars);
             ClassPathHacker.addFile(jars);
+            // Important for JDK 21 plugin visibility
+            Thread.currentThread().setContextClassLoader(
+                    ClassPathHacker.getPluginClassLoader()
+            );
         } catch (Exception ex) {
             throw new HawkPluginException(ex);
         }
         return true;
     }
+
 
     @Override
     public boolean deploy(String hawkPluginArchive) throws HawkPluginException, HawkEventException {

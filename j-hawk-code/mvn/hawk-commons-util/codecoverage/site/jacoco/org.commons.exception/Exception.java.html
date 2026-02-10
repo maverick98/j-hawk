@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Exception.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.commons.exception</a> &gt; <span class="el_source">Exception.java</span></div><h1>Exception.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of impensa. CopyLeft (C) BigBang&lt;-&gt;BigCrunch.
+ * All Rights are left.
+ *
+ * 1) Modify it if you can understand. 
+ * 2) If you distribute a modified version, you must do it at your own risk.
+ *
+ */
+package org.commons.exception;
+
+/**
+ *
+ * @author msahu98
+ */
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class Exception extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+    public static Exception wrap(Throwable exception, ErrorCode errorCode) {
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (exception instanceof Exception) {</span>
+<span class="nc" id="L26">            Exception se = (Exception) exception;</span>
+<span class="nc bnc" id="L27" title="All 4 branches missed.">            if (errorCode != null &amp;&amp; errorCode != se.getErrorCode()) {</span>
+<span class="nc" id="L28">                return new Exception(exception.getMessage(), exception, errorCode);</span>
+            }
+<span class="nc" id="L30">            return se;</span>
+        } else {
+<span class="nc" id="L32">            return new Exception(exception.getMessage(), exception, errorCode);</span>
+        }
+    }
+
+    public static Exception wrap(Throwable exception) {
+<span class="nc" id="L37">        return wrap(exception, null);</span>
+    }
+
+    private ErrorCode errorCode;
+<span class="nc" id="L41">    private final Map&lt;String, Object&gt; properties = new TreeMap&lt;String, Object&gt;();</span>
+
+<span class="nc" id="L43">    public Exception(ErrorCode errorCode) {</span>
+<span class="nc" id="L44">        this.errorCode = errorCode;</span>
+<span class="nc" id="L45">    }</span>
+     public Exception(String message) {
+<span class="nc" id="L47">        super(message);</span>
+       
+<span class="nc" id="L49">    }</span>
+    public Exception(String message, ErrorCode errorCode) {
+<span class="nc" id="L51">        super(message);</span>
+<span class="nc" id="L52">        this.errorCode = errorCode;</span>
+<span class="nc" id="L53">    }</span>
+
+    public Exception(Throwable cause, ErrorCode errorCode) {
+<span class="nc" id="L56">        super(cause);</span>
+<span class="nc" id="L57">        this.errorCode = errorCode;</span>
+<span class="nc" id="L58">    }</span>
+
+    public Exception(String message, Throwable cause, ErrorCode errorCode) {
+<span class="nc" id="L61">        super(message, cause);</span>
+<span class="nc" id="L62">        this.errorCode = errorCode;</span>
+<span class="nc" id="L63">    }</span>
+
+    public ErrorCode getErrorCode() {
+<span class="nc" id="L66">        return errorCode;</span>
+    }
+
+    public Exception setErrorCode(ErrorCode errorCode) {
+<span class="nc" id="L70">        this.errorCode = errorCode;</span>
+<span class="nc" id="L71">        return this;</span>
+    }
+
+    public Map&lt;String, Object&gt; getProperties() {
+<span class="nc" id="L75">        return properties;</span>
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public &lt;T&gt; T get(String name) {
+<span class="nc" id="L80">        return (T) properties.get(name);</span>
+    }
+
+    public Exception set(String name, Object value) {
+<span class="nc" id="L84">        properties.put(name, value);</span>
+<span class="nc" id="L85">        return this;</span>
+    }
+
+    @Override
+    public void printStackTrace(PrintStream s) {
+<span class="nc" id="L90">        synchronized (s) {</span>
+<span class="nc" id="L91">            printStackTrace(new PrintWriter(s));</span>
+<span class="nc" id="L92">        }</span>
+<span class="nc" id="L93">    }</span>
+
+    @Override
+    public void printStackTrace(PrintWriter s) {
+<span class="nc" id="L97">        synchronized (s) {</span>
+<span class="nc" id="L98">            s.println(this);</span>
+<span class="nc" id="L99">            s.println(&quot;\t-------------------------------&quot;);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">            if (errorCode != null) {</span>
+<span class="nc" id="L101">                s.println(&quot;\t&quot; + errorCode + &quot;:&quot; + errorCode.getClass().getName());</span>
+            }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">            for (String key : properties.keySet()) {</span>
+<span class="nc" id="L104">                s.println(&quot;\t&quot; + key + &quot;=[&quot; + properties.get(key) + &quot;]&quot;);</span>
+<span class="nc" id="L105">            }</span>
+<span class="nc" id="L106">            s.println(&quot;\t-------------------------------&quot;);</span>
+<span class="nc" id="L107">            StackTraceElement[] trace = getStackTrace();</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            for (int i = 0; i &lt; trace.length; i++) {</span>
+<span class="nc" id="L109">                s.println(&quot;\tat &quot; + trace[i]);</span>
+            }
+
+<span class="nc" id="L112">            Throwable ourCause = getCause();</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (ourCause != null) {</span>
+<span class="nc" id="L114">                ourCause.printStackTrace(s);</span>
+            }
+<span class="nc" id="L116">            s.flush();</span>
+<span class="nc" id="L117">        }</span>
+<span class="nc" id="L118">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

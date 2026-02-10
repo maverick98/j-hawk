@@ -51,19 +51,30 @@ public class ClazzUtil {
         if (StringUtil.isNullOrEmpty(clazzStr)) {
             throw new Exception("illegal args");
         }
-        Class resultClazz;
 
         try {
-            resultClazz = Class.forName(clazzStr);
+            // 1 Try thread context classloader first (plugin-aware)
+            ClassLoader contextLoader =
+                    Thread.currentThread().getContextClassLoader();
+
+            if (contextLoader != null) {
+                return Class.forName(clazzStr, true, contextLoader);
+            }
+
+        } catch (ClassNotFoundException ignored) {
+            // fallback below
+        }
+
+        try {
+            // 2 Fallback to system/application loader
+            return Class.forName(clazzStr);
 
         } catch (ClassNotFoundException cnfe) {
-
             logger.error(cnfe);
             throw new Exception(cnfe);
-
         }
-        return resultClazz;
     }
+
 
     private static Method findCreateMethod(Class clazz) {
 

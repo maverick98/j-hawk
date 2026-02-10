@@ -5,8 +5,10 @@ function main()
 function analyze()
 {
    var playerName = "SR Tendulkar"
+e  echo "analyzing player "+playerName
    exec analyzePlayer(playerName)
    playerName = "BC Lara"
+   echo "analyzing player "+playerName	   
    exec analyzePlayer(playerName)
 }
 function analyzePlayer(var playerName)

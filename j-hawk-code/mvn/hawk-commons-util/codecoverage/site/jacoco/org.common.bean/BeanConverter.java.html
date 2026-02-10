@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BeanConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons-util</a> &gt; <a href="index.source.html" class="el_package">org.common.bean</a> &gt; <span class="el_source">BeanConverter.java</span></div><h1>BeanConverter.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of impensa.
+ * CopyLeft (C) BigBang&lt;-&gt;BigCrunch.All Rights are left.
+ *
+ * 1) Modify it if you can understand.
+ * 2) If you distribute a modified version, you must do it at your own risk.
+ *
+ **/
+package org.common.bean;
+
+import java.lang.reflect.Field;
+import org.commons.reflection.ClazzUtil;
+
+
+/**
+ * This works this way.
+ * Assuming fields of  entity and domain object constitute two sets X and Y  respectively.
+ * This utility function makes an assumption that function from X-&gt;Y is an onto  function.
+ * @author manosahu
+ */
+<span class="nc" id="L21">public class BeanConverter {</span>
+
+    /**
+     * This converts domainObject to entityobject as indicated in MappingEntity annotation
+     * of the domainObject. 
+     * This returns null if MappingEntity annotation is not present in the domain object's class.
+     * Domain object controls the way data will be moved across.
+     * The philosophy is that we can have many domain objects for the same entity.
+     * Let the entity be free from all those crap.
+     * @param &lt;T&gt;
+     * @param domainObject
+     * @param t
+     * @return
+     * @throws Exception 
+     */
+     public static &lt;T&gt; T toMappingBean(Object domainObject, Class&lt;T&gt; t) throws Exception {
+        
+<span class="fc bfc" id="L38" title="All 2 branches covered.">         if(domainObject == null){</span>
+<span class="fc" id="L39">             return null;</span>
+         }
+<span class="fc bfc" id="L41" title="All 2 branches covered.">         if(t == null){</span>
+<span class="fc" id="L42">             return null;</span>
+         }
+<span class="fc" id="L44">         Class domainClazz = domainObject.getClass();</span>
+         
+<span class="fc" id="L46">         MappingBean mappingEntity = (MappingBean)domainClazz.getAnnotation(MappingBean.class);</span>
+         
+<span class="fc bfc" id="L48" title="All 2 branches covered.">         if(mappingEntity == null){</span>
+<span class="fc" id="L49">             return null;</span>
+         }
+<span class="fc bfc" id="L51" title="All 2 branches covered.">         if(!mappingEntity.name().equals(t)){</span>
+<span class="fc" id="L52">             return null;</span>
+         }
+             
+         
+<span class="fc" id="L56">         Class entityClazz = mappingEntity.name();</span>
+         
+<span class="fc" id="L58">         Field [] fields = domainClazz.getDeclaredFields();</span>
+         
+<span class="fc" id="L60">         Object entityObject = ClazzUtil.instantiate(entityClazz);</span>
+         
+<span class="fc bfc" id="L62" title="All 2 branches covered.">         for(Field field : fields){</span>
+             
+             //To satisfy Jacoco's ego :)
+<span class="fc bfc" id="L65" title="All 2 branches covered.">             if(field.isSynthetic()){</span>
+<span class="fc" id="L66">                 continue;</span>
+             }
+             
+<span class="fc" id="L69">             String getterMethodName = ClazzUtil.getGetterMethod(field.getName());</span>
+         
+             String setterMethodName;
+             
+<span class="fc bfc" id="L73" title="All 2 branches covered.">             if(field.isAnnotationPresent(Property.class)){</span>
+             
+<span class="fc" id="L75">                 Property property =(Property)field.getAnnotation(Property.class);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">                 if(property.ignore()){</span>
+<span class="fc" id="L77">                     continue;</span>
+                 }
+                 
+<span class="fc" id="L80">                 setterMethodName = ClazzUtil.getSetterMethod(property.name());</span>
+<span class="fc" id="L81">             }else{</span>
+<span class="fc" id="L82">                 setterMethodName = ClazzUtil.getSetterMethod(field.getName());</span>
+             }
+             
+<span class="fc" id="L85">             Object setterData = ClazzUtil.invoke(domainObject, getterMethodName,new Class[]{},new Object[]{} );</span>
+             
+             
+             try{
+<span class="fc" id="L89">                ClazzUtil.invoke(entityObject,setterMethodName, new Class[]{field.getType()}, new Object[]{setterData});</span>
+<span class="nc" id="L90">             }catch(Exception ex){</span>
+<span class="nc" id="L91">                 ex.printStackTrace();</span>
+<span class="fc" id="L92">             }</span>
+         }
+         
+<span class="fc" id="L95">         T result = (T)entityObject;</span>
+         
+<span class="fc" id="L97">         return result;</span>
+     }
+     
+     /**
+      * This is same as toEntity with the roles reversed.
+      * However we do not want to clutter the entity object with more annotation.
+      * Hence domain object will bear those annotations.
+      * @param &lt;T&gt;
+      * @param entityObject
+      * @param t
+      * @return
+      * @throws Exception 
+      */
+     public static &lt;T&gt; T fromMappingBean(Object entityObject ,Class&lt;T&gt; t) throws Exception {
+        
+<span class="nc bnc" id="L112" title="All 2 branches missed.">         if(entityObject == null){</span>
+<span class="nc" id="L113">             return null;</span>
+         }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">         if(t == null){</span>
+<span class="nc" id="L116">             return null;</span>
+         }
+<span class="nc" id="L118">         MappingBean mappingEntity = (MappingBean)t.getAnnotation(MappingBean.class);</span>
+         
+<span class="nc bnc" id="L120" title="All 2 branches missed.">         if(mappingEntity == null){</span>
+<span class="nc" id="L121">             return null;</span>
+         }
+<span class="nc" id="L123">         Class entityClazz = mappingEntity.name();</span>
+         
+<span class="nc bnc" id="L125" title="All 2 branches missed.">         if(!entityClazz.equals(entityObject.getClass())){</span>
+         
+<span class="nc" id="L127">             return null;</span>
+         }
+<span class="nc" id="L129">         Field [] fields = t.getDeclaredFields();</span>
+         
+<span class="nc" id="L131">         Object domainObject = ClazzUtil.instantiate(t);</span>
+         
+<span class="nc bnc" id="L133" title="All 2 branches missed.">         for(Field field : fields){</span>
+             
+<span class="nc" id="L135">             String getterMethodName = ClazzUtil.getGetterMethod(field.getName());</span>
+         
+             String setterMethodName;
+             
+<span class="nc bnc" id="L139" title="All 2 branches missed.">             if(field.isAnnotationPresent(Property.class)){</span>
+             
+<span class="nc" id="L141">                 Property property =(Property)field.getAnnotation(Property.class);</span>
+                 
+<span class="nc" id="L143">                 setterMethodName = ClazzUtil.getSetterMethod(property.name());</span>
+<span class="nc" id="L144">             }else{</span>
+                 
+<span class="nc" id="L146">                 setterMethodName = ClazzUtil.getSetterMethod(field.getName());</span>
+             }
+             try{
+<span class="nc" id="L149">             Object setterData = ClazzUtil.invoke(entityObject, getterMethodName,new Class[]{},new Object[]{} );</span>
+             
+             
+             
+<span class="nc" id="L153">             ClazzUtil.invoke(domainObject,setterMethodName, new Class[]{field.getType()}, new Object[]{setterData});</span>
+<span class="nc" id="L154">              }catch(Exception ex){</span>
+                 //ex.printStackTrace();
+<span class="nc" id="L156">             }</span>
+         }
+         
+<span class="nc" id="L159">         T result = (T)domainObject;</span>
+         
+<span class="nc" id="L161">         return result;</span>
+     }
+     
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

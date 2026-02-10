@@ -18,9 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class HawkRestController {
-    
+
     @Autowired
     private IHawkRestInterpreterService hawkRestInterpreterService;
+
+    @GetMapping("/")
+    public String home() {
+        return "? Hawk REST is running. Version 26.03";
+    }
 
     @GetMapping("/version")
     public String version() {
@@ -32,6 +37,7 @@ public class HawkRestController {
         return hawkRestInterpreterService.interpret(hawkCode);
 
     }
+
     @PostMapping("/compile")
     public String compile(@RequestBody String hawkCode) throws Exception {
         return hawkRestInterpreterService.compile(hawkCode);

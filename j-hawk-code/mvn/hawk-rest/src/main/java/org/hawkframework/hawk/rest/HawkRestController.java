@@ -24,7 +24,7 @@ public class HawkRestController {
 
     @GetMapping("/version")
     public String version() {
-        return "21.04";
+        return "26.03";
     }
 
     @PostMapping("/run")

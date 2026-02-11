@@ -14,7 +14,7 @@ public class TopoMindController {
 
     @PostMapping("/executeHawk")
     public Map<String, Object> execute(@RequestBody Map<String, String> request) {
-
+        System.out.println("Hurray!!!");
         long start = System.currentTimeMillis();
 
         try {

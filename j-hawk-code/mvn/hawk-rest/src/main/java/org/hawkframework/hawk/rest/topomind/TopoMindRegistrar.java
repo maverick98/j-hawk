@@ -4,7 +4,6 @@ import org.common.di.AppContainer;
 import org.hawk.plugin.HawkPlugin;
 import org.hawk.plugin.HawkPluginServiceImpl;
 import org.hawk.plugin.IHawkPluginService;
-import org.hawk.plugin.metadata.HawkPluginMetaData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -16,6 +15,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.commons.event.exception.HawkEventException;
 import org.hawk.plugin.exception.HawkPluginException;
 
@@ -31,7 +31,7 @@ public class TopoMindRegistrar implements ApplicationRunner {
     @Value("${topomind.base-url}")
     private String baseUrl;
 
-    @Value("${topomind.execution-model:mistral:latest}")
+    @Value("${topomind.execution-model:deepseekcoder:latest}")
     private String executionModel;
 
     @Override
@@ -45,20 +45,21 @@ public class TopoMindRegistrar implements ApplicationRunner {
 
             RestTemplate restTemplate = new RestTemplate();
 
+            // 1 Register REST connector (hawk_runtime)
             registerConnector(restTemplate);
 
+            // 2 Load plugin to fetch Hawk DSL prompt
             HawkPlugin plugin = loadPlugin();
+            String prompt = loadPrompt(plugin);
 
-            var tool = extractToolMetadata(plugin);
+            // 3 Register compileHawk (LLM tool)
+            registerCompileTool(restTemplate, prompt);
 
-            String prompt = loadPrompt(plugin, tool.getPromptFile());
+            // 4 Register executeHawk (REST tool)
+            registerExecuteTool(restTemplate);
 
-            Map<String, Object> inputSchema = buildSchema(tool.getInputSchema());
-            Map<String, Object> outputSchema = buildSchema(tool.getOutputSchema());
-
-            registerTool(restTemplate, tool, prompt, inputSchema, outputSchema);
-
-            System.out.println("✔ Tool registered: " + tool.getName());
+            System.out.println("✔ compileHawk registered");
+            System.out.println("✔ executeHawk registered");
             System.out.println("✔ Execution model: " + executionModel);
 
         } catch (Exception e) {
@@ -67,16 +68,16 @@ public class TopoMindRegistrar implements ApplicationRunner {
         }
     }
 
-    // ------------------------------
+    // --------------------------------------------------
     // Step 1: Wait for TopoMind
-    // ------------------------------
+    // --------------------------------------------------
     private void waitForServer() throws InterruptedException {
         Thread.sleep(2000);
     }
 
-    // ------------------------------
-    // Step 2: Register Connector
-    // ------------------------------
+    // --------------------------------------------------
+    // Step 2: Register REST Connector
+    // --------------------------------------------------
     private void registerConnector(RestTemplate restTemplate) {
         restTemplate.postForObject(
                 topomindUrl + "/register-connector",
@@ -89,13 +90,13 @@ public class TopoMindRegistrar implements ApplicationRunner {
         );
     }
 
-    // ------------------------------
+    // --------------------------------------------------
     // Step 3: Load Plugin
-    // ------------------------------
+    // --------------------------------------------------
     private HawkPlugin loadPlugin() {
         try {
-            IHawkPluginService pluginService
-                    = AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
+            IHawkPluginService pluginService =
+                    AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
 
             Set<HawkPlugin> plugins = pluginService.findInstalledPlugins();
 
@@ -110,27 +111,17 @@ public class TopoMindRegistrar implements ApplicationRunner {
         }
     }
 
-    // ------------------------------
-    // Step 4: Extract Tool Metadata
-    // ------------------------------
-    private org.hawk.plugin.metadata.Tool extractToolMetadata(HawkPlugin plugin) {
+    // --------------------------------------------------
+    // Step 4: Load Prompt File
+    // --------------------------------------------------
+    private String loadPrompt(HawkPlugin plugin) throws Exception {
 
-        HawkPluginMetaData meta = plugin.getPluginMetaData();
-
-        if (meta.getAi() == null
-                || meta.getAi().getTool() == null
-                || meta.getAi().getTool().isEmpty()) {
-
-            throw new RuntimeException("No AI tool definition found.");
-        }
-
-        return meta.getAi().getTool().get(0);
-    }
-
-    // ------------------------------
-    // Step 5: Load Prompt File
-    // ------------------------------
-    private String loadPrompt(HawkPlugin plugin, String promptFileName) throws Exception {
+        // We assume first AI tool contains prompt file reference
+        String promptFileName = plugin.getPluginMetaData()
+                .getAi()
+                .getTool()
+                .get(0)
+                .getPromptFile();
 
         String path = plugin.getPluginHome()
                 + File.separator
@@ -145,41 +136,43 @@ public class TopoMindRegistrar implements ApplicationRunner {
         return Files.readString(file.toPath());
     }
 
-    // ------------------------------
-    // Step 6: Build Schema Map
-    // ------------------------------
-    private Map<String, Object> buildSchema(org.hawk.plugin.metadata.Schema schema) {
-
-        Map<String, Object> map = new HashMap<>();
-
-        schema.getField().forEach(field
-                -> map.put(field.getName(), field.getType())
-        );
-
-        return map;
-    }
-
-    // ------------------------------
-    // Step 7: Register Tool
-    // ------------------------------
-    private void registerTool(
-            RestTemplate restTemplate,
-            org.hawk.plugin.metadata.Tool tool,
-            String prompt,
-            Map<String, Object> inputSchema,
-            Map<String, Object> outputSchema
-    ) {
+    // --------------------------------------------------
+    // Step 5: Register compileHawk (LLM)
+    // --------------------------------------------------
+    private void registerCompileTool(RestTemplate restTemplate, String prompt) {
 
         Map<String, Object> payload = new HashMap<>();
 
-        payload.put("name", tool.getName());
-        payload.put("description", tool.getDescription());
-        payload.put("input_schema", inputSchema);
-        payload.put("output_schema", outputSchema);
-        payload.put("connector", serviceName);
+        payload.put("name", "compileHawk");
+        payload.put("description", "Translate natural language into Hawk DSL");
+        payload.put("input_schema", Map.of("query", "string"));
+        payload.put("output_schema", Map.of("code", "string"));
+        payload.put("connector", "llm");                 //  LLM connector
         payload.put("prompt", prompt);
-        payload.put("strict", tool.isStrict());
-        payload.put("execution_model", executionModel);
+        payload.put("strict", true);
+        payload.put("execution_model", executionModel); // deepseekcoder
+
+        restTemplate.postForObject(
+                topomindUrl + "/register-tool",
+                payload,
+                String.class
+        );
+    }
+
+    // --------------------------------------------------
+    // Step 6: Register executeHawk (REST)
+    // --------------------------------------------------
+    private void registerExecuteTool(RestTemplate restTemplate) {
+
+        Map<String, Object> payload = new HashMap<>();
+
+        payload.put("name", "executeHawk");
+        payload.put("description", "Execute Hawk DSL via Hawk Runtime");
+        payload.put("input_schema", Map.of("code", "string"));
+        payload.put("output_schema", Map.of("result", "any"));
+        payload.put("connector", serviceName);  // hawk_runtime
+        payload.put("strict", false);
+        payload.put("execution_model", "");     // No LLM here
 
         restTemplate.postForObject(
                 topomindUrl + "/register-tool",

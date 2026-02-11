@@ -22,7 +22,7 @@ public class HawkRestController {
     @Autowired
     private IHawkRestInterpreterService hawkRestInterpreterService;
 
-    @GetMapping("/")
+    @GetMapping("/health")
     public String home() {
         return "? Hawk REST is running. Version 26.03";
     }

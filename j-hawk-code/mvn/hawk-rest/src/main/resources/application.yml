@@ -5,4 +5,4 @@ topomind:
   url: http://127.0.0.1:8000
   service-name: hawk_runtime
   base-url: http://127.0.0.1:9000
-  execution-model: deepseek-coder:6.7b
+  execution-model: mistral:7b-instruct

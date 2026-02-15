@@ -15,7 +15,7 @@
     </parent>
 
     <groupId>org.hawkframework</groupId>
-    <artifactId>hawk-rest</artifactId>
+    <artifactId>hawk-nexus</artifactId>
     <version>26.03</version>
     <packaging>jar</packaging>
 
@@ -75,5 +75,5 @@
 
         </plugins>
     </build>
-
+    <name>hawk-nexus</name>
 </project>

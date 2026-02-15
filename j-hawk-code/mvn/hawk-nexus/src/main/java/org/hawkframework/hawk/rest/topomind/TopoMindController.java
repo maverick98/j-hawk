@@ -1,20 +1,31 @@
+package org.hawkframework.hawk.rest.topomind;
 
-import java.util.Map;
 import org.hawkframework.hawk.rest.service.IHawkRestInterpreterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 @RestController
 public class TopoMindController {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(TopoMindController.class);
+
     @Autowired
     private IHawkRestInterpreterService interpreter;
 
+    
+
+    // --------------------------------------------------
+    // Hawk Execution Endpoint
+    // --------------------------------------------------
     @PostMapping("/executeHawk")
     public Map<String, Object> execute(@RequestBody Map<String, String> request) {
-        System.out.println("Hurray!!!");
+
         long start = System.currentTimeMillis();
 
         try {
@@ -24,12 +35,11 @@ public class TopoMindController {
                 throw new RuntimeException("Missing Hawk DSL code.");
             }
 
-            System.out.println("\n================ GENERATED HAWK CODE ================\n");
-            System.out.println(code);
-            System.out.println("\n=====================================================\n");
+            logger.info("Executing Hawk DSL:\n{}", code);
 
-            //  Actual DSL Execution
             Object result = interpreter.interpret(code);
+
+            String safeResult = result != null ? result.toString() : "null";
 
             long latency = System.currentTimeMillis() - start;
 
@@ -37,7 +47,7 @@ public class TopoMindController {
                     "tool_name", "executeHawk",
                     "tool_version", "1.0",
                     "status", "success",
-                    "output", Map.of("result", result),
+                    "output", Map.of("result", safeResult),
                     "error", null,
                     "latency_ms", latency,
                     "stability_signal", 1.0
@@ -46,6 +56,8 @@ public class TopoMindController {
         } catch (Exception e) {
 
             long latency = System.currentTimeMillis() - start;
+
+            logger.error("Hawk execution failed", e);
 
             return Map.of(
                     "tool_name", "executeHawk",

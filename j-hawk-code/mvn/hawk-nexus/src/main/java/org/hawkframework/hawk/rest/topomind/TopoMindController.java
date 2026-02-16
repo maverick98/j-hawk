@@ -29,7 +29,8 @@ public class TopoMindController {
         long start = System.currentTimeMillis();
 
         try {
-            String code = request.get("code");
+            String code = request.get("hawk_dsl");
+
 
             if (code == null || code.isBlank()) {
                 throw new RuntimeException("Missing Hawk DSL code.");

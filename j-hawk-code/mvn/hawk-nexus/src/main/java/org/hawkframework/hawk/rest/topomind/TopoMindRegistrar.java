@@ -25,8 +25,8 @@ import org.hawk.plugin.exception.HawkPluginException;
 @Component
 public class TopoMindRegistrar implements ApplicationRunner {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(TopoMindRegistrar.class);
+    private static final Logger logger
+            = LoggerFactory.getLogger(TopoMindRegistrar.class);
 
     @Value("${topomind.url}")
     private String topomindUrl;
@@ -125,8 +125,8 @@ public class TopoMindRegistrar implements ApplicationRunner {
     private HawkPlugin loadPlugin() {
 
         try {
-            IHawkPluginService pluginService =
-                    AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
+            IHawkPluginService pluginService
+                    = AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
 
             Set<HawkPlugin> plugins = pluginService.findInstalledPlugins();
 
@@ -146,10 +146,10 @@ public class TopoMindRegistrar implements ApplicationRunner {
     // --------------------------------------------------
     private String loadPrompt(HawkPlugin plugin) throws Exception {
 
-        if (plugin.getPluginMetaData() == null ||
-                plugin.getPluginMetaData().getAi() == null ||
-                plugin.getPluginMetaData().getAi().getTool() == null ||
-                plugin.getPluginMetaData().getAi().getTool().isEmpty()) {
+        if (plugin.getPluginMetaData() == null
+                || plugin.getPluginMetaData().getAi() == null
+                || plugin.getPluginMetaData().getAi().getTool() == null
+                || plugin.getPluginMetaData().getAi().getTool().isEmpty()) {
             throw new RuntimeException("AI tool metadata missing in plugin.");
         }
 
@@ -182,46 +182,38 @@ public class TopoMindRegistrar implements ApplicationRunner {
         payload.put("name", "compileHawk");
         payload.put("description", "Translate natural language into Hawk DSL");
         payload.put("input_schema", Map.of("query", "string"));
-        payload.put("output_schema", Map.of("code", "string"));
+        payload.put("output_schema", Map.of("hawk_dsl", "string"));
+        payload.put("produces", java.util.List.of("hawk_dsl"));
         payload.put("connector", "llm");
         payload.put("prompt", prompt);
         payload.put("strict", true);
         payload.put("execution_model", executionModel);
 
-        try {
-            restTemplate.postForObject(
-                    topomindUrl + "/register-tool",
-                    payload,
-                    String.class
-            );
-        } catch (RestClientException e) {
-            logger.warn("⚠ compileHawk may already be registered. Continuing...");
-        }
+        restTemplate.postForObject(
+                topomindUrl + "/register-tool",
+                payload,
+                String.class
+        );
     }
 
-    // --------------------------------------------------
-    // Step 6: Register executeHawk (REST Tool)
-    // --------------------------------------------------
     private void registerExecuteTool(RestTemplate restTemplate) {
 
         Map<String, Object> payload = new HashMap<>();
 
         payload.put("name", "executeHawk");
         payload.put("description", "Execute Hawk DSL via Hawk Runtime");
-        payload.put("input_schema", Map.of("code", "string"));
+        payload.put("input_schema", Map.of("hawk_dsl", "string"));
         payload.put("output_schema", Map.of("result", "any"));
+        payload.put("consumes", java.util.List.of("hawk_dsl"));
         payload.put("connector", serviceName);
         payload.put("strict", false);
         payload.put("execution_model", "");
 
-        try {
-            restTemplate.postForObject(
-                    topomindUrl + "/register-tool",
-                    payload,
-                    String.class
-            );
-        } catch (RestClientException e) {
-            logger.warn("⚠ executeHawk may already be registered. Continuing...");
-        }
+        restTemplate.postForObject(
+                topomindUrl + "/register-tool",
+                payload,
+                String.class
+        );
     }
+
 }

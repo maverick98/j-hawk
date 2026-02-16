@@ -5,5 +5,6 @@ topomind:
   url: http://127.0.0.1:8000
   service-name: hawk_runtime
   base-url: http://127.0.0.1:9000
-  llm-backend: groq              # groq or ollama
-  execution-model: llama-3.1-8b-instant
+  llm-backend: groq
+  execution-model: qwen/qwen3-32b
+

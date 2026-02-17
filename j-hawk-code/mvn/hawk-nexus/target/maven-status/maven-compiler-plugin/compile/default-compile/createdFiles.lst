@@ -1,0 +1,7 @@
+org\hawkframework\hawk\rest\service\HawkRestInterpreterServiceImpl.class
+org\hawkframework\hawk\rest\topomind\TopoMindController.class
+org\hawkframework\hawk\rest\topomind\TopoMindRegistrar.class
+org\hawkframework\hawk\rest\Main.class
+org\hawkframework\hawk\rest\util\HawkRestConfigHelper.class
+org\hawkframework\hawk\rest\service\IHawkRestInterpreterService.class
+org\hawkframework\hawk\rest\HawkRestController.class

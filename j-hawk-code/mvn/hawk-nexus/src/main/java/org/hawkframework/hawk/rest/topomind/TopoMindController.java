@@ -41,7 +41,7 @@ public class TopoMindController {
             Object result = interpreter.interpret(code);
 
             String safeResult = result != null ? result.toString() : "null";
-
+            System.out.println("safeResult is "+safeResult);
             long latency = System.currentTimeMillis() - start;
 
             return Map.of(

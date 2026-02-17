@@ -1,38 +1,43 @@
-document.getElementById("generateBtn").addEventListener("click", sendQuery);
-
 async function sendQuery() {
 
-    const query = document.getElementById("query").value;
-    const thinking = document.getElementById("thinking");
-    const output = document.getElementById("output");
+    const queryBox = document.getElementById("query");
+    const dslBox = document.getElementById("dslOutput");
+    const rawBox = document.getElementById("rawOutput");
 
-    output.style.display = "none";
-    output.textContent = "";
-    thinking.style.display = "block";
+    const query = queryBox.value.trim();
+
+    if (!query) {
+        alert("Please enter a query.");
+        return;
+    }
+
+    // Clear previous output
+    dslBox.innerText = "Generating Hawk DSL...";
+    rawBox.innerText = "";
 
     try {
-
         const response = await fetch("http://127.0.0.1:8000/query", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query: query })
+            body: JSON.stringify({ query })
         });
 
         const data = await response.json();
 
-        thinking.style.display = "none";
-
-        if (data.status === "success" && data.output && data.output.code) {
-            output.textContent = data.output.code;
+        // Render DSL
+        if (data.output && data.output.hawk_dsl) {
+            dslBox.innerText = data.output.hawk_dsl;
         } else {
-            output.textContent = JSON.stringify(data, null, 2);
+            dslBox.innerText = "No Hawk DSL generated.";
         }
 
-        output.style.display = "block";
+        // Render raw JSON (collapsed by default)
+        rawBox.innerText = JSON.stringify(data, null, 2);
 
     } catch (err) {
-        thinking.style.display = "none";
-        output.textContent = "Error: " + err;
-        output.style.display = "block";
+        dslBox.innerText = "Error calling server.";
+        rawBox.innerText = err.toString();
     }
 }
+
+document.getElementById("generateBtn").addEventListener("click", sendQuery);

@@ -64,7 +64,7 @@ public class TopoMindRegistrar implements ApplicationRunner {
 
             HawkPlugin plugin = loadPlugin();
             String prompt = loadPrompt(plugin);
-
+            System.out.println("plugin prompt is : "+prompt);    
             registerCompileTool(restTemplate, prompt);
             registerExecuteTool(restTemplate);
 

@@ -5,10 +5,10 @@ topomind:
   url: http://127.0.0.1:8000
   service-name: hawk_runtime
   base-url: http://127.0.0.1:9000
-  llm-backend: groq
+  llm-backend: cohere
 
   # Default execution model (change this to switch models)
-  execution-model: whisper-large-v3-turbo
+  execution-model: command-a-03-2025
 
   # All available Groq models
   models:

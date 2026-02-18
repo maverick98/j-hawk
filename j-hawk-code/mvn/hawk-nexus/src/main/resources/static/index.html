@@ -1,179 +1,207 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>🦅 Hawk Nexus</title>
-        <link rel="stylesheet" href="/css/hawk.css">
+<head>
+<meta charset="UTF-8">
+<title>🦅 Hawk Nexus IDE</title>
 
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-                font-family: 'Segoe UI', sans-serif;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-            }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-            .card {
-                width: 800px;
-                background: rgba(255, 255, 255, 0.07);
-                backdrop-filter: blur(20px);
-                border-radius: 22px;
-                padding: 40px;
-                box-shadow: 0 0 50px rgba(0,255,200,0.25);
-                text-align: center;
-            }
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    color: #e2e8f0;
+}
 
-            h1 {
-                font-size: 30px;
-                margin-bottom: 30px;
-                background: linear-gradient(90deg, #00f5a0, #00d9f5);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
+/* ===========================
+   TOP BAR
+=========================== */
+.topbar {
+    height: 60px;
+    background: linear-gradient(90deg, #00f5a0, #00d9f5);
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    font-weight: bold;
+    color: #0f172a;
+    font-size: 18px;
+    justify-content: space-between;
+}
 
-            textarea {
-                width: 100%;
-                height: 90px;
-                border-radius: 16px;
-                border: none;
-                padding: 15px;
-                font-size: 15px;
-                resize: none;
-                outline: none;
-                background: rgba(0, 0, 0, 0.6);
-                color: #00ffc8;
-            }
+.topbar span {
+    font-size: 14px;
+    font-weight: 500;
+}
 
-            button {
-                margin-top: 20px;
-                padding: 12px 32px;
-                font-size: 15px;
-                font-weight: bold;
-                border: none;
-                border-radius: 30px;
-                background: linear-gradient(90deg, #00f5a0, #00d9f5);
-                color: black;
-                cursor: pointer;
-                transition: 0.3s ease;
-                box-shadow: 0 0 20px rgba(0,255,200,0.6);
-            }
+/* ===========================
+   MAIN LAYOUT
+=========================== */
+.main {
+    flex: 1;
+    display: flex;
+}
 
-            button:hover {
-                transform: scale(1.07);
-                box-shadow: 0 0 35px rgba(0,255,200,0.9);
-            }
+/* LEFT PANEL */
+.left-panel {
+    width: 35%;
+    background: #111827;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1f2937;
+}
 
-            .section-title {
-                margin-top: 30px;
-                margin-bottom: 10px;
-                font-size: 14px;
-                letter-spacing: 1px;
-                opacity: 0.8;
-            }
+.left-panel h2 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #22f5c5;
+}
 
-            .dsl-box {
-                text-align: left;
-                background: #0d1117;
-                color: #58ffb5;
-                padding: 20px;
-                border-radius: 16px;
-                max-height: 300px;
-                overflow-y: auto;
-                font-family: "Courier New", monospace;
-                font-size: 14px;
-                box-shadow: inset 0 0 25px rgba(0,255,200,0.25);
-                white-space: pre-wrap;
-            }
+textarea {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 15px;
+    color: #22f5c5;
+    resize: none;
+    font-family: monospace;
+}
 
-            .raw-toggle {
-                margin-top: 15px;
-                cursor: pointer;
-                font-size: 13px;
-                opacity: 0.7;
-            }
+button {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(90deg, #00f5a0, #00d9f5);
+    color: #0f172a;
+    transition: 0.3s;
+}
 
-            .raw-box {
-                display: none;
-                margin-top: 10px;
-                text-align: left;
-                background: #05080f;
-                color: #00ffaa;
-                padding: 15px;
-                border-radius: 12px;
-                font-family: monospace;
-                font-size: 13px;
-                max-height: 200px;
-                overflow-y: auto;
-            }
+button:hover {
+    transform: scale(1.03);
+}
 
-            .result-box {
-                margin-top: 15px;
-                padding: 20px;
-                border-radius: 16px;
+/* RIGHT PANEL */
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-                background: #0b0f14;              /* dark solid background */
-                color: #00ffcc;                   /* bright neon cyan */
+/* TABS */
+.tabs {
+    display: flex;
+    background: #111827;
+    border-bottom: 1px solid #1f2937;
+}
 
-                font-family: "Courier New", monospace;
-                font-size: 18px;
-                font-weight: bold;
+.tab {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-                box-shadow:
-                    inset 0 0 25px rgba(0,255,200,0.4),
-                    0 0 15px rgba(0,255,200,0.25);
+.tab.active {
+    background: #0f172a;
+    border-bottom: 3px solid #00f5a0;
+}
 
-                white-space: pre-wrap;
-                min-height: 40px;
+/* TAB CONTENT */
+.tab-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
 
-                border: 1px solid rgba(0,255,200,0.3);
-            }
+.dsl-view {
+    background: #0b1220;
+    color: #22f5c5;
+}
 
+.result-view {
+    background: #062c1f;
+    color: #00ffcc;
+    font-size: 20px;
+    font-weight: bold;
+}
 
-        </style>
-    </head>
+.raw-view {
+    background: #1e293b;
+    color: #38bdf8;
+}
 
-    <body>
+/* STATUS BAR */
+.status-bar {
+    height: 30px;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+</style>
+</head>
 
-        <div class="card">
+<body>
 
-            <h1>🦅 Hawk Nexus AI Runtime</h1>
+<div class="topbar">
+    🦅 Hawk Nexus AI IDE
+    <span>Natural Language → Hawk DSL → Deterministic Execution</span>
+</div>
 
-            <textarea id="query">Calculate sum of 1 to 5</textarea>
+<div class="main">
 
-            <button id="generateBtn">⚡ Generate Hawk DSL</button>
+    <!-- LEFT SIDE -->
+    <div class="left-panel">
+        <h2>📝 Query</h2>
+        <textarea id="query">Calculate sum of 1 to 100</textarea>
+        <button id="generateBtn">⚡ Compile & Execute</button>
+    </div>
 
-            <div class="section-title">Generated Hawk DSL</div>
-            <div id="dslOutput" class="dsl-box"></div>
+    <!-- RIGHT SIDE -->
+    <div class="right-panel">
 
-            <div class="raw-toggle" onclick="toggleRaw()">▼ Show Raw JSON</div>
-            <div id="rawOutput" class="raw-box"></div>
-
-            <h2>Result</h2>
-            <h3 id="resultOutput" class="result-box"></h3>
-
-
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('dsl')">🧠 DSL</div>
+            <div class="tab" onclick="switchTab('result')">📊 Result</div>
+            <div class="tab" onclick="switchTab('raw')">🔎 Raw JSON</div>
         </div>
 
-        <script src="/js/hawk.js"></script>
+        <div id="dsl" class="tab-content dsl-view"></div>
+        <div id="result" class="tab-content result-view" style="display:none;"></div>
+        <div id="raw" class="tab-content raw-view" style="display:none;"></div>
 
-        <script>
-                function toggleRaw() {
-                    const rawBox = document.getElementById("rawOutput");
-                    const toggle = document.querySelector(".raw-toggle");
+    </div>
+</div>
 
-                    if (rawBox.style.display === "none" || rawBox.style.display === "") {
-                        rawBox.style.display = "block";
-                        toggle.innerText = "▲ Hide Raw JSON";
-                    } else {
-                        rawBox.style.display = "none";
-                        toggle.innerText = "▼ Show Raw JSON";
-                    }
-                }
-        </script>
+<div class="status-bar" id="statusBar">
+    Ready.
+</div>
 
-    </body>
+<script src="/js/hawk.js"></script>
+
+<script>
+function switchTab(tabName) {
+    document.querySelectorAll(".tab-content").forEach(el => el.style.display = "none");
+    document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
+    document.getElementById(tabName).style.display = "block";
+    event.target.classList.add("active");
+}
+</script>
+
+</body>
 </html>

@@ -49,7 +49,7 @@ public class TopoMindController {
                     "tool_version", "1.0",
                     "status", "success",
                     "output", Map.of("result", safeResult),
-                    "error", null,
+                    "error", "",
                     "latency_ms", latency,
                     "stability_signal", 1.0
             );
@@ -64,7 +64,7 @@ public class TopoMindController {
                     "tool_name", "executeHawk",
                     "tool_version", "1.0",
                     "status", "failure",
-                    "output", null,
+                    "output", "",
                     "error", e.getMessage(),
                     "latency_ms", latency,
                     "stability_signal", 0.0

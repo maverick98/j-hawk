@@ -35,6 +35,7 @@ import org.hawk.executor.cache.multiline.structure.IStructureDefinitionScriptCac
 import org.hawk.executor.command.HawkCommandParser;
 import org.hawk.executor.command.IHawkExecutionCommand;
 import org.hawk.input.HawkInput;
+import org.hawk.lang.IScript;
 import org.hawk.logger.HawkLogger;
 import org.hawk.module.IModule;
 import org.hawk.module.annotation.SubTask;
@@ -204,8 +205,8 @@ public class DefaultScriptExecutor implements IHawkCommandExecutor {
             throw new Exception("Could not find main function");
         }
 
-        this.functionScriptCache.getMainFunction().executeDefaultForLoopScript(null);
-        
+        IScript mainOutput = this.functionScriptCache.getMainFunction().executeDefaultForLoopScript(null);
+        this.getHawkOutput().writeEchoOutput(mainOutput.toJson());
         this.getHawkOutput().closeAll();
         
         if (AppContainer.getInstance().getBean( HawkCommandParser.class).shouldCollectPerfData()) {

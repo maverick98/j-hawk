@@ -7,6 +7,7 @@ import org.hawk.plugin.IHawkPluginService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.RestClientException;
@@ -15,9 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.commons.event.exception.HawkEventException;
 import org.hawk.plugin.exception.HawkPluginException;
@@ -25,8 +24,8 @@ import org.hawk.plugin.exception.HawkPluginException;
 @Component
 public class TopoMindRegistrar implements ApplicationRunner {
 
-    private static final Logger logger
-            = LoggerFactory.getLogger(TopoMindRegistrar.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(TopoMindRegistrar.class);
 
     @Value("${topomind.url}")
     private String topomindUrl;
@@ -51,8 +50,9 @@ public class TopoMindRegistrar implements ApplicationRunner {
     }
 
     private void registerWithTopoMind() {
+
         try {
-            logger.info("Starting TopoMind registration...");
+            logger.info("🚀 Starting TopoMind registration");
             logger.info("LLM Backend: {}", llmBackend);
             logger.info("Execution Model: {}", executionModel);
 
@@ -61,16 +61,17 @@ public class TopoMindRegistrar implements ApplicationRunner {
             RestTemplate restTemplate = new RestTemplate();
 
             registerConnector(restTemplate);
+            verifyConnectorStatus(restTemplate);
 
             HawkPlugin plugin = loadPlugin();
             String prompt = loadPrompt(plugin);
-            System.out.println("plugin prompt is : "+prompt);    
+
             registerCompileTool(restTemplate, prompt);
             registerExecuteTool(restTemplate);
 
-            logger.info("✔ compileHawk registered");
-            logger.info("✔ executeHawk registered");
-            logger.info("✔ Registration completed successfully");
+            logger.info("✅ compileHawk registered");
+            logger.info("✅ executeHawk registered");
+            logger.info("🎯 Hawk registration completed successfully");
 
         } catch (Exception e) {
             logger.error("❌ Registration failed: {}", e.getMessage(), e);
@@ -78,7 +79,7 @@ public class TopoMindRegistrar implements ApplicationRunner {
     }
 
     // --------------------------------------------------
-    // Step 1: Wait for TopoMind (Health Polling)
+    // Wait for TopoMind
     // --------------------------------------------------
     private void waitForServer() throws InterruptedException {
 
@@ -100,35 +101,91 @@ public class TopoMindRegistrar implements ApplicationRunner {
     }
 
     // --------------------------------------------------
-    // Step 2: Register REST Connector (Idempotent)
+    // Register Connector (Lifecycle-aware)
     // --------------------------------------------------
     private void registerConnector(RestTemplate restTemplate) {
+
         try {
-            restTemplate.postForObject(
-                    topomindUrl + "/register-connector",
-                    Map.of(
-                            "name", serviceName,
-                            "type", "rest",
-                            "base_url", baseUrl
-                    ),
-                    String.class
-            );
-            logger.info("✔ Connector registered: {}", serviceName);
+            ResponseEntity<String> response =
+                    restTemplate.postForEntity(
+                            topomindUrl + "/register-connector",
+                            Map.of(
+                                    "name", serviceName,
+                                    "type", "rest",
+                                    "base_url", baseUrl
+                            ),
+                            String.class
+                    );
+
+            logger.info("Connector registration HTTP status: {}",
+                    response.getStatusCode());
+
         } catch (RestClientException e) {
-            logger.warn("⚠ Connector may already exist. Continuing...");
+            throw new RuntimeException("Connector registration failed", e);
         }
     }
 
     // --------------------------------------------------
-    // Step 3: Load Plugin Safely
+    // Verify Connector Status (Do NOT auto-deploy)
+    // --------------------------------------------------
+    private void verifyConnectorStatus(RestTemplate restTemplate) {
+
+        try {
+            ResponseEntity<Map> response =
+                    restTemplate.getForEntity(
+                            topomindUrl + "/connectors",
+                            Map.class
+                    );
+
+            Map body = response.getBody();
+
+            if (body == null || !body.containsKey("connectors")) {
+                throw new RuntimeException("Invalid /connectors response");
+            }
+
+            List<Map<String, Object>> connectors =
+                    (List<Map<String, Object>>) body.get("connectors");
+
+            for (Map<String, Object> connector : connectors) {
+
+                if (serviceName.equals(connector.get("name"))) {
+
+                    String status = (String) connector.get("status");
+
+                    logger.info("Connector '{}' status: {}",
+                            serviceName, status);
+
+                    if ("inactive".equalsIgnoreCase(status)) {
+                        throw new RuntimeException(
+                                "Connector is inactive in TopoMind. "
+                                + "Deployment must be enabled centrally."
+                        );
+                    }
+
+                    return;
+                }
+            }
+
+            throw new RuntimeException(
+                    "Connector not found after registration."
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("Connector verification failed", e);
+        }
+    }
+
+    // --------------------------------------------------
+    // Load Plugin
     // --------------------------------------------------
     private HawkPlugin loadPlugin() {
 
         try {
-            IHawkPluginService pluginService
-                    = AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
+            IHawkPluginService pluginService =
+                    AppContainer.getInstance().getBean(HawkPluginServiceImpl.class);
 
-            Set<HawkPlugin> plugins = pluginService.findInstalledPlugins();
+            Set<HawkPlugin> plugins =
+                    pluginService.findInstalledPlugins();
 
             if (plugins == null || plugins.isEmpty()) {
                 throw new RuntimeException("No installed plugins found.");
@@ -137,21 +194,14 @@ public class TopoMindRegistrar implements ApplicationRunner {
             return plugins.iterator().next();
 
         } catch (HawkPluginException | HawkEventException e) {
-            throw new RuntimeException("Plugin initialization failed: " + e.getMessage(), e);
+            throw new RuntimeException("Plugin initialization failed", e);
         }
     }
 
     // --------------------------------------------------
-    // Step 4: Load Prompt File (Validated)
+    // Load Prompt
     // --------------------------------------------------
     private String loadPrompt(HawkPlugin plugin) throws Exception {
-
-        if (plugin.getPluginMetaData() == null
-                || plugin.getPluginMetaData().getAi() == null
-                || plugin.getPluginMetaData().getAi().getTool() == null
-                || plugin.getPluginMetaData().getAi().getTool().isEmpty()) {
-            throw new RuntimeException("AI tool metadata missing in plugin.");
-        }
 
         String promptFileName = plugin.getPluginMetaData()
                 .getAi()
@@ -173,7 +223,7 @@ public class TopoMindRegistrar implements ApplicationRunner {
     }
 
     // --------------------------------------------------
-    // Step 5: Register compileHawk (LLM Tool)
+    // Register compileHawk
     // --------------------------------------------------
     private void registerCompileTool(RestTemplate restTemplate, String prompt) {
 
@@ -183,7 +233,6 @@ public class TopoMindRegistrar implements ApplicationRunner {
         payload.put("description", "Translate natural language into Hawk DSL");
         payload.put("input_schema", Map.of("query", "string"));
         payload.put("output_schema", Map.of("hawk_dsl", "string"));
-        payload.put("produces", java.util.List.of("hawk_dsl"));
         payload.put("connector", "llm");
         payload.put("prompt", prompt);
         payload.put("strict", true);
@@ -196,6 +245,9 @@ public class TopoMindRegistrar implements ApplicationRunner {
         );
     }
 
+    // --------------------------------------------------
+    // Register executeHawk
+    // --------------------------------------------------
     private void registerExecuteTool(RestTemplate restTemplate) {
 
         Map<String, Object> payload = new HashMap<>();
@@ -204,10 +256,8 @@ public class TopoMindRegistrar implements ApplicationRunner {
         payload.put("description", "Execute Hawk DSL via Hawk Runtime");
         payload.put("input_schema", Map.of("hawk_dsl", "string"));
         payload.put("output_schema", Map.of("result", "any"));
-        payload.put("consumes", java.util.List.of("hawk_dsl"));
         payload.put("connector", serviceName);
         payload.put("strict", false);
-        payload.put("execution_model", "");
 
         restTemplate.postForObject(
                 topomindUrl + "/register-tool",
@@ -215,5 +265,4 @@ public class TopoMindRegistrar implements ApplicationRunner {
                 String.class
         );
     }
-
 }

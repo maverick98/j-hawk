@@ -20,10 +20,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import static org.hawk.constant.HawkConstant.HAWKPARAM;

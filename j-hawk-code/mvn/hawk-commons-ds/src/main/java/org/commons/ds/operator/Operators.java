@@ -6,7 +6,8 @@ package org.commons.ds.operator;
 
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
 import org.commons.xml.XMLUtil;
 
 /**

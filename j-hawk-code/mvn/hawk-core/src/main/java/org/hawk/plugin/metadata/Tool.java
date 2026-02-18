@@ -1,6 +1,7 @@
 package org.hawk.plugin.metadata;
 
-import jakarta.xml.bind.annotation.*;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tool {

@@ -5,23 +5,25 @@
  * 
  */
 package org.commons.xml;
-
 import java.io.File;
 import java.io.InputStream;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.commons.logger.ILogger;
 import org.commons.logger.LoggerFactory;
 import org.commons.string.StringUtil;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 
 /**
  *

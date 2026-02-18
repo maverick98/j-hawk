@@ -70,6 +70,19 @@
             <version>6.10</version>
             <scope>test</scope>
         </dependency>
+        <!-- JAXB (Required for JDK 11+) -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+
     </dependencies>
     <name>hawk-commons-ds</name>
 </project>

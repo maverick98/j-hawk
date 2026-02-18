@@ -19,8 +19,9 @@ package org.hawk.plugin.metadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.annotation.*;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
+
 import org.commons.file.FileUtil;
 
 import org.hawk.software.Contributor;

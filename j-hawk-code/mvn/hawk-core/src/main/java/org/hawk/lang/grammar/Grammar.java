@@ -24,8 +24,8 @@ package org.hawk.lang.grammar;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.annotation.*;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
 
 import org.hawk.xml.XMLUtil;
 
